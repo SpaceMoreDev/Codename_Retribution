@@ -1,0 +1,10 @@
+[gd_resource type="Environment" format=3 uid="uid://bmwnikfnyrnx8"]
+
+[resource]
+fog_enabled = true
+fog_light_color = Color(0, 0, 0, 1)
+fog_sun_scatter = 0.13
+fog_density = 0.1357
+fog_height_density = -1.1497
+adjustment_enabled = true
+adjustment_contrast = 1.15
