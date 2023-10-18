@@ -19,6 +19,8 @@ shape = SubResource("CapsuleShape3D_tn7cq")
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.918134, 0)
 script = ExtResource("2_rsliq")
+_frequency = 5
+_amplitude = 0.05
 
 [node name="Stats" type="Node3D" parent="."]
 script = ExtResource("1_sce2v")

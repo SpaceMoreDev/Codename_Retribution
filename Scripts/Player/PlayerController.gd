@@ -10,11 +10,11 @@ var Speed : float = 5.0
 var Jump_Speed : float = 6.0
 var canJump : bool  = true
 var original_gravity = 10.9
-var _gravity = original_gravity
+var _gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 
-const WALK_SPEED = 3
-const SPRINT_SPEED = 7
+const WALK_SPEED = 2.5
+const SPRINT_SPEED = 4.5
 
 func _ready():
 	Speed = WALK_SPEED
