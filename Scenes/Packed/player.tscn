@@ -9,6 +9,7 @@
 
 [node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("Stats")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.00689, 0)
+collision_layer = 2
 script = ExtResource("1_ej1b3")
 Stats = NodePath("Stats")
 
@@ -52,11 +53,12 @@ tint_progress = Color(0, 0.431373, 0.921569, 1)
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -127.0
-offset_top = 6.0
-offset_right = -11.0
-offset_bottom = 73.0
+offset_left = -83.0
+offset_top = 13.0
+offset_right = -21.0
+offset_bottom = 46.0
 grow_horizontal = 0
-theme_override_font_sizes/font_size = 36
+theme_override_font_sizes/font_size = 16
 text = "Human"
 horizontal_alignment = 2
+vertical_alignment = 1
