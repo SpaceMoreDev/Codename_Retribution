@@ -1,21 +1,38 @@
-[gd_scene load_steps=4 format=3 uid="uid://bp755b7h6vn0g"]
+[gd_scene load_steps=8 format=3 uid="uid://bp755b7h6vn0g"]
 
+[ext_resource type="Texture2D" uid="uid://crpfoqnttwg4n" path="res://Assets/Elements/texture_07.png" id="1_56hiw"]
 [ext_resource type="PackedScene" uid="uid://qc046bctp57n" path="res://Scenes/Packed/player.tscn" id="1_h4rhp"]
-
-[sub_resource type="Environment" id="Environment_ratbs"]
+[ext_resource type="Environment" uid="uid://bmwnikfnyrnx8" path="res://Assets/Data/EnviromentData.tres" id="2_ack0i"]
 
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_njfob"]
+dof_blur_far_enabled = true
+dof_blur_far_distance = 5.46
+dof_blur_amount = 0.17
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ktdnk"]
+albedo_texture = ExtResource("1_56hiw")
+uv1_triplanar = true
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_50uxd"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_w7t7b"]
 
 [node name="World" type="Node3D"]
+
+[node name="Characters" type="Node3D" parent="."]
+
+[node name="Player" parent="Characters" instance=ExtResource("1_h4rhp")]
 
 [node name="Enviroment" type="Node3D" parent="."]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="Enviroment"]
-environment = SubResource("Environment_ratbs")
+environment = ExtResource("2_ack0i")
 camera_attributes = SubResource("CameraAttributesPractical_njfob")
 
 [node name="CSGBox3D" type="CSGBox3D" parent="Enviroment"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.504995, 0)
+material_override = SubResource("StandardMaterial3D_ktdnk")
+use_collision = true
 size = Vector3(11.6724, 1, 18.1756)
 
 [node name="CSGBox3D" type="CSGBox3D" parent="Enviroment/CSGBox3D"]
@@ -30,10 +47,17 @@ size = Vector3(2.79936, 14.256, 2.9697)
 transform = Transform3D(0.465651, 0, 0, 0, 0.465651, 0, 0, 0, 0.465651, -6.44259, -4.88307, -22.9179)
 size = Vector3(2.79936, 14.256, 2.9697)
 
+[node name="Item" type="RigidBody3D" parent="Enviroment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.614977, -3.60312)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Enviroment/Item"]
+transform = Transform3D(0.601363, 0, 0, 0, 0.601363, 0, 0, 0, 0.601363, 0, 0, 0)
+shape = SubResource("BoxShape3D_50uxd")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Enviroment/Item"]
+transform = Transform3D(0.601363, 0, 0, 0, 0.601363, 0, 0, 0, 0.601363, 0, 0, 0)
+mesh = SubResource("BoxMesh_w7t7b")
+
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="Enviroment"]
 transform = Transform3D(0.965926, -0.0669873, -0.25, 0.258819, 0.25, 0.933013, 0, -0.965926, 0.258819, 0, 5, 0)
 shadow_enabled = true
-
-[node name="Characters" type="Node3D" parent="."]
-
-[node name="Player" parent="Characters" instance=ExtResource("1_h4rhp")]

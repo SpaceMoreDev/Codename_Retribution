@@ -1,12 +1,12 @@
-[gd_scene load_steps=6 format=3 uid="uid://qc046bctp57n"]
+[gd_scene load_steps=7 format=3 uid="uid://qc046bctp57n"]
 
 [ext_resource type="Script" path="res://Scripts/Player/PlayerController.gd" id="1_ej1b3"]
 [ext_resource type="Script" path="res://Scripts/Player/PlayerStats.gd" id="1_sce2v"]
-[ext_resource type="Texture2D" uid="uid://dxvfvq3vn03ba" path="res://NBeast_Bar.png" id="2_kkkfp"]
+[ext_resource type="Script" path="res://Scripts/Player/PlayerCamera.gd" id="2_ikepb"]
+[ext_resource type="Environment" uid="uid://bmwnikfnyrnx8" path="res://Assets/Data/EnviromentData.tres" id="2_kkw05"]
+[ext_resource type="Texture2D" uid="uid://bjculae7udaoi" path="res://Assets/Elements/NBeast_Bar.png" id="3_g1rrn"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_tn7cq"]
-
-[sub_resource type="Environment" id="Environment_rb571"]
 
 [node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("Stats")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.00689, 0)
@@ -16,8 +16,10 @@ Stats = NodePath("Stats")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_tn7cq")
 
-[node name="Camera3D" type="Camera3D" parent="."]
-environment = SubResource("Environment_rb571")
+[node name="Camera" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.920377, 0)
+environment = ExtResource("2_kkw05")
+script = ExtResource("2_ikepb")
 
 [node name="Stats" type="Node3D" parent="."]
 script = ExtResource("1_sce2v")
@@ -31,8 +33,8 @@ offset_right = 354.0
 offset_bottom = 60.0
 scale = Vector2(0.68, 0.284476)
 value = 100.0
-texture_under = ExtResource("2_kkkfp")
-texture_progress = ExtResource("2_kkkfp")
+texture_under = ExtResource("3_g1rrn")
+texture_progress = ExtResource("3_g1rrn")
 tint_under = Color(0, 0, 0, 1)
 tint_progress = Color(0.866667, 0, 0, 1)
 
@@ -43,8 +45,8 @@ offset_right = 354.0
 offset_bottom = 88.0
 scale = Vector2(0.68, 0.284476)
 value = 100.0
-texture_under = ExtResource("2_kkkfp")
-texture_progress = ExtResource("2_kkkfp")
+texture_under = ExtResource("3_g1rrn")
+texture_progress = ExtResource("3_g1rrn")
 tint_under = Color(0, 0, 0, 1)
 tint_progress = Color(0, 0.431373, 0.921569, 1)
 
