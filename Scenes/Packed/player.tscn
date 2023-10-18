@@ -3,10 +3,9 @@
 [ext_resource type="Script" path="res://Scripts/Player/PlayerController.gd" id="1_ej1b3"]
 [ext_resource type="Script" path="res://Scripts/Player/PlayerStats.gd" id="1_sce2v"]
 [ext_resource type="Texture2D" uid="uid://dxvfvq3vn03ba" path="res://NBeast_Bar.png" id="2_kkkfp"]
+[ext_resource type="Script" path="res://Scripts/Player/PlayerCamera.gd" id="2_rsliq"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_tn7cq"]
-
-[sub_resource type="Environment" id="Environment_rb571"]
 
 [node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("Stats")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.00689, 0)
@@ -17,7 +16,8 @@ Stats = NodePath("Stats")
 shape = SubResource("CapsuleShape3D_tn7cq")
 
 [node name="Camera3D" type="Camera3D" parent="."]
-environment = SubResource("Environment_rb571")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.918134, 0)
+script = ExtResource("2_rsliq")
 
 [node name="Stats" type="Node3D" parent="."]
 script = ExtResource("1_sce2v")
