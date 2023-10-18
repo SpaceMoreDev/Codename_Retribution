@@ -1,0 +1,39 @@
+[gd_scene load_steps=4 format=3 uid="uid://bp755b7h6vn0g"]
+
+[ext_resource type="PackedScene" uid="uid://qc046bctp57n" path="res://Scenes/Packed/player.tscn" id="1_h4rhp"]
+
+[sub_resource type="Environment" id="Environment_ratbs"]
+
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_njfob"]
+
+[node name="World" type="Node3D"]
+
+[node name="Enviroment" type="Node3D" parent="."]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Enviroment"]
+environment = SubResource("Environment_ratbs")
+camera_attributes = SubResource("CameraAttributesPractical_njfob")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Enviroment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.504995, 0)
+size = Vector3(11.6724, 1, 18.1756)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Enviroment/CSGBox3D"]
+transform = Transform3D(0.465651, 0, 0, 0, 0.465651, 0, 0, 0, 0.465651, 0, 3.70705, 5)
+size = Vector3(2.79936, 14.256, 2.9697)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Enviroment/CSGBox3D/CSGBox3D"]
+transform = Transform3D(0.465651, 0, 0, 0, 0.465651, 0, 0, 0, 0.465651, 6.44259, -4.88307, -14.3278)
+size = Vector3(2.79936, 14.256, 2.9697)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="Enviroment/CSGBox3D/CSGBox3D"]
+transform = Transform3D(0.465651, 0, 0, 0, 0.465651, 0, 0, 0, 0.465651, -6.44259, -4.88307, -22.9179)
+size = Vector3(2.79936, 14.256, 2.9697)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Enviroment"]
+transform = Transform3D(0.965926, -0.0669873, -0.25, 0.258819, 0.25, 0.933013, 0, -0.965926, 0.258819, 0, 5, 0)
+shadow_enabled = true
+
+[node name="Characters" type="Node3D" parent="."]
+
+[node name="Player" parent="Characters" instance=ExtResource("1_h4rhp")]
