@@ -79,7 +79,7 @@ func check_jump(jumpHeight):
 func _process(delta):
 	if(player.is_on_floor()):	
 		if(CanRun):
-			if(Running and Input.is_action_pressed("RUN")):
+			if( (get_parent() as Player)._input != Vector2.ZERO and Running and Input.is_action_pressed("RUN")):
 				Stamina -= CONSUME_SPEED * delta
 	if(Stamina < 100):
 		Stamina += REGEN_SPEED * delta

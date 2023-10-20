@@ -1,0 +1,42 @@
+[gd_scene load_steps=3 format=3 uid="uid://b0vg2jhcbqund"]
+
+[ext_resource type="Texture2D" uid="uid://crpfoqnttwg4n" path="res://Assets/Elements/texture_07.png" id="1_aaysd"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_erbuy"]
+albedo_texture = ExtResource("1_aaysd")
+uv1_triplanar = true
+
+[node name="test" type="CSGBox3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.504995, 0)
+visible = false
+material_override = SubResource("StandardMaterial3D_erbuy")
+use_collision = true
+size = Vector3(11.6724, 1, 18.1756)
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="."]
+transform = Transform3D(0.100968, 0, 0, 0, 0.354719, 0, 0, 0, 0.100968, 5.84724, 2.31678, 0.0868981)
+size = Vector3(2.79936, 14.256, 185.932)
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="."]
+transform = Transform3D(0.100968, 0, 0, 0, 0.354719, 0, 0, 0, 0.100968, -5.85276, 2.31678, 0.0868981)
+size = Vector3(2.79936, 14.256, 185.932)
+
+[node name="CSGBox3D6" type="CSGBox3D" parent="."]
+transform = Transform3D(-4.41343e-09, 0, -0.100968, 0, 0.354719, 0, 0.100968, 0, -4.41343e-09, 0.147241, 2.31678, 9.0869)
+size = Vector3(2.79936, 14.256, 124.597)
+
+[node name="CSGBox3D7" type="CSGBox3D" parent="."]
+transform = Transform3D(-4.41343e-09, 0, -0.100968, 0, 0.354719, 0, 0.100968, 0, -4.41343e-09, 0.147241, 2.31678, -8.9131)
+size = Vector3(2.79936, 14.256, 124.597)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="."]
+transform = Transform3D(0.216831, 0, 0, 0, 0.26927, 0, 0, 0, 0.216831, 3, 2.34121, -1.67175)
+size = Vector3(2.79936, 14.256, 2.9697)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="."]
+transform = Transform3D(0.216831, 0, 0, 0, 0.216831, 0, 0, 0, 0.216831, -3, 1.43324, -5.67174)
+size = Vector3(2.79936, 14.256, 2.9697)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(0.465651, 0, 0, 0, 0.465651, 0, 0, 0, 0.465651, 0, 3.70705, 5)
+size = Vector3(2.79936, 14.256, 2.9697)
