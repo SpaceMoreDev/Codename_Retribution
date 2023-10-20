@@ -1,9 +1,13 @@
-[gd_scene load_steps=6 format=3 uid="uid://bp755b7h6vn0g"]
+[gd_scene load_steps=8 format=3 uid="uid://bp755b7h6vn0g"]
 
 [ext_resource type="PackedScene" uid="uid://qc046bctp57n" path="res://Scenes/Packed/player.tscn" id="1_h4rhp"]
+[ext_resource type="PackedScene" uid="uid://h73t4kyno44l" path="res://Scenes/Packed/fire.tscn" id="1_ovd6b"]
 [ext_resource type="Texture2D" uid="uid://crpfoqnttwg4n" path="res://Assets/Elements/texture_07.png" id="1_yuaat"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_nup2j"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6t7nk"]
+albedo_color = Color(0.0745098, 0.0745098, 0.0745098, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_sc8k1"]
 
@@ -26,7 +30,10 @@ shape = SubResource("BoxShape3D_nup2j")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Enviroment/Object"]
 transform = Transform3D(0.568105, 0, 0, 0, 0.568105, 0, 0, 0, 0.568105, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_6t7nk")
 mesh = SubResource("BoxMesh_sc8k1")
+
+[node name="Fire" parent="Enviroment/Object" instance=ExtResource("1_ovd6b")]
 
 [node name="CSGBox3D" type="CSGBox3D" parent="Enviroment"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.504995, 0)
