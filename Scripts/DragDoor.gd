@@ -39,5 +39,7 @@ func _input(event):
 			if(data != null):
 				var Dir = (player.global_transform.origin - data.global_transform.origin)
 				var eventDir = Dir * -event.relative.x * _sensitivity
-				print(eventDir)
+				
 				data.rotate_y(eventDir.x) 
+				print(data.rotation.y)
+				data.rotation.y = clamp(data.rotation.y, deg_to_rad(-110), deg_to_rad(110))
