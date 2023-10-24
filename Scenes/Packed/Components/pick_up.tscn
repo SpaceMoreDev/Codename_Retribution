@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://bjisssq6wdnuy"]
+
+[ext_resource type="Script" path="res://Scripts/Player/PickUp.gd" id="1_powbf"]
+
+[node name="PickUp" type="Node3D" node_paths=PackedStringArray("camera", "grab_position", "joint", "staticbody")]
+script = ExtResource("1_powbf")
+camera = NodePath("")
+grab_position = NodePath("")
+joint = NodePath("")
+staticbody = NodePath("")
+rotation_power = 0.5

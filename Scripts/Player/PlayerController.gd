@@ -14,18 +14,21 @@ var canJump : bool  = true
 var original_gravity = 10.9
 var _gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 var running : bool = true
+var inertia : float = 20
 
 const WALK_SPEED = 2.5
 const SPRINT_SPEED = 4.5
 
-func _ready():
+func _enter_tree():
+	Global.player = self as Node
 	Speed = WALK_SPEED
+
 
 func Jump():
 	if(canJump and Input.is_action_just_pressed("JUMP")):
-		velocity.y = Jump_Speed
-		if(is_on_floor()):
+		if(is_on_floor() and Stats.Stamina > Stats.CONSUME_JUMP):
 			emit_signal("player_jumped", Jump_Speed)
+			velocity.y = Jump_Speed
 
 func Move(delta):
 	var direction = transform.basis * Vector3(_input.x, 0 , _input.y).normalized()
@@ -42,7 +45,6 @@ func Move(delta):
 		velocity.x = lerp(velocity.x, direction.x * Speed, delta * 3.0)
 		velocity.z = lerp(velocity.z, direction.z * Speed, delta * 3.0)
 		velocity.y -= _gravity * delta
-
 	move_and_slide()
 
 @warning_ignore("unused_parameter")
@@ -50,10 +52,12 @@ func _process(delta):
 	_input = Input.get_vector("LEFT","RIGHT","UP","DOWN")
 
 	if(Input.is_action_just_pressed("RUN")):
-		Stats.CanRun = true
+		Stats.CanConsume = true
 		Speed = SPRINT_SPEED
 	elif(Input.is_action_just_released("RUN")):
 		Speed = WALK_SPEED
 
 func _physics_process(delta):
 	Move(delta)
+	
+	
