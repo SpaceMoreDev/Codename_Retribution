@@ -17,6 +17,7 @@ func _ready():
 
 @warning_ignore("unused_parameter")
 func _physics_process(delta):
+	
 	if(not isDoingAction and ray.is_colliding()):
 		handIcon.visible = true
 	else:

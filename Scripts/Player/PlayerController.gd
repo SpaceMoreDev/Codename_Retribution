@@ -16,8 +16,8 @@ var _gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 var running : bool = true
 var inertia : float = 20
 
-const WALK_SPEED = 2.5
-const SPRINT_SPEED = 4.5
+const WALK_SPEED = 2
+const SPRINT_SPEED = 3
 
 func _enter_tree():
 	Global.player = self as Node

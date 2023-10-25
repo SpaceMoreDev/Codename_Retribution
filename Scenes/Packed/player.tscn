@@ -1,14 +1,22 @@
-[gd_scene load_steps=8 format=3 uid="uid://qc046bctp57n"]
+[gd_scene load_steps=12 format=3 uid="uid://qc046bctp57n"]
 
 [ext_resource type="Script" path="res://Scripts/Player/PlayerController.gd" id="1_ej1b3"]
 [ext_resource type="Script" path="res://Scripts/Player/PlayerStats.gd" id="1_sce2v"]
 [ext_resource type="Texture2D" uid="uid://dxvfvq3vn03ba" path="res://NBeast_Bar.png" id="2_kkkfp"]
 [ext_resource type="Script" path="res://Scripts/Player/PlayerCamera.gd" id="2_rsliq"]
+[ext_resource type="Script" path="res://Scripts/Player/Crouching.gd" id="4_8cvhv"]
 [ext_resource type="Script" path="res://Scripts/Player/PlayerAction.gd" id="4_ing7o"]
+[ext_resource type="Script" path="res://Scripts/Player/Leaning.gd" id="4_yepiv"]
+[ext_resource type="Script" path="res://Scripts/Player/HeadBobbing.gd" id="6_jkene"]
 [ext_resource type="Texture2D" uid="uid://bnsleh5fba0gk" path="res://Assets/Elements/handIcon.png" id="7_u7sp3"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_tn7cq"]
-radius = 0.348397
+radius = 0.186199
+height = 1.31303
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_yyxpu"]
+radius = 0.186665
+height = 0.545623
 
 [node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("Stats")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.00689, 0)
@@ -18,14 +26,16 @@ slide_on_ceiling = false
 script = ExtResource("1_ej1b3")
 Stats = NodePath("Stats")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="StandingCollision" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.342341, 0)
 shape = SubResource("CapsuleShape3D_tn7cq")
 
+[node name="CrouchingCollision" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.725078, 0)
+shape = SubResource("CapsuleShape3D_yyxpu")
+
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.918134, 0)
 script = ExtResource("2_rsliq")
-_frequency = 5
-_amplitude = 0.05
 
 [node name="RayCast3D" type="RayCast3D" parent="Camera3D"]
 target_position = Vector3(0, 0, -2)
@@ -47,9 +57,39 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.34)
 [node name="Stats" type="Node3D" parent="."]
 script = ExtResource("1_sce2v")
 
+[node name="Crouch" type="Node3D" parent="." node_paths=PackedStringArray("standingCollider", "crouchingCollider", "camera", "headBob")]
+script = ExtResource("4_8cvhv")
+standingCollider = NodePath("../StandingCollision")
+crouchingCollider = NodePath("../CrouchingCollision")
+camera = NodePath("../Camera3D")
+headBob = NodePath("../HeadBobbing")
+
+[node name="Leaning" type="Node3D" parent="." node_paths=PackedStringArray("leftRay", "rightRay", "camera")]
+script = ExtResource("4_yepiv")
+leftRay = NodePath("LeftRay")
+rightRay = NodePath("RightRay")
+camera = NodePath("../Camera3D")
+
+[node name="LeftRay" type="RayCast3D" parent="Leaning"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.1, 0, 0)
+target_position = Vector3(-1, 0, 0)
+collision_mask = 9
+debug_shape_custom_color = Color(0.513726, 0.4, 0, 1)
+
+[node name="RightRay" type="RayCast3D" parent="Leaning"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1, 0, 0)
+target_position = Vector3(1, 0, 0)
+collision_mask = 9
+debug_shape_custom_color = Color(0.513726, 0.4, 0, 1)
+
 [node name="Action" type="Node3D" parent="." node_paths=PackedStringArray("handIcon")]
 script = ExtResource("4_ing7o")
 handIcon = NodePath("../Player_UI/TextureRect")
+
+[node name="HeadBobbing" type="Node3D" parent="." node_paths=PackedStringArray("camera")]
+script = ExtResource("6_jkene")
+camera = NodePath("../Camera3D")
+_frequency = 5
 
 [node name="Player_UI" type="CanvasLayer" parent="."]
 

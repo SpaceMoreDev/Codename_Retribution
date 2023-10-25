@@ -28,8 +28,8 @@ func remove_object():
 func InteractWithDoor(door:Node3D):
 	if(door.get_parent() == get_parent()):
 		data = door
-		camera.locked = true
 		mouse_x = 0
+		camera.locked = true
 		active = true
 
 var do : bool = true
@@ -42,4 +42,4 @@ func _input(event):
 				
 				data.rotate_y(eventDir.x) 
 				print(data.rotation.y)
-				data.rotation.y = clamp(data.rotation.y, deg_to_rad(-110), deg_to_rad(110))
+				data.rotation.y = clamp(data.rotation.y, deg_to_rad(-110), deg_to_rad(0))
