@@ -8,11 +8,11 @@ class_name Crouching
 @export var standingCollider: CollisionShape3D
 @export var crouchingCollider: CollisionShape3D
 
-const CROUCHING_AMOUNT = 0.5
+const CROUCHING_AMOUNT = 0.55
 const CROUCHING_SPEED = 1
 
 const CROUCHING_FREQ = 5
-const CROUCHING_AMP = 0.07
+const CROUCHING_AMP = 0.05
 
 var crouchingHeight : float
 
