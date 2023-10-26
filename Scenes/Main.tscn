@@ -81,7 +81,6 @@ metadata/_editor_floor_ = Vector3(0, 0, 0)
 [node name="CSGBox3D" type="CSGBox3D" parent="Enviroment"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.81694, 1.0694, 0)
 use_collision = true
-collision_layer = 8
 collision_mask = 3
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
