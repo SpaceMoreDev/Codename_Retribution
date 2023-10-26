@@ -1,8 +1,8 @@
-extends Camera3D
+extends Node3D
 class_name PlayerCamera
 
-@onready var _player_head: Node3D = get_parent()
-@onready var _player_camera: Camera3D = self
+@export var _player_head: Node3D
+@export var _player_camera: Camera3D
 
 @onready var _sensitivity = ProjectSettings.get_setting("player/look_sensitivity")
 

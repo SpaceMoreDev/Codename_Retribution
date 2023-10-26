@@ -1,10 +1,11 @@
 extends Node
-var camera : PlayerCamera
+var camera : Node3D
+var cameraSc : PlayerCamera
 var grab_position : Node3D
 var joint : Joint3D
 var staticbody : StaticBody3D
 
-@export var pull_power = 6
+@export var pull_power = 10
 @export var rotation_power = 0.05
 
 var active : bool = false
@@ -14,11 +15,12 @@ var action : PlayerAction
 
 func _ready():
 	var player : Node = Global._get_player()
-	camera = player.get_node("Camera3D")
-	grab_position = player.get_node("Camera3D/GrabPosition")
-	joint = player.get_node("Camera3D/Joint")
-	staticbody = player.get_node("Camera3D/StaticBody3D")
-	action = player.get_node("Action") as PlayerAction
+	camera = player.get_node("Head/Camera3D")
+	cameraSc = player.get_node("Head")
+	action = camera.get_node("Action") as PlayerAction
+	joint = action.get_node("Joint")
+	staticbody = action.get_node("StaticBody3D")
+	grab_position = action.get_node("GrabPosition")
 	action.connect("start_interaction", pull_object)
 	action.connect("end_interaction", remove_object)
 	pass
@@ -40,17 +42,17 @@ func _input(event):
 			return
 
 		if(Input.is_action_pressed("ROTATE_OBJECT")):
-			camera.locked = true
+			cameraSc.locked = true
 			rotate_object(event)
 		elif(Input.is_action_just_released("ROTATE_OBJECT")):
-			camera.locked = false
+			cameraSc.locked = false
 
 func remove_object():
 	if(picked_object != null):
 		picked_object = null
 		joint.node_b = joint.get_path()
 		active = false
-		camera.locked = false
+		cameraSc.locked = false
 
 func rotate_object(event):
 	if(picked_object != null):

@@ -8,14 +8,16 @@ var data
 var action
 var active : bool = false
 var camera : Camera3D
+var cameraSc : PlayerCamera
 var grab_position
 var player : Node
 
 func _ready():
 	player = Global._get_player()
-	camera = player.get_node("Camera3D") as Camera3D
-	grab_position = player.get_node("Camera3D/GrabPosition")
-	action = player.get_node("Action") as PlayerAction
+	camera = player.get_node("Head/Camera3D") as Camera3D
+	cameraSc = player.get_node("Head")
+	action = camera.get_node("Action") as PlayerAction
+	grab_position = action.get_node("GrabPosition")
 	action.connect("start_interaction", InteractWithDoor)
 	action.connect("end_interaction", remove_object)
 
@@ -23,13 +25,13 @@ func remove_object():
 	if(data != null):
 		data = null
 	active = false
-	camera.locked = false
+	cameraSc.locked = false
 
 func InteractWithDoor(door:Node3D):
 	if(door.get_parent() == get_parent()):
 		data = door
 		mouse_x = 0
-		camera.locked = true
+		cameraSc.locked = true
 		active = true
 
 var do : bool = true

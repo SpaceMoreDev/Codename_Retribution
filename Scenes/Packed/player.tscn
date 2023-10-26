@@ -33,42 +33,59 @@ shape = SubResource("CapsuleShape3D_tn7cq")
 [node name="CrouchingCollision" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.725078, 0)
 shape = SubResource("CapsuleShape3D_yyxpu")
+disabled = true
 
-[node name="Camera3D" type="Camera3D" parent="."]
+[node name="Stats" type="Node3D" parent="."]
+script = ExtResource("1_sce2v")
+
+[node name="Head" type="Node3D" parent="." node_paths=PackedStringArray("_player_head", "_player_camera")]
 script = ExtResource("2_rsliq")
+_player_head = NodePath("..")
+_player_camera = NodePath("Camera3D")
 
-[node name="RayCast3D" type="RayCast3D" parent="Camera3D"]
+[node name="Camera3D" type="Camera3D" parent="Head"]
+
+[node name="Action" type="Node3D" parent="Head/Camera3D" node_paths=PackedStringArray("handIcon", "ray")]
+script = ExtResource("4_ing7o")
+handIcon = NodePath("../../../Player_UI/TextureRect")
+ray = NodePath("RayCast3D")
+
+[node name="RayCast3D" type="RayCast3D" parent="Head/Camera3D/Action"]
 target_position = Vector3(0, 0, -2)
 collision_mask = 12
 
-[node name="GrabPosition" type="Node3D" parent="Camera3D"]
+[node name="GrabPosition" type="Node3D" parent="Head/Camera3D/Action"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.00918)
 
-[node name="Joint" type="Generic6DOFJoint3D" parent="Camera3D"]
+[node name="Joint" type="Generic6DOFJoint3D" parent="Head/Camera3D/Action"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.9912)
 node_a = NodePath("../StaticBody3D")
 linear_limit_x/enabled = false
 linear_limit_y/enabled = false
 linear_limit_z/enabled = false
 
-[node name="StaticBody3D" type="StaticBody3D" parent="Camera3D"]
+[node name="StaticBody3D" type="StaticBody3D" parent="Head/Camera3D/Action"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.34)
 
-[node name="Stats" type="Node3D" parent="."]
-script = ExtResource("1_sce2v")
-
-[node name="Crouch" type="Node3D" parent="." node_paths=PackedStringArray("standingCollider", "crouchingCollider", "camera", "headBob")]
+[node name="Crouch" type="Node3D" parent="." node_paths=PackedStringArray("raycheck", "camera", "headBob", "standingCollider", "crouchingCollider")]
 script = ExtResource("4_8cvhv")
+raycheck = NodePath("TopCheckRay")
+camera = NodePath("../Head/Camera3D")
+headBob = NodePath("../HeadBobbing")
 standingCollider = NodePath("../StandingCollision")
 crouchingCollider = NodePath("../CrouchingCollision")
-camera = NodePath("../Camera3D")
-headBob = NodePath("../HeadBobbing")
 
-[node name="Leaning" type="Node3D" parent="." node_paths=PackedStringArray("leftRay", "rightRay", "camera")]
+[node name="TopCheckRay" type="RayCast3D" parent="Crouch"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.47141, 0)
+target_position = Vector3(0, 1, 0)
+collision_mask = 9
+
+[node name="Leaning" type="Node3D" parent="." node_paths=PackedStringArray("leftRay", "rightRay", "head", "camera")]
 script = ExtResource("4_yepiv")
 leftRay = NodePath("LeftRay")
 rightRay = NodePath("RightRay")
-camera = NodePath("../Camera3D")
+head = NodePath("../Head")
+camera = NodePath("../Head/Camera3D")
 
 [node name="LeftRay" type="RayCast3D" parent="Leaning"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.1, 0, 0)
@@ -82,14 +99,10 @@ target_position = Vector3(1, 0, 0)
 collision_mask = 9
 debug_shape_custom_color = Color(0.513726, 0.4, 0, 1)
 
-[node name="Action" type="Node3D" parent="." node_paths=PackedStringArray("handIcon")]
-script = ExtResource("4_ing7o")
-handIcon = NodePath("../Player_UI/TextureRect")
-
-[node name="HeadBobbing" type="Node3D" parent="." node_paths=PackedStringArray("camera")]
+[node name="HeadBobbing" type="Node3D" parent="." node_paths=PackedStringArray("head", "crouching")]
 script = ExtResource("6_jkene")
-camera = NodePath("../Camera3D")
-_frequency = 5
+head = NodePath("../Head")
+crouching = NodePath("../Crouch")
 
 [node name="Player_UI" type="CanvasLayer" parent="."]
 

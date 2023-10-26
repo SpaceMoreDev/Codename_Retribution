@@ -1,16 +1,18 @@
 extends Node
 
-const CAMERADISTANCE = 0.7
+const CAMERADISTANCE = 0.5
 
 @export var leftRay:RayCast3D
 @export var rightRay:RayCast3D
 
 @export var horizontalDistance : float
-@export var leanAngle : float = 0.5
+@export var leanAngle : float = 0.45
 
+@export var head : PlayerCamera
 @export var camera : Camera3D
 
-var speed : float = 10;
+var speed : float = 3
+var anglespeed : float = 2
 var originalPos = Vector3.ZERO
 var target
 var active = false
@@ -26,20 +28,24 @@ func _process(delta):
 	
 	if(Input.is_action_pressed("LEAN_LEFT")):
 		check_if_hit_Left()
-		camera.locked = true
-		camera.position.x = lerp(camera.position.x, -horizontalDistance, delta *speed)
-		camera.rotation.z = lerp(camera.rotation.z, leanAngle, delta *speed)
+		head.locked = true
+		camera.position.x = move_toward(camera.position.x, -horizontalDistance, delta *speed)
+		camera.rotation.z = move_toward(camera.rotation.z, leanAngle, delta *anglespeed)
 		active = true
 	elif(Input.is_action_pressed("LEAN_RIGHT")):
 		check_if_hit_Right()
-		camera.locked = true
-		camera.position.x = lerp(camera.position.x, horizontalDistance, delta *speed)
-		camera.rotation.z = lerp(camera.rotation.z, -leanAngle, delta *speed)
+		head.locked = true
+		camera.position.x = move_toward(camera.position.x, horizontalDistance, delta *speed)
+		camera.rotation.z = move_toward(camera.rotation.z, -leanAngle, delta *anglespeed)
 		active = true
 	else:
-		if(camera.locked and active):
-			camera.locked = false
-			active = false
+		if(head.locked and active):
+			camera.position.x = move_toward(camera.position.x, 0.0, delta *speed)
+			camera.rotation.z = move_toward(camera.rotation.z, 0.0, delta * anglespeed)
+			if(camera.position.x == 0.0 and camera.rotation.z == 0):
+				head.locked = false
+				active = false
+			
 
 
 func check_if_hit_Left():

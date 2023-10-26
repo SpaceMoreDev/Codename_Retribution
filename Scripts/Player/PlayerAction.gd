@@ -7,7 +7,7 @@ signal end_interaction()
 
 @export var raycast_length = 2
 @export var handIcon : TextureRect
-@onready var ray : RayCast3D = $"../Camera3D/RayCast3D"
+@export var ray : RayCast3D
 
 var isDoingAction = false
 
