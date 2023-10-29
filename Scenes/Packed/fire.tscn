@@ -1,6 +1,7 @@
-[gd_scene load_steps=15 format=3 uid="uid://h73t4kyno44l"]
+[gd_scene load_steps=16 format=3 uid="uid://h73t4kyno44l"]
 
 [ext_resource type="Texture2D" uid="uid://dbwo0f64ck6pj" path="res://Assets/Elements/fire_02.png" id="1_0ndec"]
+[ext_resource type="Script" path="res://Scripts/Fire.gd" id="1_ceyis"]
 [ext_resource type="Texture2D" uid="uid://di2vyh7g3wakw" path="res://Assets/Elements/fire_01.png" id="1_k23bq"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6y5hh"]
@@ -86,7 +87,10 @@ color_ramp = SubResource("GradientTexture1D_pirbk")
 turbulence_noise_strength = 3.32
 turbulence_noise_scale = 4.46
 
-[node name="Fire" type="Node3D"]
+[node name="Fire" type="Node3D" node_paths=PackedStringArray("flames", "smoke")]
+script = ExtResource("1_ceyis")
+flames = NodePath("Flames")
+smoke = NodePath("Smoke")
 
 [node name="Smoke" type="GPUParticles3D" parent="."]
 transform = Transform3D(1, -1.06581e-14, 0, 1.06581e-14, 1, 0, 0, 0, 1, 0, 0.511555, 0)

@@ -23,7 +23,6 @@ Global="*res://Scripts/GlobalData.gd"
 
 window/size/viewport_width=640
 window/size/viewport_height=480
-window/size/mode=3
 window/size/window_width_override=1112
 window/size/window_height_override=640
 window/stretch/mode="viewport"

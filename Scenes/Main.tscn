@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://bp755b7h6vn0g"]
+[gd_scene load_steps=15 format=3 uid="uid://bp755b7h6vn0g"]
 
 [ext_resource type="PackedScene" uid="uid://qc046bctp57n" path="res://Scenes/Packed/player.tscn" id="1_h4rhp"]
 [ext_resource type="PackedScene" uid="uid://h73t4kyno44l" path="res://Scenes/Packed/fire.tscn" id="1_ovd6b"]
@@ -6,6 +6,7 @@
 [ext_resource type="MeshLibrary" uid="uid://dhwocby11pe5e" path="res://Assets/Data/tileset.tres" id="3_x1k75"]
 [ext_resource type="Texture2D" uid="uid://di2vyh7g3wakw" path="res://Assets/Elements/fire_01.png" id="3_xsxqd"]
 [ext_resource type="Script" path="res://Scripts/Player/PickUp.gd" id="4_2cnuk"]
+[ext_resource type="Script" path="res://Scripts/Gasoline.gd" id="5_x8ynd"]
 
 [sub_resource type="Environment" id="Environment_n8o2s"]
 ambient_light_energy = 0.2
@@ -22,6 +23,9 @@ size = Vector3(1, 2, 0.1)
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_kb5gv"]
 points = PackedVector3Array(-0.5, -1, -0.05, -0.5, -1, 0.05, -0.5, 1, -0.05, 0.5, -1, -0.05, 0.5, -1, 0.05, -0.5, 1, 0.05, 0.5, 1, -0.05, 0.5, 1, 0.05)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_66nog"]
+radius = 0.350665
 
 [sub_resource type="BoxMesh" id="BoxMesh_sc8k1"]
 
@@ -83,6 +87,28 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.81694, 1.0694, 0)
 use_collision = true
 collision_mask = 3
 
+[node name="gasoline" type="Node3D" parent="Enviroment" node_paths=PackedStringArray("fireParticles", "ignitionArea")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.172086, 3.75069)
+script = ExtResource("5_x8ynd")
+fireParticles = NodePath("Fire")
+ignitionArea = NodePath("Area3D")
+
+[node name="Fire" parent="Enviroment/gasoline" instance=ExtResource("1_ovd6b")]
+visible = false
+
+[node name="Decal" type="Decal" parent="Enviroment/gasoline"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.63681, 0)
+texture_albedo = ExtResource("3_xsxqd")
+modulate = Color(0.282353, 0.54902, 0, 1)
+
+[node name="Area3D" type="Area3D" parent="Enviroment/gasoline"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.288863, 0)
+collision_mask = 4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Enviroment/gasoline/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.112887, -0.0241542)
+shape = SubResource("SphereShape3D_66nog")
+
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.136993, 1, 4.79688)
 
@@ -105,9 +131,8 @@ mesh = SubResource("BoxMesh_sc8k1")
 transform = Transform3D(0.568105, 0, 0, 0, 0.568105, 0, 0, 0, 0.568105, 0, 0, 0)
 shape = SubResource("BoxShape3D_nup2j")
 
-[node name="Fire" parent="Oject" instance=ExtResource("1_ovd6b")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -2)
-visible = false
+[node name="Fire" parent="Oject/Physics" instance=ExtResource("1_ovd6b")]
+isactive = true
 
 [node name="PickUp" type="Node3D" parent="Oject"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -2)
