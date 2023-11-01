@@ -1,7 +1,8 @@
-[gd_scene load_steps=12 format=3 uid="uid://qc046bctp57n"]
+[gd_scene load_steps=13 format=3 uid="uid://qc046bctp57n"]
 
 [ext_resource type="Script" path="res://Scripts/Player/PlayerController.gd" id="1_ej1b3"]
 [ext_resource type="Script" path="res://Scripts/Player/PlayerStats.gd" id="1_sce2v"]
+[ext_resource type="Script" path="res://Scripts/Player/Quest.gd" id="2_774v3"]
 [ext_resource type="Texture2D" uid="uid://dxvfvq3vn03ba" path="res://NBeast_Bar.png" id="2_kkkfp"]
 [ext_resource type="Script" path="res://Scripts/Player/PlayerCamera.gd" id="2_rsliq"]
 [ext_resource type="Script" path="res://Scripts/Player/Crouching.gd" id="4_8cvhv"]
@@ -34,6 +35,10 @@ shape = SubResource("CapsuleShape3D_tn7cq")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.725078, 0)
 shape = SubResource("CapsuleShape3D_yyxpu")
 disabled = true
+
+[node name="Quest" type="Node3D" parent="." node_paths=PackedStringArray("questLabel")]
+script = ExtResource("2_774v3")
+questLabel = NodePath("../Player_UI/Tasks")
 
 [node name="Stats" type="Node3D" parent="."]
 script = ExtResource("1_sce2v")
@@ -130,19 +135,20 @@ texture_progress = ExtResource("2_kkkfp")
 tint_under = Color(0, 0, 0, 1)
 tint_progress = Color(0, 0.431373, 0.921569, 1)
 
-[node name="Form" type="Label" parent="Player_UI"]
+[node name="Tasks" type="Label" parent="Player_UI"]
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -83.0
-offset_top = 13.0
-offset_right = -21.0
-offset_bottom = 46.0
+offset_left = -226.0
+offset_top = 9.0
+offset_right = -7.0
+offset_bottom = 61.0
 grow_horizontal = 0
-theme_override_font_sizes/font_size = 16
-text = "Human"
+text = "Human!
+asasda
+asdad
+asd"
 horizontal_alignment = 2
-vertical_alignment = 1
 
 [node name="TextureRect" type="TextureRect" parent="Player_UI"]
 visible = false

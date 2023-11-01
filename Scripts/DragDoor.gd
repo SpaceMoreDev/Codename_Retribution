@@ -29,12 +29,14 @@ func remove_object():
 
 func InteractWithDoor(door:Node3D):
 	if(door.get_parent() == get_parent()):
-		data = door
-		mouse_x = 0
-		cameraSc.locked = true
-		active = true
+		if not (get_parent() as Door).locked :
+			data = door
+			mouse_x = 0
+			cameraSc.locked = true
+			active = true
+		else:
+			print("Door locked!")
 
-var do : bool = true
 func _input(event):
 	if(active):
 		if(event is InputEventMouseMotion):
@@ -43,5 +45,14 @@ func _input(event):
 				var eventDir = Dir * -event.relative.x * _sensitivity
 				
 				data.rotate_y(eventDir.x) 
-				print(data.rotation.y)
 				data.rotation.y = clamp(data.rotation.y, deg_to_rad(-110), deg_to_rad(0))
+				if data.rotation.y < 0:
+					(get_parent() as Door).opened = true
+					print("opened!")
+
+					if (get_parent() as Door).hasquest:
+						Global.questList.CompleteQuest((get_parent() as Door).questID)
+						(get_parent() as Door).hasquest = false
+				else:
+					(get_parent() as Door).opened = false
+					print("closed!")

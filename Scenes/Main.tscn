@@ -1,12 +1,14 @@
-[gd_scene load_steps=15 format=3 uid="uid://bp755b7h6vn0g"]
+[gd_scene load_steps=19 format=3 uid="uid://bp755b7h6vn0g"]
 
 [ext_resource type="PackedScene" uid="uid://qc046bctp57n" path="res://Scenes/Packed/player.tscn" id="1_h4rhp"]
 [ext_resource type="PackedScene" uid="uid://h73t4kyno44l" path="res://Scenes/Packed/fire.tscn" id="1_ovd6b"]
 [ext_resource type="Script" path="res://Scripts/DragDoor.gd" id="2_e4tnm"]
+[ext_resource type="Script" path="res://Scripts/Door.gd" id="2_m3fmf"]
 [ext_resource type="MeshLibrary" uid="uid://dhwocby11pe5e" path="res://Assets/Data/tileset.tres" id="3_x1k75"]
 [ext_resource type="Texture2D" uid="uid://di2vyh7g3wakw" path="res://Assets/Elements/fire_01.png" id="3_xsxqd"]
 [ext_resource type="Script" path="res://Scripts/Player/PickUp.gd" id="4_2cnuk"]
 [ext_resource type="Script" path="res://Scripts/Gasoline.gd" id="5_x8ynd"]
+[ext_resource type="Script" path="res://Scripts/Key.gd" id="7_wnl16"]
 
 [sub_resource type="Environment" id="Environment_n8o2s"]
 ambient_light_energy = 0.2
@@ -27,6 +29,10 @@ points = PackedVector3Array(-0.5, -1, -0.05, -0.5, -1, 0.05, -0.5, 1, -0.05, 0.5
 [sub_resource type="SphereShape3D" id="SphereShape3D_66nog"]
 radius = 0.350665
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_3hnb1"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_qmcsa"]
+
 [sub_resource type="BoxMesh" id="BoxMesh_sc8k1"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_nup2j"]
@@ -46,6 +52,8 @@ camera_attributes = SubResource("CameraAttributesPractical_rjkhi")
 
 [node name="Door" type="Node3D" parent="Enviroment"]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 3.05219, 1.03459, 0)
+script = ExtResource("2_m3fmf")
+metadata/_edit_group_ = true
 
 [node name="PhysicsDoor" type="RigidBody3D" parent="Enviroment/Door"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0345901, 0)
@@ -66,6 +74,32 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.506304, 0, 0)
 shape = SubResource("ConvexPolygonShape3D_kb5gv")
 
 [node name="OpenDoor" type="Node3D" parent="Enviroment/Door"]
+script = ExtResource("2_e4tnm")
+
+[node name="Door2" type="Node3D" parent="Enviroment"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 2.05219, 1.03459, 3)
+script = ExtResource("2_m3fmf")
+metadata/_edit_group_ = true
+
+[node name="PhysicsDoor" type="RigidBody3D" parent="Enviroment/Door2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0345901, 0)
+collision_layer = 8
+collision_mask = 11
+axis_lock_linear_x = true
+axis_lock_linear_y = true
+axis_lock_linear_z = true
+axis_lock_angular_x = true
+axis_lock_angular_z = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Enviroment/Door2/PhysicsDoor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.506304, 0, 0)
+mesh = SubResource("BoxMesh_4fqd7")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Enviroment/Door2/PhysicsDoor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.506304, 0, 0)
+shape = SubResource("ConvexPolygonShape3D_kb5gv")
+
+[node name="OpenDoor" type="Node3D" parent="Enviroment/Door2"]
 script = ExtResource("2_e4tnm")
 
 [node name="Decal" type="Decal" parent="Enviroment"]
@@ -108,6 +142,33 @@ collision_mask = 4
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Enviroment/gasoline/Area3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.112887, -0.0241542)
 shape = SubResource("SphereShape3D_66nog")
+
+[node name="Key" type="Area3D" parent="Enviroment" node_paths=PackedStringArray("door")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0.639394, 1.85006)
+collision_mask = 3
+script = ExtResource("7_wnl16")
+door = NodePath("../Door")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Enviroment/Key"]
+shape = SubResource("SphereShape3D_3hnb1")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Enviroment/Key"]
+transform = Transform3D(0.537004, 0, 0, 0, 0.537004, 0, 0, 0, 0.537004, 0, 0, 0)
+mesh = SubResource("SphereMesh_qmcsa")
+
+[node name="Key2" type="Area3D" parent="Enviroment" node_paths=PackedStringArray("door")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0.639394, 5.09382)
+collision_mask = 3
+script = ExtResource("7_wnl16")
+door = NodePath("../Door2")
+AssignedQuestID = 1
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Enviroment/Key2"]
+shape = SubResource("SphereShape3D_3hnb1")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Enviroment/Key2"]
+transform = Transform3D(0.537004, 0, 0, 0, 0.537004, 0, 0, 0, 0.537004, 0, 0, 0)
+mesh = SubResource("SphereMesh_qmcsa")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.136993, 1, 4.79688)
