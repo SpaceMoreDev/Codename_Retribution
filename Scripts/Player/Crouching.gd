@@ -16,7 +16,7 @@ const CROUCHING_AMP = 0.05
 
 var crouchingHeight : float
 
-var acceleration : float = 2
+var acceleration : float = 1.6
 var active = false
 var notpressing:bool
 var player: Player
@@ -34,15 +34,15 @@ func _process(delta):
 		player.Speed = CROUCHING_SPEED
 		active = true
 		notpressing = true
-		headBob._frequency = CROUCHING_FREQ
-		headBob._amplitude = CROUCHING_AMP
+		headBob._frequency = move_toward(headBob._frequency,  CROUCHING_FREQ, delta * acceleration) 
+		headBob._amplitude = move_toward(headBob._amplitude,  CROUCHING_AMP, delta * acceleration)
 	elif Input.is_action_pressed("CROUCH"):
-		camera.position.y = move_toward(camera.position.y, crouchingHeight, delta * acceleration)
+		camera.position.y = move_toward(camera.position.y, crouchingHeight, delta * acceleration*2)
 	elif(Input.is_action_just_released("CROUCH")):
 		if is_top_empty():
 			standingCollider.disabled = false
 			crouchingCollider.disabled = true
-			player.Speed = player.WALK_SPEED
+			player.Speed =player.WALK_SPEED
 		notpressing = false
 	else:
 		if not notpressing and active:
@@ -51,12 +51,11 @@ func _process(delta):
 				if camera.position.y == 0:
 					standingCollider.disabled = false
 					crouchingCollider.disabled = true
-					player.Speed = player.WALK_SPEED
+					player.Speed =player.WALK_SPEED
 					active = false
 
-
-					headBob._frequency = headBob.STAND_FREQ
-					headBob._amplitude = headBob.STAND_AMP
+					headBob._frequency = move_toward(headBob._frequency,  headBob.STAND_FREQ, delta * acceleration) 
+					headBob._amplitude = move_toward(headBob._amplitude,  headBob.STAND_AMP, delta * acceleration)
 
 func is_top_empty() -> bool:
 	if raycheck.is_colliding() :

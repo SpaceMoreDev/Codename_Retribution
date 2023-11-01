@@ -11,13 +11,14 @@ func _ready():
 	door.key = self as DoorKey
 	door.hasquest = true
 	door.questID = AssignedQuestID
+	door.Lock(true)
 	connect("body_entered", collected)
 	quests = Global.questList
 	quests.AddQuest(AssignedQuestID, "%s - Find the key to escape!"%AssignedQuestID)
 
 @warning_ignore("unused_parameter")
 func collected(body:Node3D):
-	door.locked = false
+	door.Lock(false)
 	print("collected key")
 	quests.CompleteQuest(AssignedQuestID)
 	quests.AddQuest(AssignedQuestID, "key found! now go open the door")

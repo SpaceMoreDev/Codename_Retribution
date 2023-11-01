@@ -7,12 +7,12 @@ var questID : int
 
 var hasquest: bool = false
 
-var locked : bool = true
+var locked : bool = false
 
 var opened : bool = false
 
 
-func Unlock(state : bool) -> void:
+func Lock(state : bool) -> void:
     locked = state
 
 func Complete(obj,id):

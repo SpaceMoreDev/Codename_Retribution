@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://c8ig5qvw7vdlx"]
+
+[ext_resource type="Script" path="res://Scripts/Key.gd" id="1_kp5wr"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_3hnb1"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_qmcsa"]
+
+[node name="Key" type="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0.639394, 1.85006)
+collision_mask = 3
+script = ExtResource("1_kp5wr")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_3hnb1")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.537004, 0, 0, 0, 0.537004, 0, 0, 0, 0.537004, 0, 0, 0)
+mesh = SubResource("SphereMesh_qmcsa")

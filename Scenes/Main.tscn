@@ -1,14 +1,13 @@
-[gd_scene load_steps=19 format=3 uid="uid://bp755b7h6vn0g"]
+[gd_scene load_steps=13 format=3 uid="uid://bp755b7h6vn0g"]
 
 [ext_resource type="PackedScene" uid="uid://qc046bctp57n" path="res://Scenes/Packed/player.tscn" id="1_h4rhp"]
 [ext_resource type="PackedScene" uid="uid://h73t4kyno44l" path="res://Scenes/Packed/fire.tscn" id="1_ovd6b"]
-[ext_resource type="Script" path="res://Scripts/DragDoor.gd" id="2_e4tnm"]
-[ext_resource type="Script" path="res://Scripts/Door.gd" id="2_m3fmf"]
+[ext_resource type="PackedScene" uid="uid://cb0fqai3ot6cx" path="res://Scenes/Packed/door.tscn" id="2_yba7r"]
 [ext_resource type="MeshLibrary" uid="uid://dhwocby11pe5e" path="res://Assets/Data/tileset.tres" id="3_x1k75"]
 [ext_resource type="Texture2D" uid="uid://di2vyh7g3wakw" path="res://Assets/Elements/fire_01.png" id="3_xsxqd"]
 [ext_resource type="Script" path="res://Scripts/Player/PickUp.gd" id="4_2cnuk"]
-[ext_resource type="Script" path="res://Scripts/Gasoline.gd" id="5_x8ynd"]
-[ext_resource type="Script" path="res://Scripts/Key.gd" id="7_wnl16"]
+[ext_resource type="PackedScene" uid="uid://caw1sc6abamj5" path="res://Scenes/Packed/gasoline.tscn" id="5_ra0pc"]
+[ext_resource type="PackedScene" uid="uid://c8ig5qvw7vdlx" path="res://Scenes/Packed/key.tscn" id="6_n8l80"]
 
 [sub_resource type="Environment" id="Environment_n8o2s"]
 ambient_light_energy = 0.2
@@ -19,19 +18,6 @@ fog_density = 0.1
 
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_rjkhi"]
 dof_blur_far_distance = 5.65
-
-[sub_resource type="BoxMesh" id="BoxMesh_4fqd7"]
-size = Vector3(1, 2, 0.1)
-
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_kb5gv"]
-points = PackedVector3Array(-0.5, -1, -0.05, -0.5, -1, 0.05, -0.5, 1, -0.05, 0.5, -1, -0.05, 0.5, -1, 0.05, -0.5, 1, 0.05, 0.5, 1, -0.05, 0.5, 1, 0.05)
-
-[sub_resource type="SphereShape3D" id="SphereShape3D_66nog"]
-radius = 0.350665
-
-[sub_resource type="SphereShape3D" id="SphereShape3D_3hnb1"]
-
-[sub_resource type="SphereMesh" id="SphereMesh_qmcsa"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_sc8k1"]
 
@@ -50,57 +36,10 @@ collision_mask = 11
 environment = SubResource("Environment_n8o2s")
 camera_attributes = SubResource("CameraAttributesPractical_rjkhi")
 
-[node name="Door" type="Node3D" parent="Enviroment"]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 3.05219, 1.03459, 0)
-script = ExtResource("2_m3fmf")
-metadata/_edit_group_ = true
+[node name="Door" parent="Enviroment" instance=ExtResource("2_yba7r")]
 
-[node name="PhysicsDoor" type="RigidBody3D" parent="Enviroment/Door"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0345901, 0)
-collision_layer = 8
-collision_mask = 11
-axis_lock_linear_x = true
-axis_lock_linear_y = true
-axis_lock_linear_z = true
-axis_lock_angular_x = true
-axis_lock_angular_z = true
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Enviroment/Door/PhysicsDoor"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.506304, 0, 0)
-mesh = SubResource("BoxMesh_4fqd7")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Enviroment/Door/PhysicsDoor"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.506304, 0, 0)
-shape = SubResource("ConvexPolygonShape3D_kb5gv")
-
-[node name="OpenDoor" type="Node3D" parent="Enviroment/Door"]
-script = ExtResource("2_e4tnm")
-
-[node name="Door2" type="Node3D" parent="Enviroment"]
+[node name="Door2" parent="Enviroment" instance=ExtResource("2_yba7r")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 2.05219, 1.03459, 3)
-script = ExtResource("2_m3fmf")
-metadata/_edit_group_ = true
-
-[node name="PhysicsDoor" type="RigidBody3D" parent="Enviroment/Door2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0345901, 0)
-collision_layer = 8
-collision_mask = 11
-axis_lock_linear_x = true
-axis_lock_linear_y = true
-axis_lock_linear_z = true
-axis_lock_angular_x = true
-axis_lock_angular_z = true
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Enviroment/Door2/PhysicsDoor"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.506304, 0, 0)
-mesh = SubResource("BoxMesh_4fqd7")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Enviroment/Door2/PhysicsDoor"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.506304, 0, 0)
-shape = SubResource("ConvexPolygonShape3D_kb5gv")
-
-[node name="OpenDoor" type="Node3D" parent="Enviroment/Door2"]
-script = ExtResource("2_e4tnm")
 
 [node name="Decal" type="Decal" parent="Enviroment"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 1.33572, -9.46876)
@@ -112,63 +51,21 @@ mesh_library = ExtResource("3_x1k75")
 cell_size = Vector3(1, 1, 1)
 cell_center_y = false
 data = {
-"cells": PackedInt32Array(0, 65535, 2, 65535, 0, 2, 65535, 65535, 2, 0, 1, 2, 65535, 1, 2, 65535, 65534, 2, 0, 65534, 2, 0, 65533, 2, 65535, 65533, 2, 65534, 65534, 2, 65534, 65533, 2, 65534, 65535, 2, 65534, 0, 2, 65534, 1, 2, 65534, 2, 2, 65535, 2, 2, 1, 3, 2, 1, 2, 2, 0, 2, 2, 0, 3, 2, 65535, 3, 2, 65534, 3, 2, 65534, 4, 2, 65535, 5, 2, 0, 4, 2, 1, 4, 2, 1, 5, 2, 0, 5, 2, 65535, 6, 2, 65534, 6, 2, 65534, 5, 2, 65533, 4, 2, 65533, 3, 2, 65533, 2, 2, 65533, 1, 2, 65533, 0, 2, 65533, 65535, 2, 65533, 65534, 2, 65533, 65533, 2, 65533, 65532, 2, 65534, 65532, 2, 65535, 65532, 2, 0, 65532, 2, 1, 65532, 2, 1, 65533, 2, 1, 65534, 2, 1, 65535, 2, 1, 0, 2, 1, 1, 2, 65533, 5, 2, 65533, 6, 2, 0, 6, 2, 1, 6, 2, 2, 65531, 1, 65532, 65531, 1048577, 65532, 7, 655361, 2, 7, 1441793, 65532, 6, 1048576, 65532, 5, 1048576, 65532, 4, 1048576, 65532, 3, 1048576, 65532, 2, 1048576, 65532, 1, 1048576, 65532, 0, 1048576, 65532, 65535, 1048576, 65532, 65534, 1048576, 65532, 65533, 1048576, 65532, 65532, 1048576, 65533, 7, 655360, 65534, 7, 655360, 65535, 7, 655360, 0, 7, 655360, 1, 7, 655360, 65535, 4, 655362, 2, 6, 1441792, 2, 5, 1441792, 2, 4, 1441792, 2, 3, 1441792, 2, 2, 1441792, 2, 1, 1441792, 2, 0, 1441795, 2, 65534, 3, 2, 65533, 1441792, 2, 65532, 1441792, 65533, 65531, 0, 65534, 65531, 0, 65535, 65531, 0, 0, 65531, 0, 1, 65531, 0, 0, 0, 2, 4, 65534, 1, 4, 65535, 1441792, 3, 65534, 0, 4, 0, 1441793, 3, 0, 655360, 3, 65535, 2, 2, 65535, 2)
+"cells": PackedInt32Array(0, 65535, 2, 65535, 0, 2, 65535, 65535, 2, 0, 1, 2, 65535, 1, 2, 65535, 65534, 2, 0, 65534, 2, 0, 65533, 2, 65535, 65533, 2, 65534, 65534, 2, 65534, 65533, 2, 65534, 65535, 2, 65534, 0, 2, 65534, 1, 2, 65534, 2, 2, 65535, 2, 2, 1, 3, 2, 1, 2, 2, 0, 2, 2, 0, 3, 2, 65535, 3, 2, 65534, 3, 2, 65534, 4, 2, 65535, 5, 2, 0, 4, 2, 1, 4, 2, 1, 5, 2, 0, 5, 2, 65535, 6, 2, 65534, 6, 2, 65534, 5, 2, 65533, 4, 2, 65533, 3, 2, 65533, 2, 2, 65533, 1, 2, 65533, 0, 2, 65533, 65535, 2, 65533, 65534, 2, 65533, 65533, 2, 65533, 65532, 2, 65534, 65532, 2, 65535, 65532, 2, 0, 65532, 2, 1, 65532, 2, 1, 65533, 2, 1, 65534, 2, 1, 65535, 2, 1, 0, 2, 1, 1, 2, 65533, 5, 2, 65533, 6, 2, 0, 6, 2, 1, 6, 2, 2, 65531, 1, 65532, 65531, 1048577, 65532, 7, 655361, 2, 7, 1441793, 65532, 6, 1048576, 65532, 5, 1048576, 65532, 4, 1048576, 65532, 3, 1048576, 65532, 2, 1048576, 65532, 1, 1048576, 65532, 0, 1048576, 65532, 65535, 1048576, 65532, 65534, 1048576, 65532, 65533, 1048576, 65532, 65532, 1048576, 65533, 7, 655360, 65534, 7, 655363, 65535, 7, 1441795, 0, 7, 655360, 1, 7, 655360, 65535, 4, 2, 2, 6, 1441792, 2, 5, 1441792, 2, 4, 1441792, 2, 3, 1441792, 2, 2, 1441792, 2, 1, 1441792, 2, 0, 1441795, 2, 65534, 3, 2, 65533, 1441792, 2, 65532, 1441792, 65533, 65531, 0, 65534, 65531, 0, 65535, 65531, 0, 0, 65531, 0, 1, 65531, 0, 0, 0, 2, 4, 65534, 1, 4, 65535, 1441792, 3, 65534, 0, 4, 0, 1441793, 3, 0, 655360, 3, 65535, 2, 2, 65535, 2, 65535, 8, 1441792, 65534, 8, 1048576, 0, 8, 1048577, 65534, 9, 1048576, 65534, 10, 1048576, 65534, 11, 1048576, 65534, 12, 1048576, 65534, 13, 1048576, 65534, 14, 1048576, 65535, 9, 1441792, 65535, 10, 1441792, 65535, 11, 1441792, 65535, 12, 1441792, 65535, 13, 1441792, 65535, 14, 1441792, 0, 16, 655360, 0, 15, 0, 1, 15, 0, 2, 15, 0, 3, 15, 0, 4, 15, 0, 4, 16, 655360, 1, 16, 655360, 2, 16, 655360, 3, 16, 655360, 6, 14, 1441794, 5, 14, 1048576, 5, 16, 655360, 6, 16, 655360, 7, 16, 1441793, 7, 15, 1441792, 7, 14, 1441795, 6, 15, 1441794, 5, 15, 1048579, 65535, 15, 3, 65534, 16, 655361, 65535, 16, 655360, 65534, 15, 1048576, 5, 13, 1048576, 6, 13, 1048578, 7, 13, 1048578, 7, 12, 1048578, 7, 11, 1048578, 7, 10, 1048578, 6, 10, 1048578, 6, 11, 1048578, 6, 12, 1048578, 5, 12, 1048576, 5, 11, 1048576, 5, 10, 1048576, 7, 9, 1048578, 8, 9, 1048578, 8, 10, 1048578, 8, 11, 655362, 9, 9, 1441792, 9, 8, 1441792, 9, 7, 1, 9, 10, 1441792, 9, 6, 0, 8, 7, 0, 8, 8, 1048578, 7, 8, 1048578, 6, 9, 1048578, 5, 9, 1048576, 5, 8, 1048576, 6, 8, 1048578, 6, 7, 0, 7, 7, 0, 7, 6, 0, 5, 7, 1048577, 9, 11, 1441792, 7, 5, 655361, 7, 4, 1048576, 7, 3, 1048576, 7, 2, 1048576, 7, 1, 1048577, 8, 2, 1048578, 9, 2, 1048578, 10, 2, 1048578, 11, 2, 1048578, 11, 3, 1048578, 11, 4, 1048578, 12, 4, 1441792, 12, 5, 1441792, 12, 6, 1441792, 12, 7, 1441792, 12, 8, 1441792, 12, 9, 1441792, 12, 10, 1441792, 12, 11, 1441792, 12, 12, 1441792, 12, 13, 1441792, 12, 14, 1441793, 11, 13, 1048579, 11, 14, 655360, 10, 14, 655360, 9, 14, 655360, 8, 14, 655360, 8, 13, 1048578, 9, 13, 3, 10, 13, 0, 8, 3, 1048578, 9, 3, 1048578, 10, 3, 1048578, 10, 4, 1048578, 9, 4, 1048578, 8, 4, 1048578, 11, 6, 1048576, 11, 7, 1048576, 11, 8, 1048576, 11, 9, 1048576, 11, 10, 1048576, 11, 11, 1048576, 9, 12, 1441792, 8, 12, 655362, 10, 5, 655360, 9, 5, 655360, 8, 5, 655360, 8, 6, 0, 11, 5, 655363, 11, 12, 1048576, 8, 1, 0, 9, 1, 0, 10, 1, 0, 11, 1, 0, 12, 1, 1, 12, 2, 1441792, 12, 3, 1441792)
 }
 metadata/_editor_floor_ = Vector3(0, 0, 0)
 
 [node name="CSGBox3D" type="CSGBox3D" parent="Enviroment"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.81694, 1.0694, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.61743, 1.0694, -2.77101)
 use_collision = true
-collision_mask = 3
+collision_layer = 9
+collision_mask = 11
+size = Vector3(1, 1, 4.73971)
 
-[node name="gasoline" type="Node3D" parent="Enviroment" node_paths=PackedStringArray("fireParticles", "ignitionArea")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.172086, 3.75069)
-script = ExtResource("5_x8ynd")
-fireParticles = NodePath("Fire")
-ignitionArea = NodePath("Area3D")
+[node name="gasoline" parent="Enviroment" instance=ExtResource("5_ra0pc")]
 
-[node name="Fire" parent="Enviroment/gasoline" instance=ExtResource("1_ovd6b")]
-visible = false
-
-[node name="Decal" type="Decal" parent="Enviroment/gasoline"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.63681, 0)
-texture_albedo = ExtResource("3_xsxqd")
-modulate = Color(0.282353, 0.54902, 0, 1)
-
-[node name="Area3D" type="Area3D" parent="Enviroment/gasoline"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.288863, 0)
-collision_mask = 4
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Enviroment/gasoline/Area3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.112887, -0.0241542)
-shape = SubResource("SphereShape3D_66nog")
-
-[node name="Key" type="Area3D" parent="Enviroment" node_paths=PackedStringArray("door")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0.639394, 1.85006)
-collision_mask = 3
-script = ExtResource("7_wnl16")
+[node name="Key" parent="Enviroment" node_paths=PackedStringArray("door") instance=ExtResource("6_n8l80")]
 door = NodePath("../Door")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Enviroment/Key"]
-shape = SubResource("SphereShape3D_3hnb1")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Enviroment/Key"]
-transform = Transform3D(0.537004, 0, 0, 0, 0.537004, 0, 0, 0, 0.537004, 0, 0, 0)
-mesh = SubResource("SphereMesh_qmcsa")
-
-[node name="Key2" type="Area3D" parent="Enviroment" node_paths=PackedStringArray("door")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0.639394, 5.09382)
-collision_mask = 3
-script = ExtResource("7_wnl16")
-door = NodePath("../Door2")
-AssignedQuestID = 1
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Enviroment/Key2"]
-shape = SubResource("SphereShape3D_3hnb1")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Enviroment/Key2"]
-transform = Transform3D(0.537004, 0, 0, 0, 0.537004, 0, 0, 0, 0.537004, 0, 0, 0)
-mesh = SubResource("SphereMesh_qmcsa")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.136993, 1, 4.79688)

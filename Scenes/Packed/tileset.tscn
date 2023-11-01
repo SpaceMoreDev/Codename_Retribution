@@ -9,7 +9,6 @@ albedo_texture = ExtResource("1_g0i3w")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vwmxt"]
 resource_name = "Material.001"
-cull_mode = 2
 vertex_color_use_as_albedo = true
 albedo_texture = ExtResource("1_wcjnf")
 roughness = 0.5

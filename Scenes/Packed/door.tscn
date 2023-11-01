@@ -1,0 +1,36 @@
+[gd_scene load_steps=5 format=3 uid="uid://cb0fqai3ot6cx"]
+
+[ext_resource type="Script" path="res://Scripts/Door.gd" id="1_svr52"]
+[ext_resource type="Script" path="res://Scripts/DragDoor.gd" id="2_7c6g6"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_4fqd7"]
+size = Vector3(1, 2, 0.1)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_kb5gv"]
+points = PackedVector3Array(-0.5, -1, -0.05, -0.5, -1, 0.05, -0.5, 1, -0.05, 0.5, -1, -0.05, 0.5, -1, 0.05, -0.5, 1, 0.05, 0.5, 1, -0.05, 0.5, 1, 0.05)
+
+[node name="Door" type="Node3D"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 3.05219, 1.03459, 0)
+script = ExtResource("1_svr52")
+metadata/_edit_group_ = true
+
+[node name="PhysicsDoor" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0345901, 0)
+collision_layer = 8
+collision_mask = 11
+axis_lock_linear_x = true
+axis_lock_linear_y = true
+axis_lock_linear_z = true
+axis_lock_angular_x = true
+axis_lock_angular_z = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="PhysicsDoor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.506304, 0, 0)
+mesh = SubResource("BoxMesh_4fqd7")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PhysicsDoor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.506304, 0, 0)
+shape = SubResource("ConvexPolygonShape3D_kb5gv")
+
+[node name="OpenDoor" type="Node3D" parent="."]
+script = ExtResource("2_7c6g6")
