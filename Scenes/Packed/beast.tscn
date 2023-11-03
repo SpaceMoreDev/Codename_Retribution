@@ -1,0 +1,72 @@
+[gd_scene load_steps=9 format=3 uid="uid://bodjd04q3c2pm"]
+
+[ext_resource type="Script" path="res://Scripts/Beast/BeastController.gd" id="1_ru7bn"]
+[ext_resource type="Script" path="res://Scripts/Beast/Detection.gd" id="2_2061q"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_s6p0v"]
+albedo_color = Color(0.92549, 0.164706, 0, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_m5h5e"]
+material = SubResource("StandardMaterial3D_s6p0v")
+
+[sub_resource type="BoxMesh" id="BoxMesh_xby36"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_wdh8a"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_i4vb2"]
+height = 0.309766
+radius = 10.6658
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_lvdtx"]
+height = 0.31
+radius = 3.0
+
+[node name="Beast" type="CharacterBody3D" node_paths=PackedStringArray("faceDir")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+collision_layer = 2
+collision_mask = 11
+axis_lock_angular_x = true
+axis_lock_angular_z = true
+motion_mode = 1
+wall_min_slide_angle = 0.0
+script = ExtResource("1_ru7bn")
+faceDir = NodePath("FaceDirection")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0, 0)
+mesh = SubResource("CapsuleMesh_m5h5e")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MeshInstance3D"]
+transform = Transform3D(0.586937, 0, 0, 0, 0.586937, 0, 0, 0, 0.586937, 0, 0.352212, -0.277925)
+mesh = SubResource("BoxMesh_xby36")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0, 0)
+shape = SubResource("CapsuleShape3D_wdh8a")
+
+[node name="FaceDirection" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+avoidance_enabled = true
+height = 2.0
+debug_enabled = true
+debug_use_custom = true
+
+[node name="Detection" type="Node3D" parent="."]
+script = ExtResource("2_2061q")
+
+[node name="Far" type="Area3D" parent="Detection"]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Detection/Far"]
+shape = SubResource("CylinderShape3D_i4vb2")
+
+[node name="Near" type="Area3D" parent="Detection"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.63108, 0)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Detection/Near"]
+shape = SubResource("CylinderShape3D_lvdtx")

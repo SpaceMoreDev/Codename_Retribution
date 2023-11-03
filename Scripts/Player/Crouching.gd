@@ -29,8 +29,9 @@ func _ready():
 @warning_ignore("unused_parameter")
 func _process(delta):	
 	if(Input.is_action_just_pressed("CROUCH")):
-		standingCollider.disabled = true
 		crouchingCollider.disabled = false
+		standingCollider.disabled = true
+		
 		player.Speed = CROUCHING_SPEED
 		active = true
 		notpressing = true
