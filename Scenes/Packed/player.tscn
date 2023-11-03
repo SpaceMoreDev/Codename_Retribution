@@ -135,20 +135,21 @@ texture_progress = ExtResource("2_kkkfp")
 tint_under = Color(0, 0, 0, 1)
 tint_progress = Color(0, 0.431373, 0.921569, 1)
 
-[node name="Tasks" type="Label" parent="Player_UI"]
+[node name="Tasks" type="RichTextLabel" parent="Player_UI"]
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -226.0
+offset_left = -211.0
 offset_top = 9.0
-offset_right = -7.0
-offset_bottom = 61.0
+offset_right = 8.0
+offset_bottom = 101.0
 grow_horizontal = 0
+bbcode_enabled = true
 text = "Human!
 asasda
 asdad
 asd"
-horizontal_alignment = 2
+fit_content = true
 
 [node name="TextureRect" type="TextureRect" parent="Player_UI"]
 visible = false

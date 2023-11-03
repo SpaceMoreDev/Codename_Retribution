@@ -1,16 +1,15 @@
-extends Node3D
+extends Area3D
 
-@export var fireParticles : Fire
-@export var ignitionArea : Area3D
-
-var active : bool = false
-
+var active = false
 func _ready():
-	ignitionArea.connect("body_entered", Body_Entered)
+	connect("area_entered", Body_Entered)
 
-func Body_Entered(body:Node3D):
-	print(body)
-	if not active and not fireParticles.isactive:
-		fireParticles.Fire_State(true)
-		await get_tree().create_timer(5).timeout
-		queue_free()
+@warning_ignore("unused_parameter")
+func Body_Entered(body:Area3D):
+	if not active:
+		active = true
+		var newFire =  Global.firePrefab.instantiate()
+		add_child(newFire)
+		newFire.position.y += 0.2
+		await get_tree().create_timer(20).timeout
+		get_parent().queue_free()

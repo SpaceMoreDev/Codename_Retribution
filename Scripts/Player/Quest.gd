@@ -2,7 +2,7 @@ extends Node
 class_name QuestList
 
 class Quest:
-	signal QuestEnded(obj, id)
+	signal QuestEnded(Quest)
 	var id : int
 	var title : String
 	var complete : bool = false
@@ -12,20 +12,25 @@ class Quest:
 		complete = false
 
 
-@export var questLabel : Label
+@export var questLabel : RichTextLabel
+@export var timeToFade : float = 1.5
 
 var questList = []
-
-func _ready():
-	Global.questList = self
 
 func CompleteQuest( id : int):
 	for i in questList:
 		if i.id == id:
-			i.emit_signal("QuestEnded")
+			var tempList = questList
+			i.emit_signal("QuestEnded", i)
+			DisplayList(tempList)
+			await get_tree().create_timer(timeToFade).timeout
 			questList.erase(i)
-			RefreshListUI()
-			return
+			break
+	RefreshListUI()
+
+func strikeEffect(quest: Quest):
+	quest.complete = true
+	
 
 
 func GetQuest( id : int) -> Quest:
@@ -38,16 +43,24 @@ func GetQuest( id : int) -> Quest:
 
 func AddQuest( id : int, title : String) -> Quest:
 	var quest = Quest.new(id,title)
+	quest.connect("QuestEnded", strikeEffect)
 	questList.append(quest)
 	RefreshListUI()
 	return quest
 
+func DisplayList(list : Array):
+	questLabel.text = ""
+	list.sort_custom(sortbyID)
+	for i in questList:
+		if i.complete:
+			questLabel.text += "[shake rate=10.0 level=2 connected=1][color=#ffffff88]\n"+i.title+"[/color][/shake]"
+		else:
+			questLabel.text += "[b][shake rate=20.0 level=5 connected=1]\n"+i.title+"[/shake][/b]"
+		
+
 func RefreshListUI():
 	questLabel.text = ""
-	questList.sort()
-	questList.sort_custom(sortbyID)
-	for i in questList:
-		questLabel.text += "\n"+i.title
+	DisplayList(questList)
 
 
 func sortbyID(a:Quest,b:Quest):

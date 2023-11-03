@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://cb0fqai3ot6cx"]
 
 [ext_resource type="Script" path="res://Scripts/Door.gd" id="1_svr52"]
-[ext_resource type="Script" path="res://Scripts/DragDoor.gd" id="2_7c6g6"]
+[ext_resource type="PackedScene" uid="uid://cq832m6i175lb" path="res://Scenes/Packed/Components/open_door.tscn" id="2_tm82j"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_4fqd7"]
 size = Vector3(1, 2, 0.1)
@@ -32,5 +32,4 @@ mesh = SubResource("BoxMesh_4fqd7")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.506304, 0, 0)
 shape = SubResource("ConvexPolygonShape3D_kb5gv")
 
-[node name="OpenDoor" type="Node3D" parent="."]
-script = ExtResource("2_7c6g6")
+[node name="OpenDoor" parent="." instance=ExtResource("2_tm82j")]

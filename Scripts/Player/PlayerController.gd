@@ -20,7 +20,7 @@ const WALK_SPEED = 2
 const SPRINT_SPEED = 3
 
 func _enter_tree():
-	Global.player = self as Node
+	add_to_group("Player")
 	Speed = WALK_SPEED
 
 
