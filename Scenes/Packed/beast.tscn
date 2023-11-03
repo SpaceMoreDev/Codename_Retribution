@@ -56,6 +56,15 @@ debug_use_custom = true
 [node name="Detection" type="Node3D" parent="."]
 script = ExtResource("2_2061q")
 
+[node name="Head" type="Node3D" parent="Detection"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.260669, -0.467208)
+
+[node name="RayCast3D" type="RayCast3D" parent="Detection/Head"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.907904, 0)
+target_position = Vector3(0, 0, -1)
+collision_mask = 16
+collide_with_areas = true
+
 [node name="Far" type="Area3D" parent="Detection"]
 collision_layer = 0
 collision_mask = 2
@@ -64,7 +73,6 @@ collision_mask = 2
 shape = SubResource("CylinderShape3D_i4vb2")
 
 [node name="Near" type="Area3D" parent="Detection"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.63108, 0)
 collision_layer = 0
 collision_mask = 2
 

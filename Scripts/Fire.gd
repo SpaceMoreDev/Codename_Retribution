@@ -8,6 +8,7 @@ var time = 10
 
 func _ready():
 	areaTrigger.connect("body_entered", OnTouchFire)
+	areaTrigger.add_to_group("Fire")
 
 func OnTouchFire(body:Node3D):
 	if not body.has_node("Fire"):
