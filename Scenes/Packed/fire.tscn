@@ -96,7 +96,7 @@ areaTrigger = NodePath("Area3D")
 [node name="NavigationObstacle3D" type="NavigationObstacle3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
 radius = 0.5
-use_3d_avoidance = true
+height = 2.0
 
 [node name="Area3D" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0124707, 0)

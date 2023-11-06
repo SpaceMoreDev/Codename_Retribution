@@ -11,13 +11,11 @@
 [ext_resource type="PackedScene" uid="uid://bodjd04q3c2pm" path="res://Scenes/Packed/beast.tscn" id="9_l24ay"]
 
 [sub_resource type="Environment" id="Environment_n8o2s"]
-fog_enabled = true
 fog_light_color = Color(0, 0, 0, 1)
 fog_light_energy = 0.02
 fog_density = 0.384
 
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_rjkhi"]
-dof_blur_far_enabled = true
 dof_blur_far_distance = 3.94
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_tqggq"]
