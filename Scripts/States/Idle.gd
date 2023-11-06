@@ -26,6 +26,7 @@ func randomize_wander():
 
 func Enter():
 	player = Global._get_player()
+	enemy.seeingPlayer = false
 	enemy.move_speed = enemy.MOVE_SPEED
 	
 

@@ -49,7 +49,7 @@ func _input(event):
 				if data.rotation.y < 0:
 					(get_parent() as Door).opened = true
 					if (get_parent() as Door).hasquest:
-						Global.questList.CompleteQuest((get_parent() as Door).questID)
+						Global.quests.CompleteQuest((get_parent() as Door).questID)
 						(get_parent() as Door).hasquest = false
 				else:
 					(get_parent() as Door).opened = false

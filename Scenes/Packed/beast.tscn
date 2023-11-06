@@ -4,6 +4,7 @@
 [ext_resource type="Script" path="res://Scripts/States/Chase.gd" id="3_4igwm"]
 [ext_resource type="Script" path="res://Scripts/Beast/State_Machine.gd" id="3_y8enf"]
 [ext_resource type="Script" path="res://Scripts/States/Idle.gd" id="4_pom2q"]
+[ext_resource type="Script" path="res://Scripts/States/Stuck.gd" id="5_ht0i1"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_s6p0v"]
 albedo_color = Color(0.92549, 0.164706, 0, 1)
@@ -15,13 +16,9 @@ material = SubResource("StandardMaterial3D_s6p0v")
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_wdh8a"]
 
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_i4vb2"]
-height = 0.309766
-radius = 10.6658
-
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_lvdtx"]
 height = 0.31
-radius = 3.0
+radius = 0.914359
 
 [node name="Beast" type="CharacterBody3D" node_paths=PackedStringArray("nav")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -37,8 +34,6 @@ nav = NodePath("NavigationAgent3D")
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 avoidance_enabled = true
 height = 2.0
-debug_enabled = true
-debug_use_custom = true
 
 [node name="FaceDirection" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
@@ -47,13 +42,19 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
 script = ExtResource("3_y8enf")
 initial_state = NodePath("Idle")
 
-[node name="Chase" type="Node" parent="StateMachine" node_paths=PackedStringArray("enemy")]
+[node name="Chase" type="Node" parent="StateMachine" node_paths=PackedStringArray("enemy", "ray", "area")]
 script = ExtResource("3_4igwm")
 enemy = NodePath("../..")
+ray = NodePath("../../Detection/RayCast3D")
+area = NodePath("../../Detection/Near")
 
 [node name="Idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("enemy")]
 script = ExtResource("4_pom2q")
 enemy = NodePath("../..")
+
+[node name="Stuck" type="Node" parent="StateMachine" node_paths=PackedStringArray("ray")]
+script = ExtResource("5_ht0i1")
+ray = NodePath("../../Detection/RayCast3D")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0, 0)
@@ -75,16 +76,9 @@ target_position = Vector3(0, 0, -1)
 collision_mask = 16
 collide_with_areas = true
 
-[node name="Far" type="Area3D" parent="Detection"]
-collision_layer = 0
-collision_mask = 2
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Detection/Far"]
-shape = SubResource("CylinderShape3D_i4vb2")
-
 [node name="Near" type="Area3D" parent="Detection"]
 collision_layer = 0
-collision_mask = 2
+collision_mask = 6
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Detection/Near"]
 shape = SubResource("CylinderShape3D_lvdtx")

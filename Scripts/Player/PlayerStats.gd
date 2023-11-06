@@ -14,10 +14,13 @@ signal stamina_updated(newStamina)
 signal form_changed(newForm)
 
 signal stamina_is_zero
+signal health_is_zero
 
 const REGEN_SPEED = 7
 const CONSUME_SPEED = 40
 const CONSUME_JUMP = 30
+
+const HEALTH_CRITICAL = 30
 
 var enableRegen : bool = true
 var CanConsume : bool = true
@@ -47,10 +50,17 @@ func _ready():
 	connect("health_updated", check_health)
 	connect("stamina_updated", check_stamina)
 	connect("stamina_is_zero", emptystamina)
+	connect("health_is_zero", emptyhealth)
 	player.connect("player_jumped", check_jump)
 
 func check_health(value):
-	print("Health changed to %s"%value)
+	# print("Health changed to %s"%value)
+	if(value == 0):
+		emit_signal("health_is_zero")
+	if value > HEALTH_CRITICAL :
+		HealthBarUI.self_modulate = Color.WHITE
+	else:
+		StaminaBarUI.self_modulate = Color.YELLOW
 
 
 func check_stamina(value):
@@ -66,10 +76,15 @@ func check_stamina(value):
 		
 
 func emptystamina():
-	print("waiting..")
+	print("breathing..")
 	enableRegen = false
 	await get_tree().create_timer(2).timeout
 	enableRegen = true
+
+
+func emptyhealth():
+	get_tree().reload_current_scene()
+
 
 @warning_ignore("unused_parameter")
 func check_jump(jumpHeight):

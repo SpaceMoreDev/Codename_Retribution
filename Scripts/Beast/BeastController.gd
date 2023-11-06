@@ -8,12 +8,15 @@ const MOVE_SPEED = 1
 @export var move_speed : float
 
 
+var player : Player
 var canMove = true
+var seeingPlayer = false
 
 func _enter_tree():
 	add_to_group("Beast")
 
 func _ready():
+	player = Global._get_player()
 	move_speed = MOVE_SPEED
 	nav.connect("velocity_computed", velocity_computed)
 
@@ -26,10 +29,15 @@ func _physics_process(delta):
 		var new_velocity = (next_location - currentLocation).normalized() * move_speed
 
 		nav.set_velocity(new_velocity)
-		
-		if velocity.length() > 0:
-			var lookdir = atan2(-velocity.x, -velocity.z)
+		if not seeingPlayer:
+			if velocity.length() > 0:
+				var lookdir = atan2(-velocity.x, -velocity.z)
+				rotation.y =  lerp_angle(rotation.y, lookdir, 0.25)
+		else:
+			var playerloc = player.global_position - global_position
+			var lookdir = atan2(-playerloc.x, -playerloc.z)
 			rotation.y =  lerp_angle(rotation.y, lookdir, 0.25)
+		
 	
 
 
