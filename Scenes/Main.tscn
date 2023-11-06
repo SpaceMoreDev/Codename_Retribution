@@ -118,7 +118,7 @@ door = NodePath("../Door")
 collision_mask = 11
 
 [node name="Beast" parent="Characters" instance=ExtResource("9_l24ay")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 1, 10)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.90602, 1, 4.68657)
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.136993, 1, 4.79688)

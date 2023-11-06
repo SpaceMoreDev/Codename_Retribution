@@ -1,7 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://bodjd04q3c2pm"]
+[gd_scene load_steps=12 format=3 uid="uid://bodjd04q3c2pm"]
 
 [ext_resource type="Script" path="res://Scripts/Beast/BeastController.gd" id="1_ru7bn"]
 [ext_resource type="Script" path="res://Scripts/Beast/Detection.gd" id="2_2061q"]
+[ext_resource type="Script" path="res://Scripts/States/Chase.gd" id="3_4igwm"]
+[ext_resource type="Script" path="res://Scripts/Beast/State_Machine.gd" id="3_y8enf"]
+[ext_resource type="Script" path="res://Scripts/States/Idle.gd" id="4_pom2q"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_s6p0v"]
 albedo_color = Color(0.92549, 0.164706, 0, 1)
@@ -27,10 +30,26 @@ collision_layer = 2
 collision_mask = 11
 axis_lock_angular_x = true
 axis_lock_angular_z = true
-motion_mode = 1
 wall_min_slide_angle = 0.0
 script = ExtResource("1_ru7bn")
 faceDir = NodePath("FaceDirection")
+
+[node name="FaceDirection" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
+
+[node name="StateMachine" type="Node3D" parent="." node_paths=PackedStringArray("initial_state")]
+script = ExtResource("3_y8enf")
+initial_state = NodePath("Chase")
+
+[node name="Chase" type="Node" parent="StateMachine" node_paths=PackedStringArray("enemy")]
+script = ExtResource("3_4igwm")
+enemy = NodePath("../..")
+move_speed = 2.0
+
+[node name="Idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("enemy")]
+script = ExtResource("4_pom2q")
+enemy = NodePath("../..")
+speed = 1.0
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0, 0)
@@ -44,16 +63,8 @@ mesh = SubResource("BoxMesh_xby36")
 transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0, 0)
 shape = SubResource("CapsuleShape3D_wdh8a")
 
-[node name="FaceDirection" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
-
-[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
-avoidance_enabled = true
-height = 2.0
-debug_enabled = true
-debug_use_custom = true
-
 [node name="Detection" type="Node3D" parent="."]
+process_mode = 4
 script = ExtResource("2_2061q")
 
 [node name="Head" type="Node3D" parent="Detection"]
@@ -78,3 +89,10 @@ collision_mask = 2
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Detection/Near"]
 shape = SubResource("CylinderShape3D_lvdtx")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="Detection"]
+avoidance_enabled = true
+height = 2.0
+use_3d_avoidance = true
+debug_enabled = true
+debug_use_custom = true
