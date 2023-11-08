@@ -2,18 +2,21 @@ extends CharacterBody3D
 class_name Beast
 
 
+var move_speed : float
 const MOVE_SPEED = 1
 
 @export var nav : NavigationAgent3D
-@export var move_speed : float
+@export var rotation_speed : float = 0.25
+@export var detection : Detection
 
-
+var stateMachine : StateMachine
 var player : Player
 var canMove = true
 var seeingPlayer = false
 
 func _enter_tree():
 	add_to_group("Beast")
+	stateMachine = $StateMachine
 
 func _ready():
 	player = Global._get_player()
@@ -32,7 +35,7 @@ func _physics_process(delta):
 		if not seeingPlayer:
 			if velocity.length() > 0:
 				var lookdir = atan2(-velocity.x, -velocity.z)
-				rotation.y =  lerp_angle(rotation.y, lookdir, 0.25)
+				rotation.y =  lerp_angle(rotation.y, lookdir, rotation_speed * delta)
 		else:
 			var playerloc = player.global_position - global_position
 			var lookdir = atan2(-playerloc.x, -playerloc.z)

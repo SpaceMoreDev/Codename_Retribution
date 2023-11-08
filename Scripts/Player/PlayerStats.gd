@@ -17,7 +17,7 @@ signal stamina_is_zero
 signal health_is_zero
 
 const REGEN_SPEED = 7
-const CONSUME_SPEED = 40
+const CONSUME_SPEED = 20
 const CONSUME_JUMP = 30
 
 const HEALTH_CRITICAL = 30
@@ -67,6 +67,7 @@ func check_stamina(value):
 	# print("Stamina changed to %s"%value)
 	if(value == 0):
 		get_parent().Speed = Player.WALK_SPEED
+		get_parent().noise.volume = 0
 		CanConsume = false
 		emit_signal("stamina_is_zero")
 	if(value > CONSUME_JUMP):

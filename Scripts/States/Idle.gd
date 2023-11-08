@@ -9,7 +9,6 @@ var player : CharacterBody3D
 var move_dir : Vector3
 var wander_time : float
 
-
 func randomize_wander():
 
 
@@ -42,10 +41,10 @@ func Physics_Update(delta : float):
 	
 	var player_direction = player.global_position - enemy.global_position
 
-	if player_direction.length() < 5:
+	if player_direction.length() < 1:
+		enemy.nav.target_position = player.global_transform.origin
 		Transitioned.emit(self, "Chase")
 		print("transitioned to Chase")
-
 
 # func navigation_finished():
 # 	if (get_parent() as StateMachine).current_state == self:

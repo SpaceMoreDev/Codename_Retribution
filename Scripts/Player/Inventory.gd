@@ -43,6 +43,9 @@ func Use(key):
 			obj.global_rotation = hand.global_rotation
 			obj.Use(throw_force)
 		elif (itemkey == "Health"):
+			if Global._get_player().stats.Health == 100:
+				print("health is full")
+				return
 			obj = Global.healthPotionPrefab.instantiate()
 			add_child(obj)
 			obj.Use(10)
@@ -83,14 +86,15 @@ func showDic():
 
 @warning_ignore("unused_parameter")
 func _process(delta):
-	if Input.is_action_just_pressed("AIM"):
-		Use(itemIndex)
+	if(not Input.is_action_pressed("INTERACT")):
+		if Input.is_action_just_pressed("AIM"):
+			Use(itemIndex)
 
-	if Input.is_action_just_released("SCROLL_UP"):
-		if itemIndex > 0:
-			itemIndex -= 1
-			showDic()
-	elif Input.is_action_just_released("SCROLL_DOWN"):
-		if itemIndex < inventory.size()-1:
-			itemIndex += 1
-			showDic()
+		if Input.is_action_just_released("SCROLL_UP"):
+			if itemIndex > 0:
+				itemIndex -= 1
+				showDic()
+		elif Input.is_action_just_released("SCROLL_DOWN"):
+			if itemIndex < inventory.size()-1:
+				itemIndex += 1
+				showDic()

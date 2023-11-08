@@ -20,6 +20,7 @@ func Use(throw_power : float):
 	tobreak = true
 	rigidBody.contact_monitor = true
 	rigidBody.max_contacts_reported = 1
+	
 	rigidBody.set_collision_mask_value(2, false)
 	rigidBody.set_collision_layer_value(3, false)
 
@@ -27,6 +28,8 @@ func Use(throw_power : float):
 @warning_ignore("unused_parameter")
 func touched(body):
 	if tobreak:
+		$"NoiseControl".volume = 100
+		$"NoiseControl".volume = 0
 		print("touched")
 		var spot : Node3D = Global.gasPrefab.instantiate()
 		gasNodes.add_child(spot)
@@ -40,5 +43,5 @@ func Get_type():
 @warning_ignore("unused_parameter")
 func _physics_process(delta):
 	if tobreak:
-		rigidBody.apply_impulse(player.basis * player.camera.basis * Vector3(0, 0, -1) * force * delta)
-		rigidBody.apply_torque(player.basis * player.camera.basis * Vector3(1, 0, 0) * 1000 * delta )
+		rigidBody.apply_central_impulse(player.basis * player.camera.basis * Vector3(0, 0, -1) * force * delta)
+		rigidBody.apply_torque(player.basis * player.camera.basis * Vector3(-1, 0, 0) * force * 5 * delta )

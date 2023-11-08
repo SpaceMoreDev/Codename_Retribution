@@ -1,10 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://bodjd04q3c2pm"]
+[gd_scene load_steps=13 format=3 uid="uid://bodjd04q3c2pm"]
 
 [ext_resource type="Script" path="res://Scripts/Beast/BeastController.gd" id="1_ru7bn"]
 [ext_resource type="Script" path="res://Scripts/States/Chase.gd" id="3_4igwm"]
 [ext_resource type="Script" path="res://Scripts/Beast/State_Machine.gd" id="3_y8enf"]
 [ext_resource type="Script" path="res://Scripts/States/Idle.gd" id="4_pom2q"]
 [ext_resource type="Script" path="res://Scripts/States/Stuck.gd" id="5_ht0i1"]
+[ext_resource type="Script" path="res://Scripts/Beast/Detection.gd" id="6_tgxsq"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_s6p0v"]
 albedo_color = Color(0.92549, 0.164706, 0, 1)
@@ -18,9 +19,12 @@ material = SubResource("StandardMaterial3D_s6p0v")
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_lvdtx"]
 height = 0.31
-radius = 0.914359
+radius = 1.6704
 
-[node name="Beast" type="CharacterBody3D" node_paths=PackedStringArray("nav")]
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_06e3m"]
+radius = 18.0
+
+[node name="Beast" type="CharacterBody3D" node_paths=PackedStringArray("nav", "detection")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 collision_layer = 2
 collision_mask = 11
@@ -30,10 +34,13 @@ motion_mode = 1
 wall_min_slide_angle = 0.0
 script = ExtResource("1_ru7bn")
 nav = NodePath("NavigationAgent3D")
+rotation_speed = 1.0
+detection = NodePath("Detection")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 avoidance_enabled = true
 height = 2.0
+debug_enabled = true
 
 [node name="FaceDirection" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
@@ -42,10 +49,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
 script = ExtResource("3_y8enf")
 initial_state = NodePath("Idle")
 
-[node name="Chase" type="Node" parent="StateMachine" node_paths=PackedStringArray("enemy", "ray", "area")]
+[node name="Chase" type="Node" parent="StateMachine" node_paths=PackedStringArray("enemy", "stuckRay", "area")]
 script = ExtResource("3_4igwm")
 enemy = NodePath("../..")
-ray = NodePath("../../Detection/RayCast3D")
+stuckRay = NodePath("../../Detection/stuckRay")
 area = NodePath("../../Detection/Near")
 
 [node name="Idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("enemy")]
@@ -54,7 +61,7 @@ enemy = NodePath("../..")
 
 [node name="Stuck" type="Node" parent="StateMachine" node_paths=PackedStringArray("ray")]
 script = ExtResource("5_ht0i1")
-ray = NodePath("../../Detection/RayCast3D")
+ray = NodePath("../../Detection/stuckRay")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0, 0)
@@ -68,13 +75,73 @@ mesh = SubResource("BoxMesh_xby36")
 transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0, 0)
 shape = SubResource("CapsuleShape3D_wdh8a")
 
-[node name="Detection" type="Node3D" parent="."]
+[node name="Detection" type="Node3D" parent="." node_paths=PackedStringArray("areaFar")]
+script = ExtResource("6_tgxsq")
+areaFar = NodePath("Far")
 
-[node name="RayCast3D" type="RayCast3D" parent="Detection"]
+[node name="stuckRay" type="RayCast3D" parent="Detection"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.647235, -0.467208)
-target_position = Vector3(0, 0, -1)
+target_position = Vector3(0, 0, -2)
 collision_mask = 16
 collide_with_areas = true
+debug_shape_custom_color = Color(0.784314, 0.435294, 0.333333, 1)
+
+[node name="Head" type="Node3D" parent="Detection"]
+
+[node name="0" type="RayCast3D" parent="Detection/Head"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.352765, -0.467208)
+target_position = Vector3(0, 0, -10)
+collision_mask = 15
+
+[node name="1" type="RayCast3D" parent="Detection/Head"]
+transform = Transform3D(0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, 0.965926, 0, 0.352765, -0.467208)
+target_position = Vector3(0, 0, -10)
+collision_mask = 15
+
+[node name="2" type="RayCast3D" parent="Detection/Head"]
+transform = Transform3D(0.965926, 0, 0.258819, 0, 1, 0, -0.258819, 0, 0.965926, 0, 0.352765, -0.467208)
+target_position = Vector3(0, 0, -10)
+collision_mask = 15
+
+[node name="3" type="RayCast3D" parent="Detection/Head"]
+transform = Transform3D(1, 0, 0, 0, 0.965926, -0.258819, 0, 0.258819, 0.965926, 0, 0.352765, -0.467208)
+target_position = Vector3(0, 0, -10)
+collision_mask = 15
+
+[node name="4" type="RayCast3D" parent="Detection/Head"]
+transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, 0, 0.352765, -0.467208)
+target_position = Vector3(0, 0, -10)
+collision_mask = 15
+
+[node name="5" type="RayCast3D" parent="Detection/Head"]
+transform = Transform3D(1, 0, 0, 0, 0.766044, 0.642788, 0, -0.642788, 0.766044, 0, 0.352765, -0.467208)
+target_position = Vector3(0, 0, -10)
+collision_mask = 15
+
+[node name="6" type="RayCast3D" parent="Detection/Head"]
+transform = Transform3D(1, 0, 0, 0, 0.766044, -0.642788, 0, 0.642788, 0.766044, 0, 0.352765, -0.467208)
+target_position = Vector3(0, 0, -10)
+collision_mask = 15
+
+[node name="7" type="RayCast3D" parent="Detection/Head"]
+transform = Transform3D(0.766044, 0, -0.642788, 0, 1, 0, 0.642788, 0, 0.766044, 0, 0.352765, -0.467208)
+target_position = Vector3(0, 0, -10)
+collision_mask = 15
+
+[node name="8" type="RayCast3D" parent="Detection/Head"]
+transform = Transform3D(0.766044, 0, 0.642788, 0, 1, 0, -0.642788, 0, 0.766044, 0, 0.352765, -0.467208)
+target_position = Vector3(0, 0, -10)
+collision_mask = 15
+
+[node name="9" type="RayCast3D" parent="Detection/Head"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0.352765, -0.467208)
+target_position = Vector3(0, 0, -10)
+collision_mask = 15
+
+[node name="10" type="RayCast3D" parent="Detection/Head"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0.352765, -0.467208)
+target_position = Vector3(0, 0, -10)
+collision_mask = 15
 
 [node name="Near" type="Area3D" parent="Detection"]
 collision_layer = 0
@@ -82,3 +149,10 @@ collision_mask = 6
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Detection/Near"]
 shape = SubResource("CylinderShape3D_lvdtx")
+
+[node name="Far" type="Area3D" parent="Detection"]
+collision_layer = 0
+collision_mask = 6
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Detection/Far"]
+shape = SubResource("CylinderShape3D_06e3m")

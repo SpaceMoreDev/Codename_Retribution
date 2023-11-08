@@ -39,6 +39,7 @@ func _process(delta):
 		headBob._amplitude = move_toward(headBob._amplitude,  CROUCHING_AMP, delta * acceleration)
 	elif Input.is_action_pressed("CROUCH"):
 		camera.position.y = move_toward(camera.position.y, crouchingHeight, delta * acceleration*2)
+		player.noise.volume = 0
 	elif(Input.is_action_just_released("CROUCH")):
 		if is_top_empty():
 			standingCollider.disabled = false

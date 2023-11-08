@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://qc046bctp57n"]
+[gd_scene load_steps=15 format=3 uid="uid://qc046bctp57n"]
 
 [ext_resource type="Script" path="res://Scripts/Player/PlayerController.gd" id="1_ej1b3"]
 [ext_resource type="Script" path="res://Scripts/Player/PlayerStats.gd" id="1_sce2v"]
@@ -10,6 +10,7 @@
 [ext_resource type="Script" path="res://Scripts/Player/Leaning.gd" id="4_yepiv"]
 [ext_resource type="Script" path="res://Scripts/Player/HeadBobbing.gd" id="6_jkene"]
 [ext_resource type="Texture2D" uid="uid://bnsleh5fba0gk" path="res://Assets/Elements/handIcon.png" id="7_u7sp3"]
+[ext_resource type="Script" path="res://Scripts/Player/Noise.gd" id="9_2ju3r"]
 [ext_resource type="Script" path="res://Scripts/Player/Inventory.gd" id="9_t6asi"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_tn7cq"]
@@ -73,7 +74,7 @@ linear_limit_z/enabled = false
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.97121)
 
 [node name="Hand" type="Node3D" parent="Head/Camera3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.210558, 0, -0.399678)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.18)
 
 [node name="Crouch" type="Node3D" parent="." node_paths=PackedStringArray("raycheck", "camera", "headBob", "standingCollider", "crouchingCollider")]
 script = ExtResource("4_8cvhv")
@@ -112,11 +113,15 @@ script = ExtResource("6_jkene")
 head = NodePath("../Head")
 crouching = NodePath("../Crouch")
 
+[node name="NoiseControl" type="Node" parent="." node_paths=PackedStringArray("source")]
+script = ExtResource("9_2ju3r")
+source = NodePath("..")
+
 [node name="Inventory" type="Node" parent="." node_paths=PackedStringArray("textLabel", "hand")]
 script = ExtResource("9_t6asi")
 textLabel = NodePath("../Player_UI/Inventory")
 hand = NodePath("../Head/Camera3D/Hand")
-throw_force = 50.0
+throw_force = 35.0
 
 [node name="Player_UI" type="CanvasLayer" parent="."]
 

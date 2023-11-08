@@ -1,35 +1,49 @@
 extends Node
-# class_name Detection
+class_name Detection
 
-# @onready var player = Global._get_player()
-# @onready var farArea : Area3D= $Far
-# @onready var nearArea : Area3D = $Near
-# @onready var raycast : RayCast3D = $"Head/RayCast3D"
-# var beast : Beast
+var rays : Array[RayCast3D]
+@export var areaFar : Area3D
+var timer = 1
+var beast : Beast
+var player : Player
 
-# func _ready():
-# 	beast = get_parent() as Beast
-# 	farArea.connect("body_entered", RangeFar)
-# 	farArea.connect("body_exited", OutOfRangeFar)
-# 	nearArea.connect("body_entered", RangeNear)
+var player_is_around : bool = false
 
-# func RangeFar(body):
-# 	if body is Player:
-# 		print("player is far")
-# 		beast.Set_Target_Location(player.global_transform.origin)
-		
 
-# func OutOfRangeFar(body):
-# 	if body is Player:
-# 		print("player is no longer in range")
-# 		beast.active = false
+func _ready():
+	beast = Global._get_beast()
+	player = Global._get_player()
+	areaFar.connect("body_entered", body_entered_far)
+	areaFar.connect("body_exited", body_exited_far)
 
-# func RangeNear(body):
-# 	if body is Player:
-# 		print("player is near")
-# 		beast.active = true
-		
-# func CheckFire() -> bool:
-# 	if raycast.is_colliding():
-# 		return true
-# 	return false
+	for child in $Head.get_children():
+		if child is RayCast3D:
+			rays.append(child)
+
+func _physics_process(delta):
+	checkRays()
+
+
+func checkRays() -> bool:
+	for ray in rays:
+		if ray.is_colliding():
+			var col = ray.get_collider()
+			if col is Player:
+				beast.nav.target_position = col.global_transform.origin
+				beast.stateMachine.current_state.Transitioned.emit(beast.stateMachine.current_state, "Chase")
+				return true
+	return false
+
+func LoudSoundEmitted(obj):
+	if player_is_around:
+		print("it heard %s.."%obj)
+		beast.nav.target_position = obj.global_transform.origin
+		beast.stateMachine.current_state.Transitioned.emit(beast.stateMachine.current_state, "Chase")
+
+func body_entered_far(body):
+	if body is Player:
+		player_is_around = true
+
+func body_exited_far(body):
+	if body is Player:
+		player_is_around = false

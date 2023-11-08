@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://dqcg0cgj45q4s"]
+[gd_scene load_steps=6 format=3 uid="uid://dqcg0cgj45q4s"]
 
 [ext_resource type="Script" path="res://Scripts/Player/PickUp.gd" id="1_oxe7c"]
+[ext_resource type="Script" path="res://Scripts/Player/Noise.gd" id="2_uyhg6"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fmb23"]
 
@@ -24,6 +25,11 @@ mesh = SubResource("BoxMesh_sc8k1")
 transform = Transform3D(0.568105, 0, 0, 0, 0.568105, 0, 0, 0, 0.568105, 0, 0, 0)
 shape = SubResource("BoxShape3D_nup2j")
 
-[node name="PickUp" type="Node3D" parent="."]
+[node name="PickUp" type="Node3D" parent="." node_paths=PackedStringArray("rb")]
 script = ExtResource("1_oxe7c")
 rotation_power = 0.5
+rb = NodePath("../Physics")
+
+[node name="NoiseControl" type="Node" parent="." node_paths=PackedStringArray("source")]
+script = ExtResource("2_uyhg6")
+source = NodePath("../Physics")

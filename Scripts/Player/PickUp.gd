@@ -7,12 +7,14 @@ var staticbody : StaticBody3D
 
 @export var pull_power = 10
 @export var rotation_power = 0.05
+@export var rb : RigidBody3D
 
 var active : bool = false
 var picked_object : Node3D
 
 var action : PlayerAction
 
+var noiseStarted = false
 func _ready():
 	var player : Node = Global._get_player()
 	camera = player.get_node("Head/Camera3D")
@@ -34,10 +36,14 @@ func _physics_process(delta):
 			picked_object.set_linear_velocity((b-a) * pull_power)
 			
 func _input(event):
+	if noiseStarted:
+		$"../NoiseControl".volume = 100
+
 	if(picked_object != null):
 		if(Input.is_action_just_pressed("AIM")):
 			var knockback = picked_object.global_transform.origin - Global._get_player().global_transform.origin
 			picked_object.apply_central_impulse(knockback * 5)
+			noiseStarted = true
 			remove_object()
 			return
 
@@ -52,7 +58,13 @@ func remove_object():
 		picked_object = null
 		joint.node_b = joint.get_path()
 		active = false
+		
 		cameraSc.locked = false
+		if noiseStarted:
+			await get_tree().create_timer(2).timeout
+			$"../NoiseControl".volume = 0
+			noiseStarted = false
+		
 
 func rotate_object(event):
 	if(picked_object != null):

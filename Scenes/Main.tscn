@@ -101,7 +101,7 @@ environment = SubResource("Environment_n8o2s")
 camera_attributes = SubResource("CameraAttributesPractical_rjkhi")
 
 [node name="Object" parent="Enviroment" instance=ExtResource("4_h5bkt")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.643774, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0.643774, -2.67569)
 
 [node name="Door" parent="Enviroment" instance=ExtResource("2_yba7r")]
 
@@ -135,6 +135,7 @@ door = NodePath("../Door")
 [node name="Bottles" type="Node3D" parent="Enviroment"]
 
 [node name="Molotov" parent="Enviroment/Bottles" instance=ExtResource("8_tplqc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.85637, 0.194508, -3.01285)
 
 [node name="Molotov2" parent="Enviroment/Bottles" instance=ExtResource("8_tplqc")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.88454, 0.142157, -3.37521)

@@ -6,6 +6,11 @@ class_name Fire
 var player : Player 
 var time = 10
 var playerin = false
+
+var canDie = false
+var timeToDie = 5
+
+
 var damageTimer : float
 
 func _ready():
@@ -13,6 +18,10 @@ func _ready():
 	areaTrigger.connect("body_entered", OnTouchFire)
 	areaTrigger.connect("body_exited", body_exited)
 	areaTrigger.add_to_group("Fire")
+
+	if canDie:
+		await get_tree().create_timer(timeToDie).timeout
+		queue_free()
 
 func OnTouchFire(body:Node3D):
 	if body is Player:

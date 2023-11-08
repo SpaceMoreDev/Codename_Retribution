@@ -21,7 +21,7 @@ func _unhandled_input(event):
 		if(event is InputEventMouseMotion):
 			_player_head.rotate_y(-event.relative.x * _sensitivity)
 			_player_camera.rotate_x(-event.relative.y * _sensitivity)
-			_player_camera.rotation.x = clamp(_player_camera.rotation.x, deg_to_rad(-40), deg_to_rad(60))
+			_player_camera.rotation.x = clamp(_player_camera.rotation.x, deg_to_rad(-60), deg_to_rad(60))
 	
 
 func _physics_process(delta):
