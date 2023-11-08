@@ -1,8 +1,6 @@
 extends CharacterBody3D
 class_name Player
 
-# Player stats like health, stamina and form
-@export var Stats : PlayerStats
 
 signal player_jumped(height)
 
@@ -16,17 +14,28 @@ var _gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 var running : bool = true
 var inertia : float = 20
 
+#components
+var playerAction : PlayerAction
+var camera : Camera3D
+var stats : PlayerStats
+var inventory : Inventory
+
+#constants
 const WALK_SPEED = 2
 const SPRINT_SPEED = 3
 
 func _enter_tree():
 	add_to_group("Player")
+	playerAction = $"Head/Camera3D/Action" as PlayerAction 
+	camera = $"Head/Camera3D" as Camera3D 
+	stats = $"Stats"
+	inventory = $Inventory
 	Speed = WALK_SPEED
 
 
 func Jump():
 	if(canJump and Input.is_action_just_pressed("JUMP")):
-		if(is_on_floor() and Stats.Stamina > Stats.CONSUME_JUMP):
+		if(is_on_floor() and stats.Stamina > stats.CONSUME_JUMP):
 			emit_signal("player_jumped", Jump_Speed)
 			velocity.y = Jump_Speed
 
@@ -52,7 +61,7 @@ func _process(delta):
 	_input = Input.get_vector("LEFT","RIGHT","UP","DOWN")
 
 	if(Input.is_action_just_pressed("RUN")):
-		Stats.CanConsume = true
+		stats.CanConsume = true
 		Speed = SPRINT_SPEED
 	elif(Input.is_action_just_released("RUN")):
 		Speed = WALK_SPEED

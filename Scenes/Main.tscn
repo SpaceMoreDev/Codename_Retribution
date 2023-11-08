@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://bp755b7h6vn0g"]
+[gd_scene load_steps=23 format=3 uid="uid://bp755b7h6vn0g"]
 
 [ext_resource type="PackedScene" uid="uid://qc046bctp57n" path="res://Scenes/Packed/player.tscn" id="1_h4rhp"]
 [ext_resource type="PackedScene" uid="uid://h73t4kyno44l" path="res://Scenes/Packed/fire.tscn" id="1_ovd6b"]
@@ -8,7 +8,11 @@
 [ext_resource type="PackedScene" uid="uid://dqcg0cgj45q4s" path="res://Scenes/Packed/object.tscn" id="4_h5bkt"]
 [ext_resource type="PackedScene" uid="uid://pqrnh6ofvdom" path="res://Scenes/Packed/gasoline.tscn" id="5_ra0pc"]
 [ext_resource type="PackedScene" uid="uid://c8ig5qvw7vdlx" path="res://Scenes/Packed/key.tscn" id="6_n8l80"]
+[ext_resource type="PackedScene" uid="uid://dlbihv1ffxrey" path="res://Scenes/Packed/oil_bottle.tscn" id="8_8c8gj"]
+[ext_resource type="Script" path="res://Scripts/TakeToInventory.gd" id="8_jimuq"]
+[ext_resource type="PackedScene" uid="uid://biaotmi0ew401" path="res://Scenes/Packed/molotov.tscn" id="8_tplqc"]
 [ext_resource type="PackedScene" uid="uid://bodjd04q3c2pm" path="res://Scenes/Packed/beast.tscn" id="9_l24ay"]
+[ext_resource type="Script" path="res://Scripts/HealthPotion.gd" id="10_glfyl"]
 
 [sub_resource type="Environment" id="Environment_n8o2s"]
 fog_light_color = Color(0, 0, 0, 1)
@@ -22,6 +26,24 @@ dof_blur_far_distance = 3.94
 vertices = PackedVector3Array(-5, 0.5, 3.75, -5, 0.5, 4.25, -3.25, 0.5, 4.5, -3.25, 0.5, 3.5, -3.25, 0.5, 3.5, -3.25, 0.5, 4.5, -0.75, 0.5, 7.5, 2.25, 0.5, 7.25, 2.25, 0.5, 0.5, -3.25, 0.5, 7.25, -1.25, 0.5, 7.5, -0.75, 0.5, 7.5, -3.25, 0.5, 4.5, 2.25, 0.5, 0.5, 4.25, 0.5, 0.25, 4.25, 0.5, -1.25, 2.25, 0.5, -1.5, 2.25, 0.5, 0.5, 2.25, 0.5, -1.5, -3.25, 0.5, -4.25, -3.25, 0.5, 3.5, 2.25, 0.5, -1.5, 2.25, 0.5, -4.25, -3.25, 0.5, -4.25, -11.5, 0.5, 11.25, -10.5, 0.5, 11.25, -10.5, 0.5, 9.75, -13.75, 0.5, 9.5, -6.75, 0.5, 4.5, -5, 0.5, 4.25, -5, 0.5, 3.75, -6.75, 0.5, 3.5, -11.5, 0.5, 3.25, -9.5, 0.5, 1.75, -15.25, 0.5, 1.75, -13.75, 0.5, 3.5, -9.5, 0.5, 6.25, -9.25, 0.5, 6.75, -6.75, 0.5, 6.75, -6.75, 0.5, 4.5, -11.75, 0.5, 12.25, -11.5, 0.5, 11.25, -13.75, 0.5, 9.5, -15.25, 0.5, 12.25, -6.75, 0.5, 0.75, -9.25, 0.5, 0.75, -9.5, 0.5, 1.75, -6.75, 0.5, 3.5, -11.5, 0.5, 3.25, -11.25, 0.5, 6.25, -9.5, 0.5, 6.25, -6.75, 0.5, 4.5, -6.75, 0.5, 3.5, -9.5, 0.5, 1.75, -13.75, 0.5, 9.5, -13.75, 0.5, 3.5, -15.25, 0.5, 1.75, -15.25, 0.5, 12.25, 11.5, 0.5, 5.25, 11.75, 0.5, 6.25, 12.25, 0.5, 6.25, 12.25, 0.5, 1.75, 7.75, 0.5, 1.75, 7.75, 0.5, 5.25, 11.5, 0.5, 5.25, 12.25, 0.5, 1.75, -9.25, 0.5, 9.5, -10.5, 0.5, 9.75, -10.5, 0.5, 11.25, -8.25, 0.5, 11.5, -0.75, 0.5, 15.5, -1.25, 0.5, 15.5, -1.5, 0.5, 16.25, 5.5, 0.5, 16.25, 5.5, 0.5, 15.75, -6.75, 0.5, 6.75, -9.25, 0.5, 6.75, -9.25, 0.5, 9.5, -8.25, 0.5, 11.5, -6.5, 0.5, 15.75, -8.25, 0.5, 16.25, -1.5, 0.5, 16.25, -1.25, 0.5, 15.5, -6.5, 0.5, 15.75, -6.75, 0.5, 6.75, -8.25, 0.5, 11.5, -8.25, 0.5, 16.25, -0.75, 0.5, 15.5, -0.75, 0.5, 7.5, -1.25, 0.5, 7.5, -1.25, 0.5, 15.5, 5.5, 0.5, 15.75, 5.5, 0.5, 16.25, 7.25, 0.5, 16.25, 7.5, 0.5, 14.25, 5.75, 0.5, 7.75, 12.25, 0.5, 14.25, 11.75, 0.5, 13.5, 9.5, 0.5, 13.75, 7.5, 0.5, 14.25, 12.25, 0.5, 9.75, 11.75, 0.5, 9.75, 11.75, 0.5, 13.5, 12.25, 0.5, 14.25, 7.5, 0.5, 14.25, 9.5, 0.5, 13.75, 9.25, 0.5, 7.75, 5.75, 0.5, 7.75)
 polygons = [PackedInt32Array(0, 3, 1), PackedInt32Array(1, 3, 2), PackedInt32Array(5, 4, 6), PackedInt32Array(6, 4, 7), PackedInt32Array(7, 4, 8), PackedInt32Array(10, 9, 11), PackedInt32Array(11, 9, 12), PackedInt32Array(14, 13, 15), PackedInt32Array(15, 13, 16), PackedInt32Array(18, 17, 19), PackedInt32Array(19, 17, 20), PackedInt32Array(23, 22, 21), PackedInt32Array(25, 24, 26), PackedInt32Array(26, 24, 27), PackedInt32Array(29, 28, 30), PackedInt32Array(30, 28, 31), PackedInt32Array(35, 34, 32), PackedInt32Array(32, 34, 33), PackedInt32Array(37, 36, 38), PackedInt32Array(38, 36, 39), PackedInt32Array(41, 40, 42), PackedInt32Array(42, 40, 43), PackedInt32Array(45, 44, 46), PackedInt32Array(46, 44, 47), PackedInt32Array(51, 50, 52), PackedInt32Array(52, 50, 49), PackedInt32Array(52, 49, 48), PackedInt32Array(52, 48, 53), PackedInt32Array(55, 54, 56), PackedInt32Array(56, 54, 57), PackedInt32Array(59, 58, 60), PackedInt32Array(60, 58, 61), PackedInt32Array(63, 62, 64), PackedInt32Array(64, 62, 65), PackedInt32Array(67, 66, 68), PackedInt32Array(68, 66, 69), PackedInt32Array(71, 70, 72), PackedInt32Array(72, 70, 74), PackedInt32Array(72, 74, 73), PackedInt32Array(76, 75, 77), PackedInt32Array(77, 75, 78), PackedInt32Array(82, 81, 79), PackedInt32Array(79, 81, 80), PackedInt32Array(86, 85, 83), PackedInt32Array(83, 85, 84), PackedInt32Array(90, 89, 87), PackedInt32Array(87, 89, 88), PackedInt32Array(92, 91, 93), PackedInt32Array(93, 91, 94), PackedInt32Array(94, 91, 95), PackedInt32Array(97, 96, 98), PackedInt32Array(98, 96, 99), PackedInt32Array(101, 100, 102), PackedInt32Array(102, 100, 103), PackedInt32Array(105, 104, 106), PackedInt32Array(106, 104, 107)]
 agent_height = 2.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_r8p0y"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bdtly"]
+albedo_color = Color(0.27451, 0.615686, 0.32549, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_58c0s"]
+material = SubResource("StandardMaterial3D_bdtly")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_p3pmx"]
+albedo_color = Color(0.27451, 0.615686, 0.32549, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_welm7"]
+material = SubResource("StandardMaterial3D_p3pmx")
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_sgo2f"]
+radius = 0.353018
 
 [node name="World" type="Node3D"]
 
@@ -79,6 +101,7 @@ environment = SubResource("Environment_n8o2s")
 camera_attributes = SubResource("CameraAttributesPractical_rjkhi")
 
 [node name="Object" parent="Enviroment" instance=ExtResource("4_h5bkt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.643774, 0)
 
 [node name="Door" parent="Enviroment" instance=ExtResource("2_yba7r")]
 
@@ -102,13 +125,59 @@ metadata/_editor_floor_ = Vector3(0, 0, 0)
 [node name="CSGBox3D" type="CSGBox3D" parent="Enviroment/NavigationRegion3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.9839, 1.0694, 8.0742)
 use_collision = true
-collision_layer = 9
 collision_mask = 11
 size = Vector3(2.174, 1, 2.22768)
 
 [node name="Key" parent="Enviroment" node_paths=PackedStringArray("door") instance=ExtResource("6_n8l80")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.1533, 0.639394, 3.6754)
 door = NodePath("../Door")
+
+[node name="Bottles" type="Node3D" parent="Enviroment"]
+
+[node name="Molotov" parent="Enviroment/Bottles" instance=ExtResource("8_tplqc")]
+
+[node name="Molotov2" parent="Enviroment/Bottles" instance=ExtResource("8_tplqc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.88454, 0.142157, -3.37521)
+
+[node name="oil_bottle" parent="Enviroment/Bottles" instance=ExtResource("8_8c8gj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.88454, 0.142157, -1.37521)
+
+[node name="oil_bottle2" parent="Enviroment/Bottles" instance=ExtResource("8_8c8gj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.88454, 0.142157, -0.973728)
+
+[node name="oil_bottle3" parent="Enviroment/Bottles" instance=ExtResource("8_8c8gj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.88454, 0.142157, -0.505042)
+
+[node name="Health" type="Node3D" parent="Enviroment/Bottles"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.88454, 0.142157, -2.37521)
+script = ExtResource("10_glfyl")
+
+[node name="Potion" type="RigidBody3D" parent="Enviroment/Bottles/Health"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3.01)
+collision_layer = 4
+collision_mask = 31
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Enviroment/Bottles/Health/Potion"]
+transform = Transform3D(0.187574, 0, 0, 0, 0.187574, 0, 0, 0, 0.187574, 0, -0.0635721, 0)
+material_override = SubResource("StandardMaterial3D_r8p0y")
+mesh = SubResource("SphereMesh_58c0s")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Enviroment/Bottles/Health/Potion/MeshInstance3D"]
+transform = Transform3D(0.538608, 0, 0, 0, 0.538608, 0, 0, 0, 0.538608, 0, 0.449589, 0)
+material_override = SubResource("StandardMaterial3D_r8p0y")
+mesh = SubResource("SphereMesh_58c0s")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Enviroment/Bottles/Health/Potion/MeshInstance3D"]
+transform = Transform3D(0.260031, 0, 0, 0, 0.370534, 0, 0, 0, 0.260031, 0, 0.793349, 0)
+material_override = SubResource("StandardMaterial3D_r8p0y")
+mesh = SubResource("CylinderMesh_welm7")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Enviroment/Bottles/Health/Potion"]
+transform = Transform3D(0.348769, 0, 0, 0, 0.348769, 0, 0, 0, 0.348769, 0, 0, 0)
+shape = SubResource("SphereShape3D_sgo2f")
+
+[node name="TakeInventory" type="Node3D" parent="Enviroment/Bottles/Health"]
+script = ExtResource("8_jimuq")
 
 [node name="Characters" type="Node3D" parent="."]
 

@@ -30,7 +30,7 @@ func _process(delta):
 		if damageTimer > 0 :
 			damageTimer -= delta
 		else:
-			player.Stats.Health -= 10
+			player.stats.Health -= 10
 			damageTimer = 1
 	
 

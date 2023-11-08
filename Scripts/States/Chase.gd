@@ -57,7 +57,7 @@ func Update(delta):
 
 func DamagePlayer(damage):
 	# [add animation for attack here]
-	player.Stats.Health -= damage
+	player.stats.Health -= damage
 	var a = player.global_transform.origin
 	var b = enemy.global_transform.origin
 	player.velocity = (a-b) * push_power
@@ -71,7 +71,6 @@ func body_entered(body):
 		DamagePlayer(30)
 	
 	if body is RigidBody3D:
-		print("balls")
 		var a = body.global_transform.origin
 		var b = enemy.global_transform.origin
 		body.add_constant_force((a-b) *80)

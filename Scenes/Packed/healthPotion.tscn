@@ -1,0 +1,51 @@
+[gd_scene load_steps=9 format=3 uid="uid://bxqfh7pmcslh5"]
+
+[ext_resource type="Script" path="res://Scripts/HealthPotion.gd" id="1_w0qkk"]
+[ext_resource type="Script" path="res://Scripts/TakeToInventory.gd" id="2_2awhx"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_r8p0y"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bdtly"]
+albedo_color = Color(0.27451, 0.615686, 0.32549, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_58c0s"]
+material = SubResource("StandardMaterial3D_bdtly")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_p3pmx"]
+albedo_color = Color(0.27451, 0.615686, 0.32549, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_welm7"]
+material = SubResource("StandardMaterial3D_p3pmx")
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_sgo2f"]
+radius = 0.353018
+
+[node name="Health" type="Node3D"]
+script = ExtResource("1_w0qkk")
+
+[node name="Potion" type="RigidBody3D" parent="."]
+collision_layer = 4
+collision_mask = 31
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Potion"]
+transform = Transform3D(0.187574, 0, 0, 0, 0.187574, 0, 0, 0, 0.187574, 0, -0.0635721, 0)
+material_override = SubResource("StandardMaterial3D_r8p0y")
+mesh = SubResource("SphereMesh_58c0s")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Potion/MeshInstance3D"]
+transform = Transform3D(0.538608, 0, 0, 0, 0.538608, 0, 0, 0, 0.538608, 0, 0.449589, 0)
+material_override = SubResource("StandardMaterial3D_r8p0y")
+mesh = SubResource("SphereMesh_58c0s")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Potion/MeshInstance3D"]
+transform = Transform3D(0.260031, 0, 0, 0, 0.370534, 0, 0, 0, 0.260031, 0, 0.793349, 0)
+material_override = SubResource("StandardMaterial3D_r8p0y")
+mesh = SubResource("CylinderMesh_welm7")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Potion"]
+transform = Transform3D(0.348769, 0, 0, 0, 0.348769, 0, 0, 0, 0.348769, 0, 0, 0)
+shape = SubResource("SphereShape3D_sgo2f")
+
+[node name="TakeInventory" type="Node3D" parent="."]
+script = ExtResource("2_2awhx")

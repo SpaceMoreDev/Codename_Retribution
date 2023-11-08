@@ -107,7 +107,7 @@ collision_mask = 38
 shape = SubResource("SphereShape3D_2wtnh")
 
 [node name="Smoke" type="GPUParticles3D" parent="."]
-transform = Transform3D(1, -1.06581e-14, 0, 1.06581e-14, 1, 0, 0, 0, 1, 0, 0.511555, 0)
+transform = Transform3D(1, -1.06581e-14, 0, 1.06581e-14, 1, 0, 0, 0, 1, 0, 0.271396, 0)
 material_override = SubResource("StandardMaterial3D_6y5hh")
 amount = 5
 sub_emitter = NodePath(".")
@@ -118,7 +118,7 @@ draw_pass_1 = SubResource("QuadMesh_snyij")
 draw_skin = SubResource("Skin_6jcdg")
 
 [node name="Flames" type="GPUParticles3D" parent="."]
-transform = Transform3D(1, -1.06581e-14, 0, 1.06581e-14, 1, 0, 0, 0, 1, 0, 0, 0)
+transform = Transform3D(1, -1.06581e-14, 0, 1.06581e-14, 1, 0, 0, 0, 1, 0, -0.240159, 0)
 material_override = SubResource("StandardMaterial3D_hb18t")
 amount = 10
 sub_emitter = NodePath(".")
