@@ -6,7 +6,7 @@ signal player_jumped(height)
 
 #movement variables
 var _input : Vector2 = Vector2.ZERO
-var Speed : float = 5.0
+var Speed : float 
 var Jump_Speed : float = 3.0
 var canJump : bool  = true
 var original_gravity = 10.9
@@ -17,29 +17,33 @@ var inertia : float = 20
 #components
 var playerAction : PlayerAction
 var camera : Camera3D
+var playerCamera : PlayerCamera
 var stats : PlayerStats
 var noise : NoiseControl
 var inventory : Inventory
+var crouching : Crouching
 
 #constants
-const WALK_SPEED = 2
-const SPRINT_SPEED = 3
+var WALK_SPEED = 2
+var SPRINT_SPEED = WALK_SPEED*1.5
 
 func _enter_tree():
 	add_to_group("Player")
 	playerAction = $"Head/Camera3D/Action" as PlayerAction 
 	camera = $"Head/Camera3D" as Camera3D 
 	stats = $"Stats"
+	playerCamera = $"Head"
 	noise = $"NoiseControl"
 	inventory = $Inventory
+	crouching = $Crouch
 	Speed = WALK_SPEED
 
 
 func Jump():
 	if(canJump and Input.is_action_just_pressed("JUMP")):
+		noise.volume = 50
 		if(is_on_floor() and stats.Stamina > stats.CONSUME_JUMP):
-			noise.volume = 100
-			noise.volume = 0
+			
 			emit_signal("player_jumped", Jump_Speed)
 			velocity.y = Jump_Speed
 			
@@ -49,6 +53,7 @@ func Move(delta):
 	
 	if(is_on_floor()):
 		Jump()
+
 		if(direction):
 			velocity.x = direction.x * Speed
 			velocity.z = direction.z * Speed
@@ -64,19 +69,27 @@ func Move(delta):
 @warning_ignore("unused_parameter")
 func _process(delta):
 	_input = Input.get_vector("LEFT","RIGHT","UP","DOWN")
-	if _input.length()>0:
-		noise.volume = 50
-		print(noise.volume)
+	
+	if is_on_floor_only():
+		if _input.length() > 0:
+			if crouching.active:
+				noise.volume = 0
+			else:
+				noise.volume = 50
+		else:
+			noise.volume = 0
+
 	if(Input.is_action_just_pressed("RUN")):
 		stats.CanConsume = true
 		Speed = SPRINT_SPEED
 	elif(Input.is_action_pressed("RUN")):
-		noise.volume = 100
+		if _input.length() > 0:
+			noise.volume = 100
 	elif(Input.is_action_just_released("RUN")):
 		Speed = WALK_SPEED
 		noise.volume = 0
 
 func _physics_process(delta):
-	Move(delta)
+	await Move(delta)
 	
 	

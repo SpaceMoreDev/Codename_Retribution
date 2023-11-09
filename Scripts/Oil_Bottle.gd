@@ -8,6 +8,7 @@ var player
 var dir : Vector3 = Vector3(1,0,1) 
 var force : float = 1
 
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	rigidBody = $oil_bottle
@@ -29,12 +30,15 @@ func Use(throw_power : float):
 func touched(body):
 	if tobreak:
 		$"NoiseControl".volume = 100
-		$"NoiseControl".volume = 0
+		
 		print("touched")
 		var spot : Node3D = Global.gasPrefab.instantiate()
 		gasNodes.add_child(spot)
 		spot.global_position = rigidBody.global_position
-		
+		rigidBody.queue_free()
+		tobreak = false
+		await get_tree().create_timer(1).timeout
+		$"NoiseControl".volume = 0
 		queue_free()
 
 func Get_type():

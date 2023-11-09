@@ -25,9 +25,10 @@ func _ready():
 
 func OnTouchFire(body:Node3D):
 	if body is Player:
-		print("player on fire")
-		playerin = true
-	elif not body.has_node("Fire"):
+		if Global.allowFireDamage:
+			print("player on fire")
+			playerin = true
+	elif not body.has_node("Fire") and not body is CharacterBody3D:
 		var newFire = Global.firePrefab.instantiate()
 		body.add_child(newFire)
 		
@@ -45,6 +46,7 @@ func _process(delta):
 
 func body_exited(body):
 	if body is Player:
-		print("player not on fire")
-		playerin = false
+		if Global.allowFireDamage:
+			print("player not on fire")
+			playerin = false
 

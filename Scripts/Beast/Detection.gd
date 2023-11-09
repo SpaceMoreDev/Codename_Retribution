@@ -2,8 +2,8 @@ extends Node
 class_name Detection
 
 var rays : Array[RayCast3D]
+var stuckRays : Array[RayCast3D]
 @export var areaFar : Area3D
-var timer = 1
 var beast : Beast
 var player : Player
 
@@ -20,23 +20,36 @@ func _ready():
 		if child is RayCast3D:
 			rays.append(child)
 
+	for child in $StuckRays.get_children():
+		if child is RayCast3D:
+			stuckRays.append(child)
+
 func _physics_process(delta):
 	checkRays()
 
 
-func checkRays() -> bool:
+func checkStuck():
+	for ray in stuckRays:
+		if ray.is_colliding():
+			beast.seeingPlayer = false
+			beast.nav.set_velocity(Vector3.ZERO)
+			return true
+		else:
+			return false
+
+func checkRays() -> bool:	
 	for ray in rays:
 		if ray.is_colliding():
 			var col = ray.get_collider()
 			if col is Player:
+				beast.seeingPlayer = true
 				beast.nav.target_position = col.global_transform.origin
-				beast.stateMachine.current_state.Transitioned.emit(beast.stateMachine.current_state, "Chase")
 				return true
+	
 	return false
 
 func LoudSoundEmitted(obj):
 	if player_is_around:
-		print("it heard %s.."%obj)
 		beast.nav.target_position = obj.global_transform.origin
 		beast.stateMachine.current_state.Transitioned.emit(beast.stateMachine.current_state, "Chase")
 

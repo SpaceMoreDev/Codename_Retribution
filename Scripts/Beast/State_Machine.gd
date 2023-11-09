@@ -37,3 +37,14 @@ func State_Transition(state, new_state_name):
 	
 	new_state.Enter()
 	current_state = new_state
+
+
+func CompareCurrent(state_name) -> bool:
+	var state = states.get(state_name.to_lower())
+	if !state:
+		return false
+	
+	if current_state == state:
+		return true
+
+	return false

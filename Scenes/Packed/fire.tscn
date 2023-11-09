@@ -94,8 +94,7 @@ script = ExtResource("1_ceyis")
 areaTrigger = NodePath("Area3D")
 
 [node name="NavigationObstacle3D" type="NavigationObstacle3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
-radius = 0.5
+radius = 0.3
 height = 2.0
 
 [node name="Area3D" type="Area3D" parent="."]

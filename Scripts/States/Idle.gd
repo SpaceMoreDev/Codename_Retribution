@@ -16,6 +16,7 @@ func randomize_wander():
 	wander_time = randf_range(1,wander_max_time)
 	
 	enemy.canMove = false
+	enemy.seeingPlayer = false
 	enemy.nav.set_velocity(Vector3.ZERO)
 	await get_tree().create_timer(wait_time).timeout
 	
@@ -26,6 +27,7 @@ func randomize_wander():
 func Enter():
 	player = Global._get_player()
 	enemy.seeingPlayer = false
+	enemy.canMove = true
 	enemy.move_speed = enemy.MOVE_SPEED
 	
 
@@ -44,7 +46,7 @@ func Physics_Update(delta : float):
 	if player_direction.length() < 1:
 		enemy.nav.target_position = player.global_transform.origin
 		Transitioned.emit(self, "Chase")
-		print("transitioned to Chase")
+		print("Idle -> Chase")
 
 # func navigation_finished():
 # 	if (get_parent() as StateMachine).current_state == self:

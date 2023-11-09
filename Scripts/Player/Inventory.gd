@@ -69,7 +69,6 @@ func Use(key):
 	
 
 func showDic():
-	print("index: %s"%itemIndex)
 
 	textLabel.text = ""
 	if inventory.size() > 0:

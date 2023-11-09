@@ -1,7 +1,6 @@
 extends State
 class_name Chase
 
-@export var speed : float = 2
 var player : CharacterBody3D
 @export var enemy : CharacterBody3D
 @export var stuckRay : RayCast3D
@@ -11,36 +10,42 @@ var detection : Detection
 var push_power = 10
 var inarea = false
 var timer : float = 1
+var timeToStuck : float = 2
+var distance_to_player
+var active = true
+
 
 func _ready():
 	detection = enemy.detection
 	enemy.nav.connect("navigation_finished", navigation_finished)
 	area.connect("body_entered", body_entered)
-	area.connect("body_exited", body_exited)
 
 func Enter():
 	player = Global._get_player()
 	enemy.canMove = true
-	enemy.move_speed = speed
+	enemy.move_speed = enemy.CHASE_SPEED
+	inarea = false
+	
 
 func Exit():
 	enemy.move_speed = enemy.MOVE_SPEED
+			
 
-func Physics_Update(delta : float):
-	if not inarea:	
-		if stuckRay.is_colliding():
-			enemy.canMove = false
-			Transitioned.emit(self, "Stuck")
-			print("transitioned to Stuck")
+func Physics_Update(delta):
+	if detection.checkStuck() and not inarea:
+		Transitioned.emit(self, "Stuck")
+		print("Chase -> Stuck")
 
 
 func Update(delta):
-	if inarea:
+	distance_to_player = (player.global_position - enemy.global_position).length()
+
+	if distance_to_player < 2 and inarea:
 		if timer > 0:
 			timer -= delta
 		else:
 			if detection.checkRays():
-				DamagePlayer(20)
+				DamagePlayer(enemy.damage)
 			timer = 1	
 
 func DamagePlayer(damage):
@@ -52,19 +57,15 @@ func DamagePlayer(damage):
 	
 func navigation_finished():
 	if (get_parent() as StateMachine).current_state == self:
-		if not inarea:
+		if distance_to_player > 2:
+			inarea = false
 			Transitioned.emit(self, "Idle")
-			print("transitioned to Idle")
+			print("Chase -> Idle")
+		else:
+			inarea = true
 
 func body_entered(body):
-	if body is Player:
-		print("player In")
-		inarea = true
-		enemy.seeingPlayer = true
-		DamagePlayer(30)
-
-
-func body_exited(body):
-	if body is Player:
-		inarea = false
-		print("player Out")
+	if (get_parent() as StateMachine).current_state == self:
+		if body is Player:
+			enemy.seeingPlayer = true
+			DamagePlayer(enemy.damage)

@@ -20,6 +20,7 @@ var acceleration : float = 1.6
 var active = false
 var notpressing:bool
 var player: Player
+
 func _ready():
 	player = get_parent()
 	crouchingHeight = camera.position.y - CROUCHING_AMOUNT

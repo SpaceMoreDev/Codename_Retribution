@@ -3,12 +3,15 @@ class_name Beast
 
 
 var move_speed : float
-const MOVE_SPEED = 1
+var MOVE_SPEED = 2
+var CHASE_SPEED = MOVE_SPEED * 1.5
 
 @export var nav : NavigationAgent3D
 @export var rotation_speed : float = 0.25
 @export var detection : Detection
 
+
+var damage : float = 30
 var stateMachine : StateMachine
 var player : Player
 var canMove = true
@@ -40,8 +43,7 @@ func _physics_process(delta):
 			var playerloc = player.global_position - global_position
 			var lookdir = atan2(-playerloc.x, -playerloc.z)
 			rotation.y =  lerp_angle(rotation.y, lookdir, 0.25)
-		
-	
+
 
 
 

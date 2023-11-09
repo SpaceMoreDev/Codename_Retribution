@@ -28,15 +28,17 @@ func Use(throw_power : float):
 @warning_ignore("unused_parameter")
 func touched(body):
 	if tobreak:
+		$"NoiseControl".volume = 100
+
 		print("touched")
 		var spot : Node3D = Global.firePrefab.instantiate()
 		spot.canDie = true
 		gasNodes.add_child(spot)
-		$"NoiseControl".volume = 100
-		$"NoiseControl".volume = 0
 		spot.global_position = rigidBody.global_position
-		
-		
+		rigidBody.queue_free()
+		tobreak = false
+		await get_tree().create_timer(1).timeout
+		$"NoiseControl".volume = 0
 		queue_free()
 
 func Get_type():

@@ -28,13 +28,13 @@ func _process(delta):
 	
 	if(Input.is_action_pressed("LEAN_LEFT")):
 		check_if_hit_Left()
-		# head.locked = true
+		head.locked = true
 		camera.position.x = move_toward(camera.position.x, -horizontalDistance, delta *speed)
 		camera.rotation.z = move_toward(camera.rotation.z, leanAngle, delta *anglespeed)
 		active = true
 	elif(Input.is_action_pressed("LEAN_RIGHT")):
 		check_if_hit_Right()
-		# head.locked = true
+		head.locked = true
 		camera.position.x = move_toward(camera.position.x, horizontalDistance, delta *speed)
 		camera.rotation.z = move_toward(camera.rotation.z, -leanAngle, delta *anglespeed)
 		active = true
@@ -43,7 +43,7 @@ func _process(delta):
 			camera.position.x = move_toward(camera.position.x, 0.0, delta *speed)
 			camera.rotation.z = move_toward(camera.rotation.z, 0.0, delta * anglespeed)
 			if(camera.position.x == 0.0 and camera.rotation.z == 0):
-				# head.locked = false
+				head.locked = false
 				active = false
 			
 

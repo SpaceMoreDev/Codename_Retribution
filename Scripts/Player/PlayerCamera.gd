@@ -13,9 +13,6 @@ const FOV_CHANGE = 1.0
 
 var locked : bool = false
 
-func _ready():
-	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-
 func _unhandled_input(event):
 	if(not locked):
 		if(event is InputEventMouseMotion):

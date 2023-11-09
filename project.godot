@@ -116,7 +116,7 @@ SCROLL_DOWN={
 
 [player]
 
-look_sensitivity=0.005
+look_sensitivity=0.01
 
 [rendering]
 

@@ -6,6 +6,41 @@ var quests : QuestList:
 		return _get_player().get_node("Quest") as QuestList
 
 
+var useNoise : bool = true
+var allowFireDamage : bool = true
+
+var PlayerSpeed : float:
+	set(new_speed):
+		var player : Player = _get_player()
+		player.WALK_SPEED = new_speed
+		player.SPRINT_SPEED = new_speed * 1.5
+		player.Speed = new_speed
+	get:
+		return _get_player().WALK_SPEED
+
+var DamageMonster : float:
+	set(damage):
+		var enemy : Beast = _get_beast()
+		enemy.damage = damage
+	get:
+		return _get_beast().damage
+
+var DebugPath : bool:
+	set(toggle):
+		var enemy : Beast = _get_beast()
+		enemy.nav.debug_enabled = toggle
+	get:
+		return _get_beast().nav.debug_enabled
+
+var MonsterSpeed : float:
+	set(new_speed):
+		var enemy : Beast = _get_beast()
+		enemy.MOVE_SPEED = new_speed
+		enemy.CHASE_SPEED = new_speed * 1.5
+		enemy.move_speed = new_speed
+	get:
+		return _get_beast().MOVE_SPEED
+
 
 static  var firePrefab = preload("res://Scenes/Packed/fire.tscn")
 static var gasPrefab = preload("res://Scenes/Packed/gasoline.tscn")

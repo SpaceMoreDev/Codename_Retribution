@@ -66,7 +66,7 @@ func check_health(value):
 func check_stamina(value):
 	# print("Stamina changed to %s"%value)
 	if(value == 0):
-		get_parent().Speed = Player.WALK_SPEED
+		get_parent().Speed = Global.PlayerSpeed
 		get_parent().noise.volume = 0
 		CanConsume = false
 		emit_signal("stamina_is_zero")
