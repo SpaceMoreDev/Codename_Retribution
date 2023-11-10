@@ -14,9 +14,11 @@ var PlayerSpeed : float:
 		var player : Player = _get_player()
 		player.WALK_SPEED = new_speed
 		player.SPRINT_SPEED = new_speed * 1.5
+		player.crouching.CROUCHING_SPEED = new_speed / 2
 		player.Speed = new_speed
 	get:
 		return _get_player().WALK_SPEED
+
 
 var DamageMonster : float:
 	set(damage):
@@ -55,3 +57,7 @@ func _get_player() -> Player :
 func _get_beast() -> Beast :
 	var beast = get_tree().get_first_node_in_group("Beast")
 	return beast
+
+func _get_env() -> WorldEnvironment :
+	var env = get_tree().get_first_node_in_group("Enviroment")
+	return env

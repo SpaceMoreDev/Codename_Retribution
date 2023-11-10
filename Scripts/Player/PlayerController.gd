@@ -69,9 +69,8 @@ func Move(delta):
 @warning_ignore("unused_parameter")
 func _process(delta):
 	_input = Input.get_vector("LEFT","RIGHT","UP","DOWN")
-	
-	if is_on_floor_only():
-		if _input.length() > 0:
+	if is_on_floor():
+		if velocity.length() > 0.5:
 			if crouching.active:
 				noise.volume = 0
 			else:
@@ -83,7 +82,7 @@ func _process(delta):
 		stats.CanConsume = true
 		Speed = SPRINT_SPEED
 	elif(Input.is_action_pressed("RUN")):
-		if _input.length() > 0:
+		if velocity.length() > 0.5:
 			noise.volume = 100
 	elif(Input.is_action_just_released("RUN")):
 		Speed = WALK_SPEED

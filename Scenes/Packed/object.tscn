@@ -19,6 +19,7 @@ metadata/_edit_group_ = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.896271, 0)
 modulate = Color(1, 1, 1, 0)
 billboard = 1
+no_depth_test = true
 texture = ExtResource("1_m8lmi")
 
 [node name="Physics" type="RigidBody3D" parent="."]
@@ -41,6 +42,8 @@ update_scale = false
 
 [node name="PickUp" type="Node3D" parent="." node_paths=PackedStringArray("rb")]
 script = ExtResource("1_oxe7c")
+snap_distance = 2
+pull_power = 6
 rotation_power = 0.5
 rb = NodePath("../Physics")
 

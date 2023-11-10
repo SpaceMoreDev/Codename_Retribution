@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://cq832m6i175lb"]
 
-[ext_resource type="Script" path="res://Scripts/DragDoor.gd" id="1_lpsc7"]
+[ext_resource type="Script" path="res://Scripts/Door/DragDoor.gd" id="1_lpsc7"]
 
 [node name="OpenDoor" type="Node3D"]
 script = ExtResource("1_lpsc7")

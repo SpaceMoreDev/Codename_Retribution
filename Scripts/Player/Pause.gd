@@ -7,18 +7,24 @@ var playerCam : PlayerCamera
 
 # compnents
 @export var returnBtn : Button
+@export var restartBtn : Button
 @export var exitBtn : Button
 @export var fullscreenButn : Button
 @export var noiseBtn : Button
 @export var fireDamageBtn : Button
 @export var debugBtn : Button
 
+@export var exposure : LineEdit
+@export var fogDensity : LineEdit
 @export var playerSpeed : LineEdit
 @export var monsterSpeed : LineEdit
 @export var monsterDMG : LineEdit
 
 
 @export var slider : Slider
+@export var fogSlider : Slider
+@export var exposureSlider : Slider
+
 @export var sens_text : LineEdit
 @onready var _sensitivity = ProjectSettings.get_setting("player/look_sensitivity")
 
@@ -29,7 +35,8 @@ func _ready():
 
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	self.visible = false
-	sens_text.text = str(_sensitivity)
+	fogSlider.value = Global._get_env().environment.fog_density
+	exposureSlider.value = Global._get_env().camera_attributes.exposure_multiplier
 
 	noiseBtn.button_pressed = Global.useNoise
 	fireDamageBtn.button_pressed = Global.allowFireDamage
@@ -38,19 +45,40 @@ func _ready():
 	playerSpeed.text = str(Global.PlayerSpeed)
 	monsterSpeed.text = str(Global.MonsterSpeed)
 	monsterDMG.text = str(Global.DamageMonster)
+	fogDensity.text = str(Global._get_env().environment.fog_density)
+	exposure.text = str(Global._get_env().camera_attributes.exposure_multiplier)
 
 	noiseBtn.connect("toggled", noiseToggle)
 	debugBtn.connect("toggled", debugToggle)
 	fireDamageBtn.connect("toggled", fireDamageToggle)
 	returnBtn.connect("button_down", returnButton)
+	restartBtn.connect("button_down", restartButton)
 	exitBtn.connect("button_down", exitButton)
 	fullscreenButn.connect("toggled", fullscreenToggle)
-	slider.connect("value_changed", slider_value)
 
+	slider.connect("value_changed", slider_value)
+	fogSlider.connect("value_changed", slider_fog_density)
+	exposureSlider.connect("value_changed", slider_exposure_density)
+
+	exposure.connect("text_changed", set_exposure_value)
+	fogDensity.connect("text_changed", set_fog_density)
 	monsterDMG.connect("text_changed", Monster_DMG_value)
 	sens_text.connect("text_changed", sens_slider_value)
 	playerSpeed.connect("text_changed", set_player_speed)
 	monsterSpeed.connect("text_changed", set_monster_speed)
+
+	_sensitivity = ChangeSens(_sensitivity)
+	sens_text.text = str(_sensitivity)
+	slider.value = _sensitivity
+
+	
+
+func restartButton():
+	self.visible = false
+	playerCam.locked = false
+	get_tree().paused = false
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	get_tree().reload_current_scene()
 
 func exitButton():
 	get_tree().quit()
@@ -61,6 +89,7 @@ func fullscreenToggle(toggle : bool):
 	else:
 		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
 
+		
 func noiseToggle(toggle : bool):
 	Global.useNoise = toggle
 
@@ -97,9 +126,11 @@ func sens_slider_value(val : String):
 	slider.value = float(val)
 	ChangeSens(float(val))
 
-func ChangeSens(val):
-	ProjectSettings.set_setting("player/look_sensitivity", get_process_delta_time() * float(val))
-	playerCam._sensitivity = get_process_delta_time() * float(val)
+func ChangeSens(val) -> float:
+	var res = float(val)
+	ProjectSettings.set_setting("player/look_sensitivity", res)
+	playerCam._sensitivity = res
+	return res
 
 
 func set_player_speed(val : String):
@@ -111,3 +142,18 @@ func set_monster_speed(val : String):
 func Monster_DMG_value(val : String):
 	Global.DamageMonster = float(val)
 
+func set_fog_density(val : String):
+	fogSlider.value = float(val)
+	Global._get_env().environment.fog_density = float(val)
+
+func slider_fog_density(val : float):
+	fogDensity.text = str(val)
+	Global._get_env().environment.fog_density = val
+
+func slider_exposure_density(val : float):
+	exposure.text = str(val)
+	Global._get_env().camera_attributes.exposure_multiplier = val
+
+func set_exposure_value(val : String):
+	Global._get_env().camera_attributes.exposure_multiplier = float(val)
+	exposureSlider.value = float(val)

@@ -9,7 +9,7 @@ var detection : Detection
 
 var push_power = 10
 var inarea = false
-var timer : float = 1
+var timer : float = 0.5	
 var timeToStuck : float = 2
 var distance_to_player
 var active = true
@@ -46,7 +46,7 @@ func Update(delta):
 		else:
 			if detection.checkRays():
 				DamagePlayer(enemy.damage)
-			timer = 1	
+			timer = 0.5	
 
 func DamagePlayer(damage):
 	# [add animation for attack here]
@@ -57,7 +57,8 @@ func DamagePlayer(damage):
 	
 func navigation_finished():
 	if (get_parent() as StateMachine).current_state == self:
-		if distance_to_player > 2:
+		distance_to_player = (player.global_position - enemy.global_position).length()
+		if distance_to_player > 3:
 			inarea = false
 			Transitioned.emit(self, "Idle")
 			print("Chase -> Idle")

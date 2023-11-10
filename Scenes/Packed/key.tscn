@@ -3,6 +3,7 @@
 [ext_resource type="Script" path="res://Scripts/Key.gd" id="1_kp5wr"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_3hnb1"]
+radius = 0.266301
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_euowx"]
 diffuse_mode = 3
@@ -11,14 +12,18 @@ albedo_color = Color(0.945098, 0.945098, 0, 1)
 [sub_resource type="SphereMesh" id="SphereMesh_qmcsa"]
 material = SubResource("StandardMaterial3D_euowx")
 
-[node name="Key" type="Area3D"]
+[node name="Key" type="Node3D" node_paths=PackedStringArray("objective")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0.639394, 1.85006)
-collision_mask = 3
 script = ExtResource("1_kp5wr")
+objective = NodePath("")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="RigidBody3D" type="RigidBody3D" parent="."]
+collision_layer = 4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
 shape = SubResource("SphereShape3D_3hnb1")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D"]
 transform = Transform3D(0.537004, 0, 0, 0, 0.537004, 0, 0, 0, 0.537004, 0, 0, 0)
 mesh = SubResource("SphereMesh_qmcsa")
+skeleton = NodePath("../..")

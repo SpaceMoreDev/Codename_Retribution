@@ -1,9 +1,9 @@
-[gd_scene load_steps=18 format=3 uid="uid://qc046bctp57n"]
+[gd_scene load_steps=19 format=3 uid="uid://qc046bctp57n"]
 
 [ext_resource type="Script" path="res://Scripts/Player/PlayerController.gd" id="1_ej1b3"]
 [ext_resource type="Script" path="res://Scripts/Player/PlayerStats.gd" id="1_sce2v"]
-[ext_resource type="Script" path="res://Scripts/Player/Quest.gd" id="2_774v3"]
 [ext_resource type="Texture2D" uid="uid://dxvfvq3vn03ba" path="res://NBeast_Bar.png" id="2_kkkfp"]
+[ext_resource type="Script" path="res://Scripts/Quests/Quest.gd" id="2_kyxfg"]
 [ext_resource type="Script" path="res://Scripts/Player/PlayerCamera.gd" id="2_rsliq"]
 [ext_resource type="Script" path="res://Scripts/Player/Crouching.gd" id="4_8cvhv"]
 [ext_resource type="Script" path="res://Scripts/Player/PlayerAction.gd" id="4_ing7o"]
@@ -22,6 +22,8 @@ height = 1.31303
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_yyxpu"]
 radius = 0.186665
 height = 0.545623
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_ty1on"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p0v27"]
 
@@ -42,7 +44,7 @@ shape = SubResource("CapsuleShape3D_yyxpu")
 disabled = true
 
 [node name="Quest" type="Node3D" parent="." node_paths=PackedStringArray("questLabel")]
-script = ExtResource("2_774v3")
+script = ExtResource("2_kyxfg")
 questLabel = NodePath("../Player_UI/Tasks")
 
 [node name="Stats" type="Node3D" parent="."]
@@ -55,10 +57,9 @@ _player_camera = NodePath("Camera3D")
 
 [node name="Camera3D" type="Camera3D" parent="Head"]
 
-[node name="Action" type="Node3D" parent="Head/Camera3D" node_paths=PackedStringArray("handIcon", "ray")]
+[node name="Action" type="Node3D" parent="Head/Camera3D" node_paths=PackedStringArray("handIcon")]
 script = ExtResource("4_ing7o")
 handIcon = NodePath("../../../Player_UI/TextureRect")
-ray = NodePath("RayCast3D")
 
 [node name="RayCast3D" type="RayCast3D" parent="Head/Camera3D/Action"]
 target_position = Vector3(0, 0, -2)
@@ -76,6 +77,10 @@ linear_limit_z/enabled = false
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Head/Camera3D/Action"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.97121)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Head/Camera3D/Action/StaticBody3D"]
+shape = SubResource("SphereShape3D_ty1on")
+disabled = true
 
 [node name="Hand" type="Node3D" parent="Head/Camera3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.18)
@@ -221,30 +226,35 @@ offset_bottom = 36.0
 scale = Vector2(0.692857, 0.692857)
 texture = ExtResource("14_jeaud")
 
-[node name="PauseMenu" type="Control" parent="Player_UI" node_paths=PackedStringArray("returnBtn", "exitBtn", "fullscreenButn", "noiseBtn", "fireDamageBtn", "debugBtn", "playerSpeed", "monsterSpeed", "monsterDMG", "slider", "sens_text")]
+[node name="PauseMenu" type="Control" parent="Player_UI" node_paths=PackedStringArray("returnBtn", "restartBtn", "exitBtn", "fullscreenButn", "noiseBtn", "fireDamageBtn", "debugBtn", "exposure", "fogDensity", "playerSpeed", "monsterSpeed", "monsterDMG", "slider", "fogSlider", "exposureSlider", "sens_text")]
 layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -176.0
+offset_left = -313.0
 offset_top = -176.0
-offset_right = 176.0
+offset_right = 39.0
 offset_bottom = 176.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("13_y82ud")
 returnBtn = NodePath("Panel/Continue")
+restartBtn = NodePath("Panel/Restart")
 exitBtn = NodePath("Panel/Exit")
 fullscreenButn = NodePath("Panel/VBoxContainer/HBoxContainer2/fullscreenToggle")
 noiseBtn = NodePath("Panel/Gameplay/VBoxContainer2/noise/NoiseToggle")
 fireDamageBtn = NodePath("Panel/Gameplay/VBoxContainer2/fire damage/fireDamageToggle")
 debugBtn = NodePath("Panel/Gameplay/VBoxContainer2/Debug/debugpath")
+exposure = NodePath("Panel/VBoxContainer/HBoxContainer5/exposureEdit")
+fogDensity = NodePath("Panel/VBoxContainer/HBoxContainer4/fogEdit")
 playerSpeed = NodePath("Panel/Gameplay/VBoxContainer2/player speed/Control/LineEdit")
 monsterSpeed = NodePath("Panel/Gameplay/VBoxContainer2/monster speed/Control/LineEdit")
 monsterDMG = NodePath("Panel/Gameplay/VBoxContainer2/monster Damage/Control/LineEdit")
 slider = NodePath("Panel/VBoxContainer/HBoxContainer/HSlider")
+fogSlider = NodePath("Panel/VBoxContainer/HBoxContainer4/HSlider")
+exposureSlider = NodePath("Panel/VBoxContainer/HBoxContainer5/HSlider")
 sens_text = NodePath("Panel/VBoxContainer/HBoxContainer/LineEdit")
 
 [node name="Panel" type="Panel" parent="Player_UI/PauseMenu"]
@@ -255,20 +265,32 @@ offset_bottom = 352.0
 
 [node name="Continue" type="Button" parent="Player_UI/PauseMenu/Panel"]
 layout_mode = 0
-offset_left = 8.0
+offset_left = 16.0
 offset_top = 312.0
-offset_right = 137.0
-offset_bottom = 343.0
+offset_right = 119.0
+offset_bottom = 336.0
 theme_override_font_sizes/font_size = 11
 text = "Continue
 "
 
+[node name="Restart" type="Button" parent="Player_UI/PauseMenu/Panel"]
+visible = false
+layout_mode = 0
+offset_left = 124.0
+offset_top = 312.0
+offset_right = 227.0
+offset_bottom = 336.0
+theme_override_font_sizes/font_size = 11
+disabled = true
+text = "Restart
+"
+
 [node name="Exit" type="Button" parent="Player_UI/PauseMenu/Panel"]
 layout_mode = 0
-offset_left = 212.0
+offset_left = 232.0
 offset_top = 312.0
-offset_right = 341.0
-offset_bottom = 343.0
+offset_right = 335.0
+offset_bottom = 336.0
 theme_override_font_sizes/font_size = 11
 text = "Exit
 "
@@ -293,9 +315,9 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
 min_value = 0.001
-max_value = 5.0
+max_value = 1.0
 step = 0.001
-value = 0.101
+value = 0.01
 
 [node name="LineEdit" type="LineEdit" parent="Player_UI/PauseMenu/Panel/VBoxContainer/HBoxContainer"]
 layout_direction = 2
@@ -318,19 +340,61 @@ layout_mode = 2
 size_flags_horizontal = 3
 action_mode = 0
 
+[node name="HBoxContainer4" type="HBoxContainer" parent="Player_UI/PauseMenu/Panel/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Player_UI/PauseMenu/Panel/VBoxContainer/HBoxContainer4"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+text = "Fog Density"
+
+[node name="HSlider" type="HSlider" parent="Player_UI/PauseMenu/Panel/VBoxContainer/HBoxContainer4"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+max_value = 5.0
+step = 0.001
+
+[node name="fogEdit" type="LineEdit" parent="Player_UI/PauseMenu/Panel/VBoxContainer/HBoxContainer4"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+alignment = 1
+caret_blink = true
+
+[node name="HBoxContainer5" type="HBoxContainer" parent="Player_UI/PauseMenu/Panel/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Player_UI/PauseMenu/Panel/VBoxContainer/HBoxContainer5"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+text = "Exposure"
+
+[node name="HSlider" type="HSlider" parent="Player_UI/PauseMenu/Panel/VBoxContainer/HBoxContainer5"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+max_value = 8.0
+value = 1.0
+
+[node name="exposureEdit" type="LineEdit" parent="Player_UI/PauseMenu/Panel/VBoxContainer/HBoxContainer5"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+alignment = 1
+caret_blink = true
+
 [node name="Gameplay" type="Panel" parent="Player_UI/PauseMenu/Panel"]
 layout_mode = 0
 offset_left = 40.0
-offset_top = 121.0
+offset_top = 143.0
 offset_right = 307.0
-offset_bottom = 276.0
+offset_bottom = 298.0
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="Player_UI/PauseMenu/Panel/Gameplay"]
 layout_mode = 2
 offset_left = 11.0
-offset_top = 14.0
+offset_top = 6.0
 offset_right = 255.0
-offset_bottom = 38.0
+offset_bottom = 149.0
 
 [node name="noise" type="HBoxContainer" parent="Player_UI/PauseMenu/Panel/Gameplay/VBoxContainer2"]
 layout_mode = 2

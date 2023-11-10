@@ -3,9 +3,12 @@ class_name QuestList
 
 class Quest:
 	signal QuestEnded(Quest)
+
 	var id : int
 	var title : String
 	var complete : bool = false
+	var objectives : Array[Objective] = []
+
 	func _init(idNum : int, task : String):
 		id = idNum
 		title = task
@@ -30,8 +33,6 @@ func CompleteQuest( id : int):
 
 func strikeEffect(quest: Quest):
 	quest.complete = true
-	
-
 
 func GetQuest( id : int) -> Quest:
 	for i in questList:
@@ -53,9 +54,12 @@ func DisplayList(list : Array):
 	list.sort_custom(sortbyID)
 	for i in questList:
 		if i.complete:
-			questLabel.text += "[shake rate=10.0 level=2 connected=1][color=#ffffff88]\n"+i.title+"[/color][/shake]"
+			questLabel.text += "[shake rate=10.0 level=2 connected=1][color=#ffffff88]"+i.title+"[/color][/shake]\n"
 		else:
-			questLabel.text += "[b][shake rate=20.0 level=5 connected=1]\n"+i.title+"[/shake][/b]"
+			questLabel.text += "[b][shake rate=20.0 level=5 connected=1]"+i.title+"[/shake][/b]\n"
+			for j in i.objectives:
+				if j.objectiveTitle != "":
+					questLabel.text += "- [shake rate=10.0 level=2 connected=1]"+j.objectiveTitle+"[/shake]\n"
 		
 
 func RefreshListUI():

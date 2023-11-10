@@ -7,9 +7,19 @@ signal end_interaction()
 
 @export var raycast_length = 2
 @export var handIcon : TextureRect
-@export var ray : RayCast3D
+var ray : RayCast3D
+var joint : Joint3D
+var staticbody : StaticBody3D
+var grab_position : Node3D
+
 
 var isDoingAction = false
+
+func _enter_tree():
+	ray = $"RayCast3D"
+	joint = $"Joint"
+	staticbody = $"StaticBody3D"
+	grab_position = $"GrabPosition"
 
 func _ready():
 	ray.target_position = Vector3(0,0,-raycast_length)

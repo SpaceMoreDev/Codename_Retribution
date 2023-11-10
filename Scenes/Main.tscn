@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://bp755b7h6vn0g"]
+[gd_scene load_steps=24 format=3 uid="uid://bp755b7h6vn0g"]
 
 [ext_resource type="PackedScene" uid="uid://qc046bctp57n" path="res://Scenes/Packed/player.tscn" id="1_h4rhp"]
 [ext_resource type="PackedScene" uid="uid://h73t4kyno44l" path="res://Scenes/Packed/fire.tscn" id="1_ovd6b"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://dqcg0cgj45q4s" path="res://Scenes/Packed/object.tscn" id="4_h5bkt"]
 [ext_resource type="PackedScene" uid="uid://pqrnh6ofvdom" path="res://Scenes/Packed/gasoline.tscn" id="5_ra0pc"]
 [ext_resource type="PackedScene" uid="uid://c8ig5qvw7vdlx" path="res://Scenes/Packed/key.tscn" id="6_n8l80"]
+[ext_resource type="Script" path="res://Scripts/Quests/Objective.gd" id="7_6plhs"]
 [ext_resource type="PackedScene" uid="uid://dlbihv1ffxrey" path="res://Scenes/Packed/oil_bottle.tscn" id="8_8c8gj"]
 [ext_resource type="Script" path="res://Scripts/TakeToInventory.gd" id="8_jimuq"]
 [ext_resource type="PackedScene" uid="uid://biaotmi0ew401" path="res://Scenes/Packed/molotov.tscn" id="8_tplqc"]
@@ -15,9 +16,9 @@
 [ext_resource type="Script" path="res://Scripts/HealthPotion.gd" id="10_glfyl"]
 
 [sub_resource type="Environment" id="Environment_n8o2s"]
+fog_enabled = true
 fog_light_color = Color(0, 0, 0, 1)
-fog_light_energy = 0.02
-fog_density = 0.384
+fog_density = 0.2489
 
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_rjkhi"]
 dof_blur_far_distance = 3.94
@@ -46,6 +47,23 @@ material = SubResource("StandardMaterial3D_p3pmx")
 radius = 0.353018
 
 [node name="World" type="Node3D"]
+
+[node name="Quests" type="Node" parent="."]
+
+[node name="Base" type="Node" parent="Quests"]
+script = ExtResource("7_6plhs")
+questID = 0
+questTitle = "Escape"
+objectiveTitle = "Find the key."
+auto_add = true
+
+[node name="Characters" type="Node3D" parent="."]
+
+[node name="Player" parent="Characters" instance=ExtResource("1_h4rhp")]
+collision_mask = 11
+
+[node name="Beast" parent="Characters" instance=ExtResource("9_l24ay")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.24945, 1, 15.6866)
 
 [node name="Enviroment" type="Node3D" parent="."]
 
@@ -96,7 +114,7 @@ transform = Transform3D(-0.938421, 0, 0.345495, 0, 1, 0, -0.345495, 0, -0.938421
 [node name="gasoline11" parent="Enviroment/GasolineSpots" instance=ExtResource("5_ra0pc")]
 transform = Transform3D(-0.938421, 0, 0.345495, 0, 1, 0, -0.345495, 0, -0.938421, 11.7238, -0.172086, 2.26706)
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="Enviroment"]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Enviroment" groups=["Enviroment"]]
 environment = SubResource("Environment_n8o2s")
 camera_attributes = SubResource("CameraAttributesPractical_rjkhi")
 
@@ -104,6 +122,13 @@ camera_attributes = SubResource("CameraAttributesPractical_rjkhi")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0.643774, -2.67569)
 
 [node name="Door" parent="Enviroment" instance=ExtResource("2_yba7r")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 3, 1.035, 0)
+
+[node name="Escape_fin" type="Node" parent="Enviroment/Door" node_paths=PackedStringArray("previousObjective")]
+script = ExtResource("7_6plhs")
+questID = 0
+auto_add = true
+previousObjective = NodePath("../../Key/Key_found")
 
 [node name="Decal" type="Decal" parent="Enviroment"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 1.33572, -4.23724)
@@ -128,9 +153,16 @@ use_collision = true
 collision_mask = 11
 size = Vector3(2.174, 1, 2.22768)
 
-[node name="Key" parent="Enviroment" node_paths=PackedStringArray("door") instance=ExtResource("6_n8l80")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.1533, 0.639394, 3.6754)
+[node name="Key" parent="Enviroment" node_paths=PackedStringArray("door", "objective") instance=ExtResource("6_n8l80")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.74785, 0.639394, 2.92766)
 door = NodePath("../Door")
+objective = NodePath("Key_found")
+
+[node name="Key_found" type="Node" parent="Enviroment/Key" node_paths=PackedStringArray("previousObjective")]
+script = ExtResource("7_6plhs")
+questID = 0
+objectiveTitle = "Unlock the door."
+previousObjective = NodePath("../../../Quests/Base")
 
 [node name="Bottles" type="Node3D" parent="Enviroment"]
 
@@ -179,14 +211,6 @@ shape = SubResource("SphereShape3D_sgo2f")
 
 [node name="TakeInventory" type="Node3D" parent="Enviroment/Bottles/Health"]
 script = ExtResource("8_jimuq")
-
-[node name="Characters" type="Node3D" parent="."]
-
-[node name="Player" parent="Characters" instance=ExtResource("1_h4rhp")]
-collision_mask = 11
-
-[node name="Beast" parent="Characters" instance=ExtResource("9_l24ay")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.24945, 1, 15.6866)
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.136993, 1, 4.79688)

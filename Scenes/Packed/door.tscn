@@ -1,7 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://cb0fqai3ot6cx"]
+[gd_scene load_steps=4 format=3 uid="uid://cb0fqai3ot6cx"]
 
-[ext_resource type="Script" path="res://Scripts/Door.gd" id="1_svr52"]
-[ext_resource type="PackedScene" uid="uid://cq832m6i175lb" path="res://Scenes/Packed/Components/open_door.tscn" id="2_tm82j"]
+[ext_resource type="Script" path="res://Scripts/Door/DragDoor.gd" id="3_boo34"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_4fqd7"]
 size = Vector3(1, 2, 0.1)
@@ -10,14 +9,23 @@ size = Vector3(1, 2, 0.1)
 points = PackedVector3Array(-0.5, -1, -0.05, -0.5, -1, 0.05, -0.5, 1, -0.05, 0.5, -1, -0.05, 0.5, -1, 0.05, -0.5, 1, 0.05, 0.5, 1, -0.05, 0.5, 1, 0.05)
 
 [node name="Door" type="Node3D"]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 3.05219, 1.03459, 0)
-script = ExtResource("1_svr52")
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 1.035, 0)
+script = ExtResource("3_boo34")
 metadata/_edit_group_ = true
+
+[node name="OpenDoor" type="Node3D" parent="."]
+
+[node name="HingeJoint3D" type="HingeJoint3D" parent="."]
+transform = Transform3D(1, -4.37114e-08, 4.37114e-08, 4.37114e-08, -4.37114e-08, -1, 4.37114e-08, 1, -4.37114e-08, 0.0273867, 0, 0)
+node_b = NodePath("../PhysicsDoor")
+angular_limit/enable = true
+angular_limit/upper = 1.91986
+angular_limit/lower = -1.91986
 
 [node name="PhysicsDoor" type="RigidBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0345901, 0)
 collision_layer = 8
-collision_mask = 11
+collision_mask = 31
 axis_lock_linear_x = true
 axis_lock_linear_y = true
 axis_lock_linear_z = true
@@ -31,5 +39,3 @@ mesh = SubResource("BoxMesh_4fqd7")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="PhysicsDoor"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.506304, 0, 0)
 shape = SubResource("ConvexPolygonShape3D_kb5gv")
-
-[node name="OpenDoor" parent="." instance=ExtResource("2_tm82j")]

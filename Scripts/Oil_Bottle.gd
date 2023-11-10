@@ -35,10 +35,13 @@ func touched(body):
 		var spot : Node3D = Global.gasPrefab.instantiate()
 		gasNodes.add_child(spot)
 		spot.global_position = rigidBody.global_position
-		rigidBody.queue_free()
+		await get_tree().create_timer(0.2).timeout
+		if rigidBody != null:
+			rigidBody.queue_free()
 		tobreak = false
-		await get_tree().create_timer(1).timeout
+		
 		$"NoiseControl".volume = 0
+		await get_tree().create_timer(1).timeout
 		queue_free()
 
 func Get_type():

@@ -29,6 +29,7 @@ script = ExtResource("1_b5xe0")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.896271, 0)
 modulate = Color(1, 1, 1, 0)
 billboard = 1
+no_depth_test = true
 texture = ExtResource("4_36337")
 
 [node name="oil_bottle" type="RigidBody3D" parent="."]
