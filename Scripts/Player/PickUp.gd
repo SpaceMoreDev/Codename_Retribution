@@ -69,11 +69,12 @@ func _input(event):
 			cameraSc.locked = false
 
 func touched(body):
-	$"../NoiseControl".volume = 100
-	await get_tree().create_timer(1).timeout
-	$"../NoiseControl".volume = 0
-	rb.contact_monitor = false
-	rb.max_contacts_reported = 0
+	if get_parent().has_node("NoiseControl"):
+		$"../NoiseControl".volume = 100
+		await get_tree().create_timer(1).timeout
+		$"../NoiseControl".volume = 0
+		rb.contact_monitor = false
+		rb.max_contacts_reported = 0
 
 func remove_object():
 	if(picked_object != null):

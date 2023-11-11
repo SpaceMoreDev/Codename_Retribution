@@ -1,0 +1,189 @@
+[gd_scene load_steps=23 format=3 uid="uid://ikqxwxhbsjcd"]
+
+[ext_resource type="Script" path="res://Scripts/Player/PickUp.gd" id="1_nru7c"]
+[ext_resource type="Script" path="res://Scripts/Fire.gd" id="2_45nae"]
+[ext_resource type="Texture2D" uid="uid://dbwo0f64ck6pj" path="res://Assets/Elements/fire_02.png" id="3_wrjxb"]
+[ext_resource type="Texture2D" uid="uid://di2vyh7g3wakw" path="res://Assets/Elements/fire_01.png" id="4_7f2fa"]
+[ext_resource type="Texture2D" uid="uid://cxq57glyuukxl" path="res://Assets/Elements/wexclamationMark.png" id="5_54ixm"]
+[ext_resource type="Script" path="res://Scripts/Player/Noise.gd" id="6_b0bg0"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3g57j"]
+albedo_color = Color(0.505882, 0.207843, 0.0509804, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_u1kjn"]
+material = SubResource("StandardMaterial3D_3g57j")
+top_radius = 0.025
+bottom_radius = 0.01
+height = 0.358
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_4jmj1"]
+radius = 0.0481435
+height = 0.416761
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_2wtnh"]
+radius = 0.124748
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6y5hh"]
+blend_mode = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("3_wrjxb")
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+proximity_fade_enabled = true
+
+[sub_resource type="Gradient" id="Gradient_fh2bu"]
+offsets = PackedFloat32Array(0, 0.503906, 1)
+colors = PackedColorArray(0.254902, 0.254902, 0.254902, 0, 0.255659, 0.255659, 0.255659, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_fukfj"]
+gradient = SubResource("Gradient_fh2bu")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_uhy7p"]
+lifetime_randomness = 0.03
+emission_shape = 1
+emission_sphere_radius = 0.1
+direction = Vector3(0, 0, 0)
+spread = 0.2
+gravity = Vector3(0, 0.3, 0)
+scale_min = 0.1
+color = Color(0.447059, 0.447059, 0.447059, 1)
+color_ramp = SubResource("GradientTexture1D_fukfj")
+
+[sub_resource type="QuadMesh" id="QuadMesh_snyij"]
+
+[sub_resource type="Skin" id="Skin_6jcdg"]
+bind_count = 1
+bind/0/name = &""
+bind/0/bone = -1
+bind/0/pose = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hb18t"]
+blend_mode = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("4_7f2fa")
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+proximity_fade_enabled = true
+
+[sub_resource type="Gradient" id="Gradient_lwqpa"]
+colors = PackedColorArray(0.992309, 0.803442, 0.350917, 1, 0.754733, 0.287223, 0.240319, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_pirbk"]
+gradient = SubResource("Gradient_lwqpa")
+
+[sub_resource type="Curve" id="Curve_jn513"]
+max_value = 4.0
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.5, 4), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+metadata/_snap_enabled = true
+
+[sub_resource type="CurveTexture" id="CurveTexture_xdbgl"]
+curve = SubResource("Curve_jn513")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_audl7"]
+emission_shape = 1
+emission_sphere_radius = 0.01
+direction = Vector3(0, 0, 0)
+spread = 0.1
+gravity = Vector3(0, 0.3, 0)
+angular_velocity_min = 1.0
+angular_velocity_max = 60.0
+linear_accel_min = 1.0
+linear_accel_max = 4.0
+scale_min = 0.2
+scale_max = 0.3
+scale_curve = SubResource("CurveTexture_xdbgl")
+color_ramp = SubResource("GradientTexture1D_pirbk")
+turbulence_noise_strength = 3.32
+turbulence_noise_scale = 4.46
+
+[node name="torch" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 0.943396, -0.331667, 0, 0.331667, 0.943396, 0, 0, 0)
+metadata/_edit_group_ = true
+
+[node name="pickup" type="Node3D" parent="." node_paths=PackedStringArray("rb")]
+script = ExtResource("1_nru7c")
+rb = NodePath("../RigidBody3D")
+
+[node name="RigidBody3D" type="RigidBody3D" parent="."]
+collision_layer = 4
+collision_mask = 15
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D"]
+transform = Transform3D(1.57834, 0, 0, 0, 1.57834, 0, 0, 0, 1.57834, 0, 0.0435849, 0)
+mesh = SubResource("CylinderMesh_u1kjn")
+skeleton = NodePath("../CollisionShape3D")
+
+[node name="RemoteTransform3D" type="RemoteTransform3D" parent="RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+remote_path = NodePath("../../Node3D")
+update_rotation = false
+update_scale = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
+transform = Transform3D(1.57834, 0, 0, 0, 1.57834, 0, 0, 0, 1.57834, 0, 0.0435849, 0)
+shape = SubResource("CapsuleShape3D_4jmj1")
+
+[node name="Fire" type="Node3D" parent="RigidBody3D" node_paths=PackedStringArray("areaTrigger")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.578704, 0)
+script = ExtResource("2_45nae")
+areaTrigger = NodePath("Area3D")
+
+[node name="Area3D" type="Area3D" parent="RigidBody3D/Fire"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0124707, 0)
+collision_layer = 16
+collision_mask = 38
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D/Fire/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.175097, 0)
+shape = SubResource("SphereShape3D_2wtnh")
+
+[node name="Smoke" type="GPUParticles3D" parent="RigidBody3D/Fire"]
+transform = Transform3D(0.461942, -4.92343e-15, 0, 4.92343e-15, 0.461942, 0, 0, 0, 0.461942, 0, 0.133773, 0)
+material_override = SubResource("StandardMaterial3D_6y5hh")
+amount = 5
+sub_emitter = NodePath(".")
+lifetime = 3.0
+randomness = 1.0
+process_material = SubResource("ParticleProcessMaterial_uhy7p")
+draw_pass_1 = SubResource("QuadMesh_snyij")
+draw_skin = SubResource("Skin_6jcdg")
+
+[node name="Flames" type="GPUParticles3D" parent="RigidBody3D/Fire"]
+transform = Transform3D(0.461942, -4.92343e-15, 0, 4.92343e-15, 0.461942, 0, 0, 0, 0.461942, 0, -0.281229, 0)
+material_override = SubResource("StandardMaterial3D_hb18t")
+amount = 10
+sub_emitter = NodePath(".")
+lifetime = 0.76
+randomness = 1.0
+process_material = SubResource("ParticleProcessMaterial_audl7")
+draw_pass_1 = SubResource("QuadMesh_snyij")
+draw_skin = SubResource("Skin_6jcdg")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="RigidBody3D/Fire"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.237103, 0)
+light_color = Color(0.992157, 1, 0.760784, 1)
+omni_range = 7.0
+
+[node name="Node3D" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="Noise Icon" type="Sprite3D" parent="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.896271, 0)
+modulate = Color(1, 1, 1, 0)
+billboard = 1
+no_depth_test = true
+texture = ExtResource("5_54ixm")
+
+[node name="NoiseControl" type="Node" parent="." node_paths=PackedStringArray("source", "soundIcon")]
+script = ExtResource("6_b0bg0")
+source = NodePath("../RigidBody3D")
+soundIcon = NodePath("../Node3D/Noise Icon")

@@ -1,115 +1,19 @@
-[gd_scene load_steps=41 format=3 uid="uid://bp755b7h6vn0g"]
+[gd_scene load_steps=24 format=3 uid="uid://bp755b7h6vn0g"]
 
 [ext_resource type="PackedScene" uid="uid://qc046bctp57n" path="res://Scenes/Packed/player.tscn" id="1_h4rhp"]
 [ext_resource type="PackedScene" uid="uid://cb0fqai3ot6cx" path="res://Scenes/Packed/door.tscn" id="2_yba7r"]
 [ext_resource type="MeshLibrary" uid="uid://dhwocby11pe5e" path="res://Assets/Data/tileset.tres" id="3_x1k75"]
 [ext_resource type="Texture2D" uid="uid://di2vyh7g3wakw" path="res://Assets/Elements/fire_01.png" id="3_xsxqd"]
 [ext_resource type="PackedScene" uid="uid://dqcg0cgj45q4s" path="res://Scenes/Packed/object.tscn" id="4_h5bkt"]
-[ext_resource type="Script" path="res://Scripts/Fire.gd" id="4_m2048"]
-[ext_resource type="Texture2D" uid="uid://dbwo0f64ck6pj" path="res://Assets/Elements/fire_02.png" id="5_kbkun"]
 [ext_resource type="PackedScene" uid="uid://pqrnh6ofvdom" path="res://Scenes/Packed/gasoline.tscn" id="5_ra0pc"]
+[ext_resource type="PackedScene" uid="uid://ikqxwxhbsjcd" path="res://Scenes/Packed/torch.tscn" id="6_bpvms"]
 [ext_resource type="PackedScene" uid="uid://c8ig5qvw7vdlx" path="res://Scenes/Packed/key.tscn" id="6_n8l80"]
 [ext_resource type="Script" path="res://Scripts/Quests/Objective.gd" id="7_6plhs"]
-[ext_resource type="Script" path="res://Scripts/Player/PickUp.gd" id="7_j2lh0"]
 [ext_resource type="PackedScene" uid="uid://dlbihv1ffxrey" path="res://Scenes/Packed/oil_bottle.tscn" id="8_8c8gj"]
 [ext_resource type="PackedScene" uid="uid://biaotmi0ew401" path="res://Scenes/Packed/molotov.tscn" id="8_tplqc"]
 [ext_resource type="PackedScene" uid="uid://bodjd04q3c2pm" path="res://Scenes/Packed/beast.tscn" id="9_l24ay"]
 [ext_resource type="PackedScene" uid="uid://cslwa65lddpxp" path="res://Scenes/Packed/health.tscn" id="15_u6a7b"]
 [ext_resource type="Script" path="res://Scripts/Restart.gd" id="17_riuhk"]
-
-[sub_resource type="CylinderMesh" id="CylinderMesh_u1kjn"]
-top_radius = 0.025
-bottom_radius = 0.01
-height = 0.358
-
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_ut85b"]
-height = 0.371805
-radius = 0.0311004
-
-[sub_resource type="SphereShape3D" id="SphereShape3D_2wtnh"]
-radius = 0.124748
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6y5hh"]
-blend_mode = 1
-shading_mode = 0
-vertex_color_use_as_albedo = true
-albedo_texture = ExtResource("5_kbkun")
-billboard_mode = 3
-billboard_keep_scale = true
-particles_anim_h_frames = 1
-particles_anim_v_frames = 1
-particles_anim_loop = false
-proximity_fade_enabled = true
-
-[sub_resource type="Gradient" id="Gradient_fh2bu"]
-offsets = PackedFloat32Array(0, 0.503906, 1)
-colors = PackedColorArray(0.254902, 0.254902, 0.254902, 0, 0.255659, 0.255659, 0.255659, 1, 1, 1, 1, 0)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_fukfj"]
-gradient = SubResource("Gradient_fh2bu")
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_uhy7p"]
-lifetime_randomness = 0.03
-emission_shape = 1
-emission_sphere_radius = 0.1
-direction = Vector3(0, 0, 0)
-spread = 0.2
-gravity = Vector3(0, 0.3, 0)
-scale_min = 0.1
-color = Color(0.447059, 0.447059, 0.447059, 1)
-color_ramp = SubResource("GradientTexture1D_fukfj")
-
-[sub_resource type="QuadMesh" id="QuadMesh_snyij"]
-
-[sub_resource type="Skin" id="Skin_6jcdg"]
-bind_count = 1
-bind/0/name = &""
-bind/0/bone = -1
-bind/0/pose = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hb18t"]
-blend_mode = 1
-shading_mode = 0
-vertex_color_use_as_albedo = true
-albedo_texture = ExtResource("3_xsxqd")
-billboard_mode = 3
-billboard_keep_scale = true
-particles_anim_h_frames = 1
-particles_anim_v_frames = 1
-particles_anim_loop = false
-proximity_fade_enabled = true
-
-[sub_resource type="Gradient" id="Gradient_lwqpa"]
-colors = PackedColorArray(0.992309, 0.803442, 0.350917, 1, 0.754733, 0.287223, 0.240319, 1)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_pirbk"]
-gradient = SubResource("Gradient_lwqpa")
-
-[sub_resource type="Curve" id="Curve_jn513"]
-max_value = 4.0
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.5, 4), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
-point_count = 3
-metadata/_snap_enabled = true
-
-[sub_resource type="CurveTexture" id="CurveTexture_xdbgl"]
-curve = SubResource("Curve_jn513")
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_audl7"]
-emission_shape = 1
-emission_sphere_radius = 0.01
-direction = Vector3(0, 0, 0)
-spread = 0.1
-gravity = Vector3(0, 0.3, 0)
-angular_velocity_min = 1.0
-angular_velocity_max = 60.0
-linear_accel_min = 1.0
-linear_accel_max = 4.0
-scale_min = 0.2
-scale_max = 0.3
-scale_curve = SubResource("CurveTexture_xdbgl")
-color_ramp = SubResource("GradientTexture1D_pirbk")
-turbulence_noise_strength = 3.32
-turbulence_noise_scale = 4.46
 
 [sub_resource type="Environment" id="Environment_n8o2s"]
 fog_light_color = Color(0, 0, 0, 1)
@@ -193,129 +97,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.24945, 1, 15.6866)
 
 [node name="Enviroment" type="Node3D" parent="."]
 
-[node name="torch" type="Node3D" parent="Enviroment"]
-transform = Transform3D(1, 0, 0, 0, 0.943396, -0.331667, 0, 0.331667, 0.943396, -3.03813, 0.684712, 5.73446)
-metadata/_edit_group_ = true
-
-[node name="pickup" type="Node3D" parent="Enviroment/torch" node_paths=PackedStringArray("rb")]
-script = ExtResource("7_j2lh0")
-rb = NodePath("../RigidBody3D")
-
-[node name="RigidBody3D" type="RigidBody3D" parent="Enviroment/torch"]
-collision_layer = 4
-collision_mask = 15
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Enviroment/torch/RigidBody3D"]
-transform = Transform3D(1.57834, 0, 0, 0, 1.57834, 0, 0, 0, 1.57834, 0, 0.0435849, 0)
-mesh = SubResource("CylinderMesh_u1kjn")
-skeleton = NodePath("../CollisionShape3D")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Enviroment/torch/RigidBody3D"]
-transform = Transform3D(1.57834, 0, 0, 0, 1.57834, 0, 0, 0, 1.57834, 0, 0.0435849, 0)
-shape = SubResource("CylinderShape3D_ut85b")
-
-[node name="Fire" type="Node3D" parent="Enviroment/torch/RigidBody3D" node_paths=PackedStringArray("areaTrigger")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.578704, 0)
-script = ExtResource("4_m2048")
-areaTrigger = NodePath("Area3D")
-
-[node name="Area3D" type="Area3D" parent="Enviroment/torch/RigidBody3D/Fire"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0124707, 0)
-collision_layer = 16
-collision_mask = 38
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Enviroment/torch/RigidBody3D/Fire/Area3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.175097, 0)
-shape = SubResource("SphereShape3D_2wtnh")
-
-[node name="Smoke" type="GPUParticles3D" parent="Enviroment/torch/RigidBody3D/Fire"]
-transform = Transform3D(0.461942, -4.92343e-15, 0, 4.92343e-15, 0.461942, 0, 0, 0, 0.461942, 0, 0.133773, 0)
-material_override = SubResource("StandardMaterial3D_6y5hh")
-amount = 5
-sub_emitter = NodePath(".")
-lifetime = 3.0
-randomness = 1.0
-process_material = SubResource("ParticleProcessMaterial_uhy7p")
-draw_pass_1 = SubResource("QuadMesh_snyij")
-draw_skin = SubResource("Skin_6jcdg")
-
-[node name="Flames" type="GPUParticles3D" parent="Enviroment/torch/RigidBody3D/Fire"]
-transform = Transform3D(0.461942, -4.92343e-15, 0, 4.92343e-15, 0.461942, 0, 0, 0, 0.461942, 0, -0.281229, 0)
-material_override = SubResource("StandardMaterial3D_hb18t")
-amount = 10
-sub_emitter = NodePath(".")
-lifetime = 0.76
-randomness = 1.0
-process_material = SubResource("ParticleProcessMaterial_audl7")
-draw_pass_1 = SubResource("QuadMesh_snyij")
-draw_skin = SubResource("Skin_6jcdg")
-
-[node name="OmniLight3D" type="OmniLight3D" parent="Enviroment/torch/RigidBody3D/Fire"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.237103, 0)
-light_color = Color(0.992157, 1, 0.760784, 1)
-omni_range = 7.0
-
-[node name="torch2" type="Node3D" parent="Enviroment"]
-transform = Transform3D(0.938535, 0.345184, 0, -0.345184, 0.938535, 0, 0, 0, 1, 5.86814, 0.684712, 7.87825)
-metadata/_edit_group_ = true
-
-[node name="pickup" type="Node3D" parent="Enviroment/torch2" node_paths=PackedStringArray("rb")]
-script = ExtResource("7_j2lh0")
-rb = NodePath("../../torch/RigidBody3D")
-
-[node name="RigidBody3D" type="RigidBody3D" parent="Enviroment/torch2"]
-collision_layer = 4
-collision_mask = 15
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Enviroment/torch2/RigidBody3D"]
-transform = Transform3D(1.57834, 0, 0, 0, 1.57834, 0, 0, 0, 1.57834, 0, 0.0435849, 0)
-mesh = SubResource("CylinderMesh_u1kjn")
-skeleton = NodePath("../CollisionShape3D")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Enviroment/torch2/RigidBody3D"]
-transform = Transform3D(1.57834, 0, 0, 0, 1.57834, 0, 0, 0, 1.57834, 0, 0.0435849, 0)
-shape = SubResource("CylinderShape3D_ut85b")
-
-[node name="Fire" type="Node3D" parent="Enviroment/torch2/RigidBody3D" node_paths=PackedStringArray("areaTrigger")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.578704, 0)
-script = ExtResource("4_m2048")
-areaTrigger = NodePath("../../../torch/RigidBody3D/Fire/Area3D")
-
-[node name="Area3D" type="Area3D" parent="Enviroment/torch2/RigidBody3D/Fire"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0124707, 0)
-collision_layer = 16
-collision_mask = 38
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Enviroment/torch2/RigidBody3D/Fire/Area3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.175097, 0)
-shape = SubResource("SphereShape3D_2wtnh")
-
-[node name="Smoke" type="GPUParticles3D" parent="Enviroment/torch2/RigidBody3D/Fire"]
-transform = Transform3D(0.461942, -4.92343e-15, 0, 4.92343e-15, 0.461942, 0, 0, 0, 0.461942, 0, 0.133773, 0)
-material_override = SubResource("StandardMaterial3D_6y5hh")
-amount = 5
-sub_emitter = NodePath(".")
-lifetime = 3.0
-randomness = 1.0
-process_material = SubResource("ParticleProcessMaterial_uhy7p")
-draw_pass_1 = SubResource("QuadMesh_snyij")
-draw_skin = SubResource("Skin_6jcdg")
-
-[node name="Flames" type="GPUParticles3D" parent="Enviroment/torch2/RigidBody3D/Fire"]
-transform = Transform3D(0.461942, -4.92343e-15, 0, 4.92343e-15, 0.461942, 0, 0, 0, 0.461942, 0, -0.281229, 0)
-material_override = SubResource("StandardMaterial3D_hb18t")
-amount = 10
-sub_emitter = NodePath(".")
-lifetime = 0.76
-randomness = 1.0
-process_material = SubResource("ParticleProcessMaterial_audl7")
-draw_pass_1 = SubResource("QuadMesh_snyij")
-draw_skin = SubResource("Skin_6jcdg")
-
-[node name="OmniLight3D" type="OmniLight3D" parent="Enviroment/torch2/RigidBody3D/Fire"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.237103, 0)
-light_color = Color(0.992157, 1, 0.760784, 1)
-omni_range = 7.0
+[node name="torch" parent="Enviroment" instance=ExtResource("6_bpvms")]
+transform = Transform3D(1, 0, 0, 0, 0.943396, -0.331667, 0, 0.331667, 0.943396, -2.98232, 0.892216, 6.53652)
 
 [node name="GasolineSpots" type="Node3D" parent="Enviroment"]
 
@@ -391,9 +174,6 @@ transform = Transform3D(-0.0469844, 0, -0.998896, 0, 1, 0, 0.998896, 0, -0.04698
 
 [node name="Object6" parent="Enviroment" instance=ExtResource("4_h5bkt")]
 transform = Transform3D(-0.505913, 0, -0.862584, 0, 1, 0, 0.862584, 0, -0.505913, 0.00330073, 0.353027, 5.95923)
-
-[node name="Object10" parent="Enviroment" instance=ExtResource("4_h5bkt")]
-transform = Transform3D(-0.505913, 0, -0.862584, 0, 1, 0, 0.862584, 0, -0.505913, -0.220208, 0.353027, 15.3757)
 
 [node name="Decal" type="Decal" parent="Enviroment"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 6.48355, 1.33572, -5.02471)
