@@ -51,5 +51,5 @@ func _on_door_closed():
 func Update(delta):
 	pass
 
-func _process(delta):
+func _physics_process(delta):
 	Update(delta)

@@ -28,7 +28,6 @@ func CheckObjectives(node) -> bool:
 	return false
 
 
-
 func Start(check):
 	if CheckObjectives(check.get_parent()):	
 		if not currentQuest and get_parent() == check.get_parent():
