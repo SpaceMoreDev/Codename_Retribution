@@ -26,16 +26,19 @@ func remove_object():
 	player.playerCamera.locked = false
 
 func InteractWithDoor(door:Node3D):
-	if door == $body:
+	if door == $body :
+		player.playerCamera.locked = true
+		if not is_locked:
 			data = door
 			mouse_x = 0.0
-
-			player.playerCamera.locked = true
+		else:
+			print("Locked")
+			
 
 func _input(event):
 	if(data != null):
 		if(event is InputEventMouseMotion):		
-			mouse_x = event.relative.x * _sensitivity
+			mouse_x = -event.relative.x * _sensitivity
 			# mouse_x = clamp(mouse_x, -1, 1)
 		else:
 			mouse_x = 0.0
@@ -43,22 +46,22 @@ func _input(event):
 
 
 func Update(delta):
-	if(data != null):
+	if(data != null and not is_locked):
 		if abs(mouse_x) > 0:
 			var cam = player.playerCamera.global_position # location of player
 			
 			var camtodoor = data.global_position - cam
 			var doortocam = cam - data.global_position
 
-			DebugDraw3D.draw_ray(cam, camtodoor, camtodoor.length() , Color(1,0, 0))
+			# DebugDraw3D.draw_ray(cam, camtodoor, camtodoor.length() , Color(1,0, 0))
 
-			var raydir = sign(doortocam.z) # direction to player whether looking or not
-			var dirPoint = (data.global_position + (data.get_node("handle").global_transform.basis * Vector3.RIGHT *(raydir * mouse_x)))
+			var raydir = sign(camtodoor.z) # direction to player whether looking or not
+			var dirPoint = (data.global_position + (data.get_node("handle").global_transform.basis * Vector3.RIGHT *(raydir *mouse_x)))
 			print(raydir)
 
 			
-			DebugDraw3D.draw_box(dirPoint, Vector3(.1,.1,.1), Color(1, 1, 0), true)
-			var doordir = ( dirPoint - data.global_position )
+			# DebugDraw3D.draw_box(dirPoint, Vector3(.1,.1,.1), Color(1, 1, 0), true)
+			var doordir = ( dirPoint - data.global_position ) 
 			data.set_linear_velocity(doordir * pull_power * delta)
 			return
 

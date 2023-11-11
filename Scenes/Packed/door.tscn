@@ -3,10 +3,10 @@
 [ext_resource type="Script" path="res://Scripts/Door/DragDoor.gd" id="3_boo34"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_4fqd7"]
-size = Vector3(1, 2, 0.1)
+size = Vector3(0.922, 2, 0.1)
 
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_kb5gv"]
-points = PackedVector3Array(-0.5, -1, -0.05, -0.5, -1, 0.05, -0.5, 1, -0.05, 0.5, -1, -0.05, 0.5, -1, 0.05, -0.5, 1, 0.05, 0.5, 1, -0.05, 0.5, 1, 0.05)
+[sub_resource type="BoxShape3D" id="BoxShape3D_fhxkj"]
+size = Vector3(0.921867, 2, 0.1)
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_n1f2b"]
 
@@ -14,32 +14,27 @@ points = PackedVector3Array(-0.5, -1, -0.05, -0.5, -1, 0.05, -0.5, 1, -0.05, 0.5
 size = Vector3(0.109688, 2, 0.1)
 
 [node name="Door" type="Node3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.035, 0)
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -4.39738, 1.01638, 3.19658)
 script = ExtResource("3_boo34")
 metadata/_edit_group_ = true
 
-[node name="OpenDoor" type="Node3D" parent="."]
-
 [node name="body" type="RigidBody3D" parent="." groups=["Door"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.870663, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.129337, 0, 0)
 collision_layer = 8
-collision_mask = 31
+collision_mask = 23
 axis_lock_angular_x = true
 axis_lock_angular_z = true
 
-[node name="front" type="Node3D" parent="body"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.509511, 0, -0.787822)
-
 [node name="MeshInstance3D" type="MeshInstance3D" parent="body"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.503106, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.461, 0, 0)
 mesh = SubResource("BoxMesh_4fqd7")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="body"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.503106, 0, 0)
-shape = SubResource("ConvexPolygonShape3D_kb5gv")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.461319, 0, 0)
+shape = SubResource("BoxShape3D_fhxkj")
 
 [node name="handle" type="Node3D" parent="body"]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.185935, 0, -3.96968e-08)
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -0.814065, 0, 0)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="body/handle"]
 transform = Transform3D(-6.11959e-09, -0.14, -6.11959e-09, 0, -6.11959e-09, 0.14, -0.14, 6.11959e-09, 2.67496e-16, 0, 0, 0)
@@ -59,4 +54,5 @@ transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.1379
 node_a = NodePath("../body")
 node_b = NodePath("../frame")
 angular_limit/enable = true
-angular_limit/lower = 0.0
+angular_limit/upper = 1.0472
+angular_limit/lower = -1.0472

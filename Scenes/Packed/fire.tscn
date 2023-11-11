@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://di2vyh7g3wakw" path="res://Assets/Elements/fire_01.png" id="1_k23bq"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_2wtnh"]
+radius = 0.124748
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6y5hh"]
 blend_mode = 1
@@ -94,7 +95,7 @@ script = ExtResource("1_ceyis")
 areaTrigger = NodePath("Area3D")
 
 [node name="NavigationObstacle3D" type="NavigationObstacle3D" parent="."]
-radius = 0.3
+radius = 0.2
 height = 2.0
 
 [node name="Area3D" type="Area3D" parent="."]

@@ -58,7 +58,7 @@ func DamagePlayer(damage):
 func navigation_finished():
 	if (get_parent() as StateMachine).current_state == self:
 		distance_to_player = (player.global_position - enemy.global_position).length()
-		if distance_to_player > 3:
+		if distance_to_player > 5 or not detection.checkRays():
 			inarea = false
 			Transitioned.emit(self, "Idle")
 			print("Chase -> Idle")

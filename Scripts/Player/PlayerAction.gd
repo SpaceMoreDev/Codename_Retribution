@@ -46,4 +46,5 @@ func check_if_hit():
 		emit_signal("start_interaction", collider)
 
 func interact(with):
-	print("interacted with %s" % with)
+	# print("interacted with %s" % with)
+	pass

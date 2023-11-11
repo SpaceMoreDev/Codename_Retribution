@@ -113,8 +113,28 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.352765, -0.467208)
 target_position = Vector3(0, 0, -10)
 collision_mask = 15
 
+[node name="10" type="RayCast3D" parent="Detection/Head"]
+transform = Transform3D(1, 0, 0, 0, 0.996195, 0.0871557, 0, -0.0871557, 0.996195, 0, 0.352765, -0.467208)
+target_position = Vector3(0, 0, -10)
+collision_mask = 15
+
+[node name="11" type="RayCast3D" parent="Detection/Head"]
+transform = Transform3D(1, 0, 0, 0, 0.996195, -0.0871557, 0, 0.0871557, 0.996195, 0, 0.352765, -0.467208)
+target_position = Vector3(0, 0, -10)
+collision_mask = 15
+
 [node name="1" type="RayCast3D" parent="Detection/Head"]
 transform = Transform3D(0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, 0.965926, 0, 0.352765, -0.467208)
+target_position = Vector3(0, 0, -10)
+collision_mask = 15
+
+[node name="12" type="RayCast3D" parent="Detection/Head"]
+transform = Transform3D(0.996195, 0, -0.0871557, 0, 1, 0, 0.0871557, 0, 0.996195, 0, 0.352765, -0.467208)
+target_position = Vector3(0, 0, -10)
+collision_mask = 15
+
+[node name="13" type="RayCast3D" parent="Detection/Head"]
+transform = Transform3D(0.996195, 0, 0.0871557, 0, 1, 0, -0.0871557, 0, 0.996195, 0, 0.352765, -0.467208)
 target_position = Vector3(0, 0, -10)
 collision_mask = 15
 
