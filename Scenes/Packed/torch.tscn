@@ -17,7 +17,7 @@ bottom_radius = 0.01
 height = 0.358
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_4jmj1"]
-radius = 0.0481435
+radius = 0.0926722
 height = 0.416761
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_2wtnh"]
@@ -123,7 +123,6 @@ mesh = SubResource("CylinderMesh_u1kjn")
 skeleton = NodePath("../CollisionShape3D")
 
 [node name="RemoteTransform3D" type="RemoteTransform3D" parent="RigidBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 remote_path = NodePath("../../Node3D")
 update_rotation = false
 update_scale = false
