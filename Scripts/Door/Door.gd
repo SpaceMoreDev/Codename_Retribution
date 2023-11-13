@@ -14,8 +14,14 @@ signal door_opened(door)
 signal door_closed(door)
 
 var key : DoorKey
+var doorbody : RigidBody3D
+var hinge : HingeJoint3D
 
-@export var is_locked : bool = false
+@export var is_locked : bool = false:
+	set(v):
+		if doorbody:
+			doorbody.set_process(!v)
+		is_locked = v
 
 ## Door self-closing force
 @export var close_force := 0.0 # (float, 0.0, 1.0, 0.01)
@@ -46,6 +52,15 @@ func _on_door_opened():
 
 func _on_door_closed():
 	emit_signal("door_closed", self)
+
+
+func _enter_tree():
+	doorbody = $body
+	hinge = $hinge
+
+func _ready():
+	doorbody.set_process(!is_locked)
+		
 
 @warning_ignore("unused_parameter")
 func Update(delta):

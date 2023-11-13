@@ -70,3 +70,14 @@ func body_entered(body):
 		if body is Player:
 			enemy.seeingPlayer = true
 			DamagePlayer(enemy.damage)
+		else:
+			if body is RigidBody3D and body.get_parent().has_node("PickUp"):
+				var picked : PickUpObject = body.get_parent().get_node("PickUp")
+				
+				var a = body.global_transform.origin
+				var b = enemy.global_transform.origin
+				var dir = (a-b) + (player.global_position + Vector3.RIGHT * 5 * randf_range(-1,1) - b)
+				body.apply_central_impulse(dir)
+				
+				picked.DetectObjects(true)
+				picked.remove_object()

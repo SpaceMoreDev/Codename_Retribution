@@ -42,10 +42,6 @@ func _process(delta):
 		camera.position.y = move_toward(camera.position.y, crouchingHeight, delta * acceleration*2)
 		player.noise.volume = 0
 	elif(Input.is_action_just_released("CROUCH")):
-		if is_top_empty():
-			standingCollider.disabled = false
-			crouchingCollider.disabled = true
-			player.Speed =player.WALK_SPEED
 		notpressing = false
 	else:
 		if not notpressing and active:

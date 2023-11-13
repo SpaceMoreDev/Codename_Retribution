@@ -21,7 +21,7 @@ metadata/_edit_group_ = true
 [node name="body" type="RigidBody3D" parent="." groups=["Door"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.129337, 0, 0)
 collision_layer = 8
-collision_mask = 23
+collision_mask = 273
 axis_lock_angular_x = true
 axis_lock_angular_z = true
 

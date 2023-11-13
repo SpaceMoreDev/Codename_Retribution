@@ -1,10 +1,10 @@
 [gd_scene load_steps=13 format=3 uid="uid://bodjd04q3c2pm"]
 
 [ext_resource type="Script" path="res://Scripts/Beast/BeastController.gd" id="1_ru7bn"]
-[ext_resource type="Script" path="res://Scripts/States/Chase.gd" id="3_4igwm"]
+[ext_resource type="Script" path="res://Scripts/Beast/States/Chase.gd" id="3_32p2h"]
 [ext_resource type="Script" path="res://Scripts/Beast/State_Machine.gd" id="3_y8enf"]
-[ext_resource type="Script" path="res://Scripts/States/Idle.gd" id="4_pom2q"]
-[ext_resource type="Script" path="res://Scripts/States/Stuck.gd" id="5_ht0i1"]
+[ext_resource type="Script" path="res://Scripts/Beast/States/Idle.gd" id="4_bqnrj"]
+[ext_resource type="Script" path="res://Scripts/Beast/States/Stuck.gd" id="5_v0tlw"]
 [ext_resource type="Script" path="res://Scripts/Beast/Detection.gd" id="6_tgxsq"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_s6p0v"]
@@ -17,9 +17,8 @@ material = SubResource("StandardMaterial3D_s6p0v")
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_wdh8a"]
 
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_lvdtx"]
-height = 0.31
-radius = 1.20502
+[sub_resource type="SphereShape3D" id="SphereShape3D_8nyv0"]
+radius = 1.27219
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_06e3m"]
 radius = 18.0
@@ -41,7 +40,7 @@ detection = NodePath("Detection")
 avoidance_enabled = true
 height = 2.0
 radius = 0.7
-max_speed = 20.0
+max_speed = 100.0
 
 [node name="FaceDirection" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
@@ -51,17 +50,17 @@ script = ExtResource("3_y8enf")
 initial_state = NodePath("Idle")
 
 [node name="Chase" type="Node" parent="StateMachine" node_paths=PackedStringArray("enemy", "stuckRay", "area")]
-script = ExtResource("3_4igwm")
+script = ExtResource("3_32p2h")
 enemy = NodePath("../..")
 stuckRay = NodePath("../../Detection/StuckRays/stuckRay")
 area = NodePath("../../Detection/Near")
 
 [node name="Idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("enemy")]
-script = ExtResource("4_pom2q")
+script = ExtResource("4_bqnrj")
 enemy = NodePath("../..")
 
 [node name="Stuck" type="Node" parent="StateMachine" node_paths=PackedStringArray("ray")]
-script = ExtResource("5_ht0i1")
+script = ExtResource("5_v0tlw")
 ray = NodePath("../../Detection/StuckRays/stuckRay")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
@@ -183,7 +182,7 @@ collision_layer = 0
 collision_mask = 6
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Detection/Near"]
-shape = SubResource("CylinderShape3D_lvdtx")
+shape = SubResource("SphereShape3D_8nyv0")
 
 [node name="Far" type="Area3D" parent="Detection"]
 collision_layer = 0

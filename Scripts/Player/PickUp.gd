@@ -19,6 +19,15 @@ var picked_object : Node3D
 
 var action : PlayerAction
 
+func DetectObjects(canDo : bool):
+	if canDo:
+		rb.contact_monitor = true
+		rb.max_contacts_reported = 2
+	else:
+		rb.contact_monitor = false
+		rb.max_contacts_reported = 0
+
+
 func _ready():
 	var player : Node = Global._get_player()
 
@@ -57,8 +66,7 @@ func _input(event):
 		if(Input.is_action_just_pressed("AIM")):
 			var knockback = picked_object.global_transform.origin - Global._get_player().global_transform.origin
 			picked_object.apply_central_impulse(knockback * 5)
-			rb.contact_monitor = true
-			rb.max_contacts_reported = 2
+			DetectObjects(true)
 			remove_object()
 			return
 
@@ -73,15 +81,19 @@ func touched(body):
 		$"../NoiseControl".volume = 100
 		await get_tree().create_timer(1).timeout
 		$"../NoiseControl".volume = 0
-		rb.contact_monitor = false
-		rb.max_contacts_reported = 0
+
+		DetectObjects(false)
+	else:
+		if body is Player:
+			body.stats.Health -= 10
+			DetectObjects(false)
 
 func remove_object():
 	if(picked_object != null):
 		picked_object = null
 		joint.node_b = joint.get_path()
 		active = false
-		
+	if cameraSc.locked:
 		cameraSc.locked = false
 		
 

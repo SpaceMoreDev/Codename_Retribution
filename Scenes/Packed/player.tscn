@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://qc046bctp57n"]
+[gd_scene load_steps=21 format=3 uid="uid://qc046bctp57n"]
 
 [ext_resource type="Script" path="res://Scripts/Player/PlayerController.gd" id="1_ej1b3"]
 [ext_resource type="Script" path="res://Scripts/Player/PlayerStats.gd" id="1_sce2v"]
@@ -15,6 +15,7 @@
 [ext_resource type="Script" path="res://Scripts/Player/Pause.gd" id="13_y82ud"]
 [ext_resource type="Texture2D" uid="uid://b3gxlcyitqri0" path="res://Assets/Elements/soundIcon.png" id="14_jeaud"]
 [ext_resource type="Script" path="res://Scripts/Player/GameTimer.gd" id="15_rbqk4"]
+[ext_resource type="Script" path="res://Scripts/Beast/StateUI.gd" id="16_d86sr"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_tn7cq"]
 radius = 0.186199
@@ -31,7 +32,6 @@ height = 0.545623
 [node name="Player" type="CharacterBody3D"]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 1, 0)
 collision_layer = 2
-collision_mask = 0
 slide_on_ceiling = false
 script = ExtResource("1_ej1b3")
 
@@ -535,3 +535,16 @@ theme_override_font_sizes/font_size = 11
 text = "0:00"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="Label" type="Label" parent="Player_UI"]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -23.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "State"
+script = ExtResource("16_d86sr")

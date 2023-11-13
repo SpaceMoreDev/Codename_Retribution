@@ -5,6 +5,10 @@ var quests : QuestList:
 	get:
 		return _get_player().get_node("Quest") as QuestList
 
+var enemyState : String:
+	get:
+		return _get_beast().stateMachine.current_state.name
+
 
 var useNoise : bool = true
 var allowFireDamage : bool = true
