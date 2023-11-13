@@ -304,13 +304,13 @@ shape = SubResource("BoxShape3D_kf815")
 mesh = SubResource("BoxMesh_rsbcg")
 
 [node name="Doors" type="Node3D" parent="Enviroment"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.56616, 0, 3.95698)
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -4.56616, 0.0200441, 4.00761)
 
 [node name="Door" parent="Enviroment/Doors" instance=ExtResource("2_yba7r")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.00443697, 1.01638, -0.738816)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.8, 1.016, 0)
 
 [node name="Door2" parent="Enviroment/Doors" instance=ExtResource("2_yba7r")]
-transform = Transform3D(1.62921e-07, 1.4243e-14, 1, 8.74228e-08, -1, 0, 1, 8.74228e-08, -1.62921e-07, 0.00595045, 1.01638, 0.838185)
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -0.8, 1.016, 0)
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.18804, 1, 5.50162)

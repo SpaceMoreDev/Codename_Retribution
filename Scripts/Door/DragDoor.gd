@@ -55,7 +55,7 @@ func Update(delta):
 
 			# DebugDraw3D.draw_ray(cam, camtodoor, camtodoor.length() , Color(1,0, 0))
 
-			var raydir = sign(camtodoor.z) # direction to player whether looking or not
+			var raydir = sign(doortocam.x) * sign(-camtodoor.z) # direction to player whether looking or not
 			var dirPoint = (data.global_position + (data.get_node("handle").global_transform.basis * Vector3.RIGHT *(raydir *mouse_x)))
 			print(raydir)
 
