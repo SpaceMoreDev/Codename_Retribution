@@ -5,6 +5,7 @@ var player : CharacterBody3D
 @export var enemy : CharacterBody3D
 @export var wander_max_time : float = 5
 @export var wait_time : float = 1
+@export var detection : Detection
 
 var move_dir : Vector3
 var wander_time : float
@@ -43,7 +44,7 @@ func Physics_Update(delta : float):
 	
 	var player_direction = player.global_position - enemy.global_position
 
-	if player_direction.length() < 1:
+	if player_direction.length() < 1 or detection.checkRays():
 		enemy.nav.target_position = player.global_transform.origin
 		Transitioned.emit(self, "Chase")
 		print("Idle -> Chase")

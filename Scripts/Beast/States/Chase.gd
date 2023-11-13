@@ -9,10 +9,10 @@ var detection : Detection
 
 var push_power = 10
 var inarea = false
-var timer : float = 0.5	
-var timeToStuck : float = 2
+var timer : float = 0.2	
+var timeToLeave : float = 2
 var distance_to_player
-var active = true
+var readyToLeave = false
 
 
 func _ready():
@@ -39,8 +39,17 @@ func Physics_Update(delta):
 
 func Update(delta):
 	distance_to_player = (player.global_position - enemy.global_position).length()
+	# print("* Distance to player is: %s"%distance_to_player)
+	if readyToLeave:
+		if timeToLeave > 0:
+			timeToLeave -= delta
+		else:
+			timeToLeave = 2
+			readyToLeave = false
+			Transitioned.emit(self, "Idle")
+			print("Chase -> Idle")
 
-	if distance_to_player < 2 and inarea:
+	if distance_to_player < 2:
 		if timer > 0:
 			timer -= delta
 		else:
@@ -58,26 +67,15 @@ func DamagePlayer(damage):
 func navigation_finished():
 	if (get_parent() as StateMachine).current_state == self:
 		distance_to_player = (player.global_position - enemy.global_position).length()
-		if distance_to_player > 5 or not detection.checkRays():
-			inarea = false
+		if distance_to_player > 5 and not detection.checkRays():
 			Transitioned.emit(self, "Idle")
 			print("Chase -> Idle")
-		else:
-			inarea = true
+		elif not detection.checkRays():
+			readyToLeave = true
 
 func body_entered(body):
 	if (get_parent() as StateMachine).current_state == self:
 		if body is Player:
-			enemy.seeingPlayer = true
-			DamagePlayer(enemy.damage)
-		else:
-			if body is RigidBody3D and body.get_parent().has_node("PickUp"):
-				var picked : PickUpObject = body.get_parent().get_node("PickUp")
-				
-				var a = body.global_transform.origin
-				var b = enemy.global_transform.origin
-				var dir = (a-b) + (player.global_position + Vector3.RIGHT * 5 * randf_range(-1,1) - b)
-				body.apply_central_impulse(dir)
-				
-				picked.DetectObjects(true)
-				picked.remove_object()
+			if detection.checkRays():
+				enemy.seeingPlayer = true
+				DamagePlayer(enemy.damage)

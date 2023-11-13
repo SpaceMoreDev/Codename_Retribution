@@ -55,9 +55,10 @@ enemy = NodePath("../..")
 stuckRay = NodePath("../../Detection/StuckRays/stuckRay")
 area = NodePath("../../Detection/Near")
 
-[node name="Idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("enemy")]
+[node name="Idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("enemy", "detection")]
 script = ExtResource("4_bqnrj")
 enemy = NodePath("../..")
+detection = NodePath("../../Detection")
 
 [node name="Stuck" type="Node" parent="StateMachine" node_paths=PackedStringArray("ray")]
 script = ExtResource("5_v0tlw")
@@ -75,9 +76,10 @@ mesh = SubResource("BoxMesh_xby36")
 transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0, 0)
 shape = SubResource("CapsuleShape3D_wdh8a")
 
-[node name="Detection" type="Node3D" parent="." node_paths=PackedStringArray("areaFar")]
+[node name="Detection" type="Node3D" parent="." node_paths=PackedStringArray("areaFar", "areaNear")]
 script = ExtResource("6_tgxsq")
 areaFar = NodePath("Far")
+areaNear = NodePath("Near")
 
 [node name="StuckRays" type="Node3D" parent="Detection"]
 

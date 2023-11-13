@@ -96,7 +96,7 @@ collision_mask = 9
 [node name="Beast" parent="Characters" instance=ExtResource("9_l24ay")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.24945, 1, 15.6866)
 collision_layer = 256
-collision_mask = 5
+collision_mask = 1
 
 [node name="Enviroment" type="Node3D" parent="."]
 
