@@ -42,7 +42,6 @@ update_scale = false
 
 [node name="PickUp" type="Node3D" parent="." node_paths=PackedStringArray("rb")]
 script = ExtResource("1_oxe7c")
-snap_distance = 2
 pull_power = 6
 rotation_power = 0.5
 rb = NodePath("../Physics")

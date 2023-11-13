@@ -49,16 +49,19 @@ func _ready():
 func _physics_process(delta):
 	if active :
 		if(picked_object != null):
-			var a = picked_object.global_transform.origin
-			var b = grab_position.global_transform.origin
-			picked_object.set_linear_velocity((b-a) * pull_power)
+			var distacePlayer = (camera.global_position - picked_object.global_position).length()
+			print(distacePlayer)
+			if distacePlayer > 1:
+				var a = picked_object.global_transform.origin
+				var b = grab_position.global_transform.origin
+				if a.distance_to(b) > snap_distance:
+					remove_object()
+				else:
+					picked_object.set_linear_velocity((b-a) * pull_power)
 
-			var origin_pos = picked_object.global_transform.origin
-			var handle_pos = grab_position.global_transform.origin
-			var distance = handle_pos.distance_to(origin_pos)
+			
+				
 
-			if distance > snap_distance:
-				remove_object()
 			
 func _input(event):
 
@@ -89,12 +92,14 @@ func touched(body):
 			DetectObjects(false)
 
 func remove_object():
+	
 	if(picked_object != null):
+		picked_object.set_collision_mask_value(2, true)
 		picked_object = null
 		joint.node_b = joint.get_path()
 		active = false
-	if cameraSc.locked:
-		cameraSc.locked = false
+		if cameraSc.locked:
+			cameraSc.locked = false
 		
 
 func rotate_object(event):
@@ -106,5 +111,6 @@ func rotate_object(event):
 func pull_object(obj : Node3D):
 	if(obj.get_parent() == get_parent()):
 		picked_object = obj
+		picked_object.set_collision_mask_value(2, false)
 		joint.node_b = obj.get_path()
 		active = true

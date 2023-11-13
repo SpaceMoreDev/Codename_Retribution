@@ -63,21 +63,22 @@ script = ExtResource("4_ing7o")
 handIcon = NodePath("../../../Player_UI/TextureRect")
 
 [node name="RayCast3D" type="RayCast3D" parent="Head/Camera3D/Action"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.67271e-08, 0, -0.305722)
 target_position = Vector3(0, 0, -2)
 collision_mask = 12
 
 [node name="GrabPosition" type="Node3D" parent="Head/Camera3D/Action"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.64039)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.98186e-08, 0, -1.41369)
 
 [node name="Joint" type="Generic6DOFJoint3D" parent="Head/Camera3D/Action"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.62241)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.98186e-08, 0, -1.39571)
 node_a = NodePath("../StaticBody3D")
 linear_limit_x/enabled = false
 linear_limit_y/enabled = false
 linear_limit_z/enabled = false
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Head/Camera3D/Action"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.97121)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.98186e-08, 0, -1.74451)
 collision_layer = 0
 collision_mask = 0
 

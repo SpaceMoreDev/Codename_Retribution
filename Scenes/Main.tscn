@@ -179,7 +179,7 @@ transform = Transform3D(-0.0469844, 0, -0.998896, 0, 1, 0, 0.998896, 0, -0.04698
 transform = Transform3D(-0.505913, 0, -0.862584, 0, 1, 0, 0.862584, 0, -0.505913, 0.00330073, 0.353027, 5.95923)
 
 [node name="Decal" type="Decal" parent="Enviroment"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 6.48355, 1.33572, -5.02471)
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 6.48355, 1.33572, -5.02767)
 size = Vector3(2, 0.069797, 2)
 texture_albedo = ExtResource("3_xsxqd")
 modulate = Color(0.65098, 0, 0, 1)
