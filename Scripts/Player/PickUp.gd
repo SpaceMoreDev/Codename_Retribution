@@ -51,7 +51,7 @@ func _physics_process(delta):
 		if(picked_object != null):
 			var distacePlayer = (camera.global_position - picked_object.global_position).length()
 			print(distacePlayer)
-			if distacePlayer > 1:
+			if distacePlayer > 0.8:
 				var a = picked_object.global_transform.origin
 				var b = grab_position.global_transform.origin
 				if a.distance_to(b) > snap_distance:
