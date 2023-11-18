@@ -12,7 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://dlbihv1ffxrey" path="res://Scenes/Packed/oil_bottle.tscn" id="8_8c8gj"]
 [ext_resource type="PackedScene" uid="uid://biaotmi0ew401" path="res://Scenes/Packed/molotov.tscn" id="8_tplqc"]
 [ext_resource type="PackedScene" uid="uid://bodjd04q3c2pm" path="res://Scenes/Packed/beast.tscn" id="9_l24ay"]
-[ext_resource type="PackedScene" uid="uid://cslwa65lddpxp" path="res://Scenes/Packed/health.tscn" id="15_u6a7b"]
+[ext_resource type="PackedScene" uid="uid://dptlv1sgg7wkp" path="res://Scenes/Packed/health.tscn" id="15_u6a7b"]
 [ext_resource type="Script" path="res://Scripts/Restart.gd" id="17_riuhk"]
 
 [sub_resource type="Environment" id="Environment_n8o2s"]

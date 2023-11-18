@@ -1,6 +1,6 @@
-[gd_scene load_steps=9 format=3 uid="uid://cslwa65lddpxp"]
+[gd_scene load_steps=9 format=3 uid="uid://dptlv1sgg7wkp"]
 
-[ext_resource type="Script" path="res://Scripts/HealthPotion.gd" id="1_i5veq"]
+[ext_resource type="Script" path="res://Scripts/Items/HealthPotion.gd" id="1_iypoi"]
 [ext_resource type="Script" path="res://Scripts/TakeToInventory.gd" id="2_fe7n6"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_r8p0y"]
@@ -22,7 +22,7 @@ material = SubResource("StandardMaterial3D_p3pmx")
 radius = 0.353018
 
 [node name="Health" type="Node3D"]
-script = ExtResource("1_i5veq")
+script = ExtResource("1_iypoi")
 
 [node name="Potion" type="RigidBody3D" parent="."]
 collision_layer = 4

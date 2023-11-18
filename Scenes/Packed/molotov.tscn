@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=3 uid="uid://biaotmi0ew401"]
 
-[ext_resource type="Script" path="res://Scripts/Molotov.gd" id="1_jiff3"]
+[ext_resource type="Script" path="res://Scripts/Items/Molotov.gd" id="1_jiff3"]
 [ext_resource type="Script" path="res://Scripts/TakeToInventory.gd" id="2_mb6wh"]
 [ext_resource type="Texture2D" uid="uid://cxq57glyuukxl" path="res://Assets/Elements/wexclamationMark.png" id="2_mow5t"]
 [ext_resource type="Script" path="res://Scripts/Player/Noise.gd" id="3_kgyxr"]

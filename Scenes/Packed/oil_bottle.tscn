@@ -1,6 +1,6 @@
 [gd_scene load_steps=10 format=3 uid="uid://dlbihv1ffxrey"]
 
-[ext_resource type="Script" path="res://Scripts/Oil_Bottle.gd" id="1_b5xe0"]
+[ext_resource type="Script" path="res://Scripts/Items/Oil_Bottle.gd" id="1_w38fb"]
 [ext_resource type="Script" path="res://Scripts/TakeToInventory.gd" id="2_frf7u"]
 [ext_resource type="Script" path="res://Scripts/Player/Noise.gd" id="3_rotlx"]
 [ext_resource type="Texture2D" uid="uid://cxq57glyuukxl" path="res://Assets/Elements/wexclamationMark.png" id="4_36337"]
@@ -21,7 +21,7 @@ material = SubResource("StandardMaterial3D_p3pmx")
 radius = 0.353018
 
 [node name="OilBottle" type="Node3D"]
-script = ExtResource("1_b5xe0")
+script = ExtResource("1_w38fb")
 
 [node name="Node3D" type="Node3D" parent="."]
 
