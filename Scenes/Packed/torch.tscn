@@ -140,6 +140,7 @@ light_color = Color(0.992157, 1, 0.760784, 1)
 omni_range = 7.0
 
 [node name="Node3D" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 
 [node name="Noise Icon" type="Sprite3D" parent="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.896271, 0)

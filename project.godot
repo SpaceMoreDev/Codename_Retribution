@@ -13,8 +13,13 @@ config_version=5
 config/name="codename: Retribution"
 run/main_scene="res://Scenes/Main.tscn"
 config/features=PackedStringArray("4.1", "GL Compatibility")
-boot_splash/show_image=false
-config/icon="res://icon.svg"
+boot_splash/bg_color=Color(0.141176, 0.101961, 0.12549, 1)
+boot_splash/image="res://Assets/Data/SpaceMoreLogo.png"
+boot_splash/fullsize=false
+boot_splash/use_filter=false
+config/icon="res://Assets/Data/Logo_Retribution_large.png"
+config/windows_native_icon="res://Assets/Data/Logo_Retribution.ico"
+boot_splash/minimum_display_time=3000
 
 [autoload]
 
