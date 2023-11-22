@@ -1,0 +1,41 @@
+[gd_scene load_steps=8 format=3 uid="uid://cligfppaoc82f"]
+
+[ext_resource type="PackedScene" uid="uid://qc046bctp57n" path="res://Scenes/Packed/player.tscn" id="1_cgvpt"]
+[ext_resource type="Texture2D" uid="uid://crpfoqnttwg4n" path="res://Assets/Elements/texture_07.png" id="2_7w40j"]
+
+[sub_resource type="Environment" id="Environment_i2v23"]
+fog_enabled = true
+fog_light_color = Color(0.517647, 0.552941, 0.607843, 1)
+
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_d5uul"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1sqln"]
+albedo_texture = ExtResource("2_7w40j")
+uv1_scale = Vector3(5, 5, 5)
+uv1_triplanar = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_fyiy6"]
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_5cy8j"]
+data = PackedVector3Array(-0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, -0.5)
+
+[node name="TestRoom" type="Node3D"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.0932047, 0.995647, 0, -0.995647, 0.0932047, 0.261314, 6.32402, 1.13194)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." groups=["Enviroment"]]
+environment = SubResource("Environment_i2v23")
+camera_attributes = SubResource("CameraAttributesPractical_d5uul")
+
+[node name="Player" parent="." instance=ExtResource("1_cgvpt")]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+transform = Transform3D(17.6049, 0, 0, 0, 0.261472, 0, 0, 0, 13.7398, 0, -0.222762, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
+material_override = SubResource("StandardMaterial3D_1sqln")
+mesh = SubResource("BoxMesh_fyiy6")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_5cy8j")

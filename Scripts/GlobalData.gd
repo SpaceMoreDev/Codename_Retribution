@@ -7,7 +7,10 @@ var quests : QuestList:
 
 var enemyState : String:
 	get:
-		return _get_beast().stateMachine.current_state.name
+		if _get_beast():
+			return _get_beast().stateMachine.current_state.name
+		else:
+			return "N/A"
 
 
 var useNoise : bool = true
@@ -29,14 +32,21 @@ var DamageMonster : float:
 		var enemy : Beast = _get_beast()
 		enemy.damage = damage
 	get:
-		return _get_beast().damage
+		if _get_beast():
+			return _get_beast().damage
+		else:
+			return false
 
 var DebugPath : bool:
 	set(toggle):
 		var enemy : Beast = _get_beast()
-		enemy.nav.debug_enabled = toggle
+		if enemy:
+			enemy.nav.debug_enabled = toggle
 	get:
-		return _get_beast().nav.debug_enabled
+		if _get_beast():
+			return _get_beast().nav.debug_enabled
+		else:
+			return false
 
 var MonsterSpeed : float:
 	set(new_speed):
@@ -45,7 +55,10 @@ var MonsterSpeed : float:
 		enemy.CHASE_SPEED = new_speed * 1.5
 		enemy.move_speed = new_speed
 	get:
-		return _get_beast().MOVE_SPEED
+		if _get_beast():
+			return _get_beast().MOVE_SPEED
+		else:
+			return -1
 
 
 static  var firePrefab = preload("res://Scenes/Packed/fire.tscn")

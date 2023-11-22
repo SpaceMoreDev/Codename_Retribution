@@ -9,7 +9,5 @@ func _ready():
 func Use(health : float):
 	playerStats.Health += health
 
-
-
 func Get_type():
 	return "Health"

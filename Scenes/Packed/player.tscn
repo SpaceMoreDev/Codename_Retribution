@@ -174,10 +174,6 @@ offset_right = 8.0
 offset_bottom = 101.0
 grow_horizontal = 0
 bbcode_enabled = true
-text = "Human!
-asasda
-asdad
-asd"
 fit_content = true
 
 [node name="Inventory" type="RichTextLabel" parent="Player_UI"]

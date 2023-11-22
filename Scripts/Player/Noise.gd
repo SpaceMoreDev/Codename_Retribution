@@ -18,7 +18,8 @@ var volume : float :
 func _ready():
 	beast = Global._get_beast()
 	connect("VoiceChanged", VolumeChanged)
-	connect("LoudSound", beast.detection.LoudSoundEmitted)
+	if beast:
+		connect("LoudSound", beast.detection.LoudSoundEmitted)
 
 func VolumeChanged(vol):
 	if(vol == 100):
