@@ -4,15 +4,15 @@ class_name State
 signal Transitioned(state, new_state_name)
 
 func Enter():
-    pass
+	pass
 
 
 func Exit():
-    pass
+	pass
 
 
 func Update(delta : float):
-    pass
+	pass
 
 func Physics_Update(delta : float):
-    pass
+	pass

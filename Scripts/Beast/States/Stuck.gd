@@ -5,10 +5,9 @@ class_name Stuck
 @export var wait : float = 1
 
 var player : Player
-var beast : Beast
+@export var beast : Beast
 
 func _ready():
-	beast = Global._get_beast()
 	player = Global._get_player()
 	beast.nav.connect("navigation_finished", navigation_finished)
 

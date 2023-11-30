@@ -5,14 +5,14 @@ var rays : Array[RayCast3D]
 var stuckRays : Array[RayCast3D]
 @export var areaFar : Area3D
 @export var areaNear : Area3D
-var beast : Beast
+@export var beast : Beast
+
 var player : Player
 
 var player_is_around : bool = false
 
 
 func _ready():
-	beast = Global._get_beast()
 	player = Global._get_player()
 	areaFar.connect("body_entered", body_entered_far)
 	areaFar.connect("body_exited", body_exited_far)

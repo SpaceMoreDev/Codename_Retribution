@@ -1,6 +1,7 @@
 extends Node3D
 class_name PlayerCamera
 
+@export var ControllerDeadzone: float = 0.5
 @export var _player_head: Node3D
 @export var _player_camera: Camera3D
 
@@ -19,6 +20,18 @@ func _unhandled_input(event):
 			_player_head.rotate_y(-event.relative.x * _sensitivity)
 			_player_camera.rotate_x(-event.relative.y * _sensitivity)
 			_player_camera.rotation.x = clamp(_player_camera.rotation.x, deg_to_rad(-60), deg_to_rad(60))
+		elif event is InputEventJoypadMotion:
+			var controllerangle = Vector2.ZERO
+			
+			var xAxisRL = Input.get_joy_axis(0, JOY_AXIS_RIGHT_X) * _sensitivity
+			var yAxisUD = Input.get_joy_axis(0 ,JOY_AXIS_RIGHT_Y) * _sensitivity
+			
+			controllerangle = Vector2(xAxisRL, yAxisUD)
+			if abs(controllerangle.length()) > ControllerDeadzone:
+				_player_head.rotate_y(-controllerangle.x)
+				_player_camera.rotate_x(-controllerangle.y)
+				_player_camera.rotation.x = clamp(_player_camera.rotation.x, deg_to_rad(-60), deg_to_rad(60))
+				print(controllerangle)
 	
 
 func _physics_process(delta):

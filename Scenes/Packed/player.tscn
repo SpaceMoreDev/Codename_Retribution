@@ -138,6 +138,7 @@ hand = NodePath("../Head/Camera3D/Hand")
 throw_force = 35.0
 
 [node name="Player_UI" type="CanvasLayer" parent="."]
+process_mode = 4
 follow_viewport_enabled = true
 
 [node name="HealthBar" type="TextureProgressBar" parent="Player_UI"]

@@ -1,11 +1,10 @@
-[gd_scene load_steps=14 format=3 uid="uid://bodjd04q3c2pm"]
+[gd_scene load_steps=13 format=3 uid="uid://bodjd04q3c2pm"]
 
 [ext_resource type="Script" path="res://Scripts/Beast/BeastController.gd" id="1_ru7bn"]
 [ext_resource type="Script" path="res://Scripts/Beast/States/Chase.gd" id="3_32p2h"]
 [ext_resource type="Script" path="res://Scripts/Beast/State_Machine.gd" id="3_y8enf"]
 [ext_resource type="Script" path="res://Scripts/Beast/States/Idle.gd" id="4_bqnrj"]
 [ext_resource type="Script" path="res://Scripts/Beast/States/Stuck.gd" id="5_v0tlw"]
-[ext_resource type="Script" path="res://Scripts/Beast/State.gd" id="6_fw0pl"]
 [ext_resource type="Script" path="res://Scripts/Beast/Detection.gd" id="6_tgxsq"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_s6p0v"]
@@ -61,12 +60,10 @@ script = ExtResource("4_bqnrj")
 enemy = NodePath("../..")
 detection = NodePath("../../Detection")
 
-[node name="Stuck" type="Node" parent="StateMachine" node_paths=PackedStringArray("ray")]
+[node name="Stuck" type="Node" parent="StateMachine" node_paths=PackedStringArray("ray", "beast")]
 script = ExtResource("5_v0tlw")
 ray = NodePath("../../Detection/StuckRays/stuckRay")
-
-[node name="Jumping" type="Node" parent="StateMachine"]
-script = ExtResource("6_fw0pl")
+beast = NodePath("../..")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0, 0)
@@ -80,10 +77,11 @@ mesh = SubResource("BoxMesh_xby36")
 transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0, 0)
 shape = SubResource("CapsuleShape3D_wdh8a")
 
-[node name="Detection" type="Node3D" parent="." node_paths=PackedStringArray("areaFar", "areaNear")]
+[node name="Detection" type="Node3D" parent="." node_paths=PackedStringArray("areaFar", "areaNear", "beast")]
 script = ExtResource("6_tgxsq")
 areaFar = NodePath("Far")
 areaNear = NodePath("Near")
+beast = NodePath("..")
 
 [node name="StuckRays" type="Node3D" parent="Detection"]
 

@@ -31,7 +31,7 @@ camera_attributes = SubResource("CameraAttributesPractical_d5uul")
 [node name="Player" parent="." instance=ExtResource("1_cgvpt")]
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
-transform = Transform3D(17.6049, 0, 0, 0, 0.261472, 0, 0, 0, 13.7398, 0, -0.222762, 0)
+transform = Transform3D(17.6049, 0, 0, 0, 0.261472, 0, 0, 0, 13.7398, 0, 0, 0)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
 material_override = SubResource("StandardMaterial3D_1sqln")
