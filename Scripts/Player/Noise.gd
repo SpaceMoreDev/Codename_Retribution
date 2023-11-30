@@ -5,7 +5,7 @@ signal  VoiceChanged(vol)
 signal  LoudSound(obj)
 @export var source:Node3D
 @export var soundIcon : Node
-var beast : Beast
+var beasts : Array[Beast]
 
 var volume : float :
 	set(value):
@@ -16,10 +16,10 @@ var volume : float :
 			emit_signal("VoiceChanged", volume)
 
 func _ready():
-	beast = Global._get_beast()
+	beasts = Global._get_beast()
 	connect("VoiceChanged", VolumeChanged)
-	if beast:
-		connect("LoudSound", beast.detection.LoudSoundEmitted)
+	for i in beasts:
+		connect("LoudSound", i.detection.LoudSoundEmitted)
 
 func VolumeChanged(vol):
 	if(vol == 100):
@@ -33,10 +33,4 @@ func VolumeChanged(vol):
 
 		var alphaVal = (volume/100) * 255
 		soundIcon.modulate.a = alphaVal/255
-		
-			
 
-
-	
-
-	

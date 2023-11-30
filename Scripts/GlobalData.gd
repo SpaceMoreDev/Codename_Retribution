@@ -5,14 +5,10 @@ var quests : QuestList:
 	get:
 		return _get_player().get_node("Quest") as QuestList
 
-var enemyState : String:
-	get:
-		if _get_beast():
-			return _get_beast().stateMachine.current_state.name
-		else:
-			return "N/A"
 
-
+var EnemyDamage : float = 10
+var debugPath : bool = false
+var enemyMovespeed :float = 2
 var useNoise : bool = true
 var allowFireDamage : bool = true
 
@@ -29,36 +25,35 @@ var PlayerSpeed : float:
 
 var DamageMonster : float:
 	set(damage):
-		var enemy : Beast = _get_beast()
-		enemy.damage = damage
+		var enemies : Array[Beast] = _get_beast()
+		EnemyDamage = damage
+		for i in enemies:
+			i.damage = damage
 	get:
 		if _get_beast():
-			return _get_beast().damage
+			return EnemyDamage
 		else:
 			return false
 
 var DebugPath : bool:
 	set(toggle):
-		var enemy : Beast = _get_beast()
-		if enemy:
-			enemy.nav.debug_enabled = toggle
+		var enemies : Array[Beast] = _get_beast()
+		debugPath = toggle
+		for i in enemies:
+			i.nav.debug_enabled = toggle
 	get:
-		if _get_beast():
-			return _get_beast().nav.debug_enabled
-		else:
-			return false
+		return debugPath
 
 var MonsterSpeed : float:
 	set(new_speed):
-		var enemy : Beast = _get_beast()
-		enemy.MOVE_SPEED = new_speed
-		enemy.CHASE_SPEED = new_speed * 1.5
-		enemy.move_speed = new_speed
+		var enemies : Array[Beast] = _get_beast()
+		enemyMovespeed = new_speed
+		for i in enemies:
+			i.MOVE_SPEED = new_speed
+			i.CHASE_SPEED = new_speed * 1.5
+			i.move_speed = new_speed
 	get:
-		if _get_beast():
-			return _get_beast().MOVE_SPEED
-		else:
-			return -1
+		return enemyMovespeed
 
 
 static  var firePrefab = preload("res://Scenes/Packed/fire.tscn")
@@ -71,9 +66,12 @@ func _get_player() -> Player :
 	var player = get_tree().get_first_node_in_group("Player")
 	return player
 
-func _get_beast() -> Beast :
-	var beast = get_tree().get_first_node_in_group("Beast")
-	return beast
+func _get_beast() -> Array[Beast] :
+	var beasts = get_tree().get_nodes_in_group("Beast")
+	var returned : Array[Beast]= []
+	for i in beasts:
+		returned.append(i as Beast)
+	return returned
 
 func _get_env() -> WorldEnvironment :
 	var env = get_tree().get_first_node_in_group("Enviroment")
