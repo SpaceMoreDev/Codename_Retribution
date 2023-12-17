@@ -310,7 +310,7 @@ mesh = SubResource("BoxMesh_rsbcg")
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -4.56616, 0.0200441, 4.00761)
 
 [node name="Door" parent="Enviroment/Doors" instance=ExtResource("2_yba7r")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.8, 1.016, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.872273, 1.016, -0.000156879)
 
 [node name="Door2" parent="Enviroment/Doors" instance=ExtResource("2_yba7r")]
 transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -0.8, 1.016, 0)

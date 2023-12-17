@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://cligfppaoc82f"]
+[gd_scene load_steps=9 format=3 uid="uid://cligfppaoc82f"]
 
 [ext_resource type="PackedScene" uid="uid://qc046bctp57n" path="res://Scenes/Packed/player.tscn" id="1_cgvpt"]
 [ext_resource type="Texture2D" uid="uid://crpfoqnttwg4n" path="res://Assets/Elements/texture_07.png" id="2_7w40j"]
+[ext_resource type="PackedScene" uid="uid://cb0fqai3ot6cx" path="res://Scenes/Packed/door.tscn" id="3_ak6gq"]
 
 [sub_resource type="Environment" id="Environment_i2v23"]
 fog_enabled = true
@@ -39,3 +40,6 @@ mesh = SubResource("BoxMesh_fyiy6")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_5cy8j")
+
+[node name="Door" parent="." instance=ExtResource("3_ak6gq")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 1.97405, 1.16865, 3.65489)

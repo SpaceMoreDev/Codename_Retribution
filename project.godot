@@ -128,14 +128,11 @@ SCROLL_DOWN={
 3d_physics/layer_5="Fire"
 3d_physics/layer_6="Gasoline"
 
-[physics]
-
-3d/physics_engine="JoltPhysics3D"
-
 [player]
 
 look_sensitivity=0.01
 
 [rendering]
 
+renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
