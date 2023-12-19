@@ -51,13 +51,21 @@ func Jump():
 func Move(delta):
 	var direction = transform.basis * Vector3(_input.x, 0 , _input.y).normalized()
 	
+	if abs(_input.x) > 0:
+		camera.rotation.z = move_toward(camera.rotation.z,  deg_to_rad(-5)* sign(_input.x), delta* 0.5)
+	else:
+		camera.rotation.z = move_toward(camera.rotation.z,  deg_to_rad(0), delta* 0.5)
+		
 	if(is_on_floor()):
 		Jump()
-
+	
 		if(direction):
 			velocity.x = direction.x * Speed
 			velocity.z = direction.z * Speed
+			
+			
 		else:
+			
 			velocity.x = lerp(velocity.x, direction.x * Speed, delta * 6.5)
 			velocity.z = lerp(velocity.z, direction.z * Speed, delta * 6.5)
 	else:
