@@ -16,6 +16,7 @@ var inertia : float = 20
 
 #components
 var playerAction : PlayerAction
+var playerInput : Inputs
 var camera : Camera3D
 var playerCamera : PlayerCamera
 var stats : PlayerStats
@@ -29,6 +30,7 @@ var SPRINT_SPEED = WALK_SPEED*1.5
 
 func _enter_tree():
 	add_to_group("Player")
+	playerInput = $"Inputs" as Inputs 
 	playerAction = $"Head/Camera3D/Action" as PlayerAction 
 	camera = $"Head/Camera3D" as Camera3D 
 	stats = $"Stats"
@@ -38,37 +40,40 @@ func _enter_tree():
 	crouching = $Crouch
 	Speed = WALK_SPEED
 
+func _ready():
+	playerInput.connect("KeyPressed", InputPressed)
+
+func InputPressed(Key : InputEvent):
+	print(playerInput.currentAction)
+	if(is_on_floor()):
+		if(playerInput.currentAction == "JUMP"):
+			Jump()
 
 func Jump():
-	if(canJump and Input.is_action_just_pressed("JUMP")):
+	if(canJump):
 		noise.volume = 50
 		if(is_on_floor() and stats.Stamina > stats.CONSUME_JUMP):
 			
 			emit_signal("player_jumped", Jump_Speed)
 			velocity.y = Jump_Speed
-			
 
 func Move(delta):
-	var direction = transform.basis * Vector3(_input.x, 0 , _input.y).normalized()
+	var direction = playerCamera.transform.basis * Vector3(_input.x, 0 , _input.y).normalized() * -1
 	
-	if abs(_input.x) > 0:
-		camera.rotation.z = move_toward(camera.rotation.z,  deg_to_rad(-5)* sign(_input.x), delta* 0.5)
-	else:
-		camera.rotation.z = move_toward(camera.rotation.z,  deg_to_rad(0), delta* 0.5)
+	#if abs(_input.x) > 0:
+		#camera.rotation.z = move_toward(camera.rotation.z,  deg_to_rad(-5)* sign(_input.x), delta* 0.5)
+	#else:
+		#camera.rotation.z = move_toward(camera.rotation.z,  deg_to_rad(0), delta* 0.5)
+	
+	if(direction):
+		velocity.x = direction.x * Speed
+		velocity.z = direction.z * Speed
 		
-	if(is_on_floor()):
-		Jump()
-	
-		if(direction):
-			velocity.x = direction.x * Speed
-			velocity.z = direction.z * Speed
-			
-			
-		else:
-			
-			velocity.x = lerp(velocity.x, direction.x * Speed, delta * 6.5)
-			velocity.z = lerp(velocity.z, direction.z * Speed, delta * 6.5)
 	else:
+		velocity.x = lerp(velocity.x, direction.x * Speed, delta * 6.5)
+		velocity.z = lerp(velocity.z, direction.z * Speed, delta * 6.5)
+	
+	if not is_on_floor():
 		velocity.x = lerp(velocity.x, direction.x * Speed, delta * 3.0)
 		velocity.z = lerp(velocity.z, direction.z * Speed, delta * 3.0)
 		velocity.y -= _gravity * delta

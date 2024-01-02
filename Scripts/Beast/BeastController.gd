@@ -1,7 +1,6 @@
 extends CharacterBody3D
 class_name Beast
 
-
 var move_speed : float
 var MOVE_SPEED = 2
 var CHASE_SPEED = MOVE_SPEED * 1.5
@@ -16,6 +15,7 @@ var stateMachine : StateMachine
 var player : Player
 var canMove = true
 var seeingPlayer = false
+
 
 func _enter_tree():
 	add_to_group("Beast")

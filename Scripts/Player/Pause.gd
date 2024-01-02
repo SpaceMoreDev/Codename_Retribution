@@ -26,7 +26,7 @@ var playerCam : PlayerCamera
 @export var exposureSlider : Slider
 
 @export var sens_text : LineEdit
-@onready var _sensitivity = ProjectSettings.get_setting("player/look_sensitivity")
+var _sensitivity : float
 
 func _ready():
 	process_mode = Node.PROCESS_MODE_ALWAYS
@@ -67,10 +67,10 @@ func _ready():
 	playerSpeed.connect("text_changed", set_player_speed)
 	monsterSpeed.connect("text_changed", set_monster_speed)
 
-	_sensitivity = ChangeSens(_sensitivity)
+
+	_sensitivity = ChangeSens(player.playerInput._sensitivity)
 	sens_text.text = str(_sensitivity)
 	slider.value = _sensitivity
-
 	
 
 func restartButton():
@@ -129,7 +129,7 @@ func sens_slider_value(val : String):
 func ChangeSens(val) -> float:
 	var res = float(val)
 	ProjectSettings.set_setting("player/look_sensitivity", res)
-	playerCam._sensitivity = res
+	player.playerInput._sensitivity = res
 	return res
 
 

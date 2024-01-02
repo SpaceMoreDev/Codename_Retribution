@@ -1,10 +1,11 @@
-[gd_scene load_steps=21 format=3 uid="uid://qc046bctp57n"]
+[gd_scene load_steps=22 format=3 uid="uid://qc046bctp57n"]
 
 [ext_resource type="Script" path="res://Scripts/Player/PlayerController.gd" id="1_ej1b3"]
 [ext_resource type="Script" path="res://Scripts/Player/PlayerStats.gd" id="1_sce2v"]
 [ext_resource type="Texture2D" uid="uid://dxvfvq3vn03ba" path="res://NBeast_Bar.png" id="2_kkkfp"]
 [ext_resource type="Script" path="res://Scripts/Quests/Quest.gd" id="2_kyxfg"]
 [ext_resource type="Script" path="res://Scripts/Player/PlayerCamera.gd" id="2_rsliq"]
+[ext_resource type="Script" path="res://Scenes/Packed/PlayerInputs.gd" id="2_xgk64"]
 [ext_resource type="Script" path="res://Scripts/Player/Crouching.gd" id="4_8cvhv"]
 [ext_resource type="Script" path="res://Scripts/Player/PlayerAction.gd" id="4_ing7o"]
 [ext_resource type="Script" path="res://Scripts/Player/Leaning.gd" id="4_yepiv"]
@@ -35,6 +36,9 @@ collision_layer = 2
 slide_on_ceiling = false
 script = ExtResource("1_ej1b3")
 
+[node name="Inputs" type="Node" parent="."]
+script = ExtResource("2_xgk64")
+
 [node name="StandingCollision" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.342341, 0)
 shape = SubResource("CapsuleShape3D_tn7cq")
@@ -51,10 +55,8 @@ questLabel = NodePath("../Player_UI/Tasks")
 [node name="Stats" type="Node3D" parent="."]
 script = ExtResource("1_sce2v")
 
-[node name="Head" type="Node3D" parent="." node_paths=PackedStringArray("_player_head", "_player_camera")]
+[node name="Head" type="Node3D" parent="."]
 script = ExtResource("2_rsliq")
-_player_head = NodePath("..")
-_player_camera = NodePath("Camera3D")
 
 [node name="Camera3D" type="Camera3D" parent="Head"]
 
