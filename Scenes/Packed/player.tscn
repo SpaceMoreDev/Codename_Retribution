@@ -230,7 +230,7 @@ offset_bottom = 36.0
 scale = Vector2(0.692857, 0.692857)
 texture = ExtResource("14_jeaud")
 
-[node name="PauseMenu" type="Control" parent="Player_UI" node_paths=PackedStringArray("returnBtn", "restartBtn", "exitBtn", "fullscreenButn", "noiseBtn", "fireDamageBtn", "debugBtn", "exposure", "fogDensity", "playerSpeed", "monsterSpeed", "monsterDMG", "slider", "fogSlider", "exposureSlider", "sens_text")]
+[node name="PauseMenu" type="Control" parent="Player_UI" node_paths=PackedStringArray("returnBtn", "restartBtn", "exitBtn", "fullscreenButn", "noiseBtn", "fireDamageBtn", "debugBtn", "exposure", "fogDensity", "playerSpeed", "monsterSpeed", "monsterDMG", "slider", "joysens_slider", "fogSlider", "exposureSlider", "joysens_text", "sens_text")]
 layout_mode = 3
 anchor_left = 0.270833
 anchor_top = 0.112963
@@ -254,8 +254,10 @@ playerSpeed = NodePath("Panel/TabContainer/Gameplay/VBoxContainer2/player speed/
 monsterSpeed = NodePath("Panel/TabContainer/Gameplay/VBoxContainer2/monster speed/LineEdit")
 monsterDMG = NodePath("Panel/TabContainer/Gameplay/VBoxContainer2/monster Damage/LineEdit")
 slider = NodePath("Panel/TabContainer/Settings/VBoxContainer/MouseSensitivity/HSlider")
+joysens_slider = NodePath("Panel/TabContainer/Settings/VBoxContainer/Joystick sensitivity/HSlider")
 fogSlider = NodePath("Panel/TabContainer/Settings/VBoxContainer/HBoxContainer4/HSlider")
 exposureSlider = NodePath("Panel/TabContainer/Settings/VBoxContainer/HBoxContainer5/HSlider")
+joysens_text = NodePath("Panel/TabContainer/Settings/VBoxContainer/Joystick sensitivity/LineEdit")
 sens_text = NodePath("Panel/TabContainer/Settings/VBoxContainer/MouseSensitivity/LineEdit")
 metadata/_edit_use_anchors_ = true
 

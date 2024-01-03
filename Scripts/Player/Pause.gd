@@ -22,9 +22,11 @@ var playerCam : PlayerCamera
 
 
 @export var slider : Slider
+@export var joysens_slider : Slider
 @export var fogSlider : Slider
 @export var exposureSlider : Slider
 
+@export var joysens_text : LineEdit
 @export var sens_text : LineEdit
 var _sensitivity : float
 
@@ -56,6 +58,7 @@ func _ready():
 	exitBtn.connect("button_down", exitButton)
 	fullscreenButn.connect("toggled", fullscreenToggle)
 
+	joysens_slider.connect("value_changed", joysens_value)
 	slider.connect("value_changed", slider_value)
 	fogSlider.connect("value_changed", slider_fog_density)
 	exposureSlider.connect("value_changed", slider_exposure_density)
@@ -64,6 +67,7 @@ func _ready():
 	fogDensity.connect("text_changed", set_fog_density)
 	monsterDMG.connect("text_changed", Monster_DMG_value)
 	sens_text.connect("text_changed", sens_slider_value)
+	joysens_text.connect("text_changed", joysens_slider_value)
 	playerSpeed.connect("text_changed", set_player_speed)
 	monsterSpeed.connect("text_changed", set_monster_speed)
 
@@ -122,6 +126,13 @@ func slider_value(val : float):
 	sens_text.text = str(val)
 	ChangeSens(val)
 
+func joysens_value(val : float):
+	joysens_text.text = str(val)
+	ChangeSens(val)
+func joysens_slider_value(val : String):
+	joysens_slider.value = float(val)
+	ChangeSensJoy(float(val))
+
 func sens_slider_value(val : String):
 	slider.value = float(val)
 	ChangeSens(float(val))
@@ -130,6 +141,11 @@ func ChangeSens(val) -> float:
 	var res = float(val)
 	ProjectSettings.set_setting("player/look_sensitivity", res)
 	player.playerInput.mouse_sensitivity = res
+	return res
+
+func ChangeSensJoy(val) -> float:
+	var res = float(val)
+	player.playerInput.joystick_sensitivity = res
 	return res
 
 
