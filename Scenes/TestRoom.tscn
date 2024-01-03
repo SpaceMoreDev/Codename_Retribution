@@ -14,6 +14,7 @@ sky_material = SubResource("ProceduralSkyMaterial_62fxw")
 [sub_resource type="Environment" id="Environment_i2v23"]
 background_mode = 2
 sky = SubResource("Sky_0ppcd")
+fog_enabled = true
 fog_light_color = Color(0.517647, 0.552941, 0.607843, 1)
 fog_light_energy = 0.23
 fog_sun_scatter = 0.34

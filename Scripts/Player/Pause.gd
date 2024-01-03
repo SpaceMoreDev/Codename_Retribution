@@ -68,7 +68,7 @@ func _ready():
 	monsterSpeed.connect("text_changed", set_monster_speed)
 
 
-	_sensitivity = ChangeSens(player.playerInput._sensitivity)
+	_sensitivity = ChangeSens(player.playerInput.mouse_sensitivity)
 	sens_text.text = str(_sensitivity)
 	slider.value = _sensitivity
 	
@@ -129,7 +129,7 @@ func sens_slider_value(val : String):
 func ChangeSens(val) -> float:
 	var res = float(val)
 	ProjectSettings.set_setting("player/look_sensitivity", res)
-	player.playerInput._sensitivity = res
+	player.playerInput.mouse_sensitivity = res
 	return res
 
 

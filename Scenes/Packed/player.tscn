@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://qc046bctp57n"]
+[gd_scene load_steps=23 format=3 uid="uid://qc046bctp57n"]
 
 [ext_resource type="Script" path="res://Scripts/Player/PlayerController.gd" id="1_ej1b3"]
 [ext_resource type="Script" path="res://Scripts/Player/PlayerStats.gd" id="1_sce2v"]
@@ -17,6 +17,7 @@
 [ext_resource type="Texture2D" uid="uid://b3gxlcyitqri0" path="res://Assets/Elements/soundIcon.png" id="14_jeaud"]
 [ext_resource type="Script" path="res://Scripts/Player/GameTimer.gd" id="15_rbqk4"]
 [ext_resource type="Script" path="res://Scripts/Beast/StateUI.gd" id="16_d86sr"]
+[ext_resource type="StyleBox" uid="uid://bcj6hssf0tbga" path="res://Assets/Data/Style.tres" id="16_wvoe7"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_tn7cq"]
 radius = 0.186199
@@ -28,7 +29,7 @@ height = 0.545623
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_ty1on"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p0v27"]
+[sub_resource type="Theme" id="Theme_naa5d"]
 
 [node name="Player" type="CharacterBody3D"]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 1, 0)
@@ -231,310 +232,344 @@ texture = ExtResource("14_jeaud")
 
 [node name="PauseMenu" type="Control" parent="Player_UI" node_paths=PackedStringArray("returnBtn", "restartBtn", "exitBtn", "fullscreenButn", "noiseBtn", "fireDamageBtn", "debugBtn", "exposure", "fogDensity", "playerSpeed", "monsterSpeed", "monsterDMG", "slider", "fogSlider", "exposureSlider", "sens_text")]
 layout_mode = 3
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -313.0
-offset_top = -176.0
-offset_right = 39.0
-offset_bottom = 176.0
+anchor_left = 0.270833
+anchor_top = 0.112963
+anchor_right = 0.729167
+anchor_bottom = 0.887037
 grow_horizontal = 2
 grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 script = ExtResource("13_y82ud")
 returnBtn = NodePath("Panel/Continue")
 restartBtn = NodePath("Panel/Restart")
 exitBtn = NodePath("Panel/Exit")
-fullscreenButn = NodePath("Panel/VBoxContainer/HBoxContainer2/fullscreenToggle")
-noiseBtn = NodePath("Panel/Gameplay/VBoxContainer2/noise/NoiseToggle")
-fireDamageBtn = NodePath("Panel/Gameplay/VBoxContainer2/fire damage/fireDamageToggle")
-debugBtn = NodePath("Panel/Gameplay/VBoxContainer2/Debug/debugpath")
-exposure = NodePath("Panel/VBoxContainer/HBoxContainer5/exposureEdit")
-fogDensity = NodePath("Panel/VBoxContainer/HBoxContainer4/fogEdit")
-playerSpeed = NodePath("Panel/Gameplay/VBoxContainer2/player speed/Control/LineEdit")
-monsterSpeed = NodePath("Panel/Gameplay/VBoxContainer2/monster speed/Control/LineEdit")
-monsterDMG = NodePath("Panel/Gameplay/VBoxContainer2/monster Damage/Control/LineEdit")
-slider = NodePath("Panel/VBoxContainer/HBoxContainer/HSlider")
-fogSlider = NodePath("Panel/VBoxContainer/HBoxContainer4/HSlider")
-exposureSlider = NodePath("Panel/VBoxContainer/HBoxContainer5/HSlider")
-sens_text = NodePath("Panel/VBoxContainer/HBoxContainer/LineEdit")
+fullscreenButn = NodePath("Panel/TabContainer/Settings/VBoxContainer/HBoxContainer2/fullscreenToggle")
+noiseBtn = NodePath("Panel/TabContainer/Gameplay/VBoxContainer2/noise/NoiseToggle")
+fireDamageBtn = NodePath("Panel/TabContainer/Gameplay/VBoxContainer2/fire damage/fireDamageToggle")
+debugBtn = NodePath("Panel/TabContainer/Gameplay/VBoxContainer2/Debug/debugpath")
+exposure = NodePath("Panel/TabContainer/Settings/VBoxContainer/HBoxContainer5/exposureEdit")
+fogDensity = NodePath("Panel/TabContainer/Settings/VBoxContainer/HBoxContainer4/fogEdit")
+playerSpeed = NodePath("Panel/TabContainer/Gameplay/VBoxContainer2/player speed/LineEdit")
+monsterSpeed = NodePath("Panel/TabContainer/Gameplay/VBoxContainer2/monster speed/LineEdit")
+monsterDMG = NodePath("Panel/TabContainer/Gameplay/VBoxContainer2/monster Damage/LineEdit")
+slider = NodePath("Panel/TabContainer/Settings/VBoxContainer/MouseSensitivity/HSlider")
+fogSlider = NodePath("Panel/TabContainer/Settings/VBoxContainer/HBoxContainer4/HSlider")
+exposureSlider = NodePath("Panel/TabContainer/Settings/VBoxContainer/HBoxContainer5/HSlider")
+sens_text = NodePath("Panel/TabContainer/Settings/VBoxContainer/MouseSensitivity/LineEdit")
+metadata/_edit_use_anchors_ = true
 
 [node name="Panel" type="Panel" parent="Player_UI/PauseMenu"]
-self_modulate = Color(0.137255, 0.137255, 0.137255, 1)
-layout_mode = 0
-offset_right = 352.0
-offset_bottom = 352.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="Continue" type="Button" parent="Player_UI/PauseMenu/Panel"]
-layout_mode = 0
-offset_left = 16.0
-offset_top = 316.0
-offset_right = 119.0
-offset_bottom = 340.0
-theme_override_font_sizes/font_size = 11
-text = "Continue
-"
+[node name="TabContainer" type="TabContainer" parent="Player_UI/PauseMenu/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="Restart" type="Button" parent="Player_UI/PauseMenu/Panel"]
-visible = false
-layout_mode = 0
-offset_left = 124.0
-offset_top = 312.0
-offset_right = 227.0
-offset_bottom = 336.0
-theme_override_font_sizes/font_size = 11
-disabled = true
-text = "Restart
-"
-
-[node name="Exit" type="Button" parent="Player_UI/PauseMenu/Panel"]
-layout_mode = 0
-offset_left = 232.0
-offset_top = 316.0
-offset_right = 335.0
-offset_bottom = 340.0
-theme_override_font_sizes/font_size = 11
-text = "Exit
-"
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Player_UI/PauseMenu/Panel"]
-layout_mode = 0
-offset_left = 51.0
-offset_top = 16.0
-offset_right = 295.0
-offset_bottom = 118.0
-
-[node name="HBoxContainer" type="HBoxContainer" parent="Player_UI/PauseMenu/Panel/VBoxContainer"]
+[node name="Settings" type="TabBar" parent="Player_UI/PauseMenu/Panel/TabContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Player_UI/PauseMenu/Panel/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 11
-text = "Sensitivity"
+[node name="VBoxContainer" type="VBoxContainer" parent="Player_UI/PauseMenu/Panel/TabContainer/Settings"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 52.0
+offset_top = 36.0
+offset_right = -52.0
+offset_bottom = 165.0
+grow_horizontal = 2
 
-[node name="HSlider" type="HSlider" parent="Player_UI/PauseMenu/Panel/VBoxContainer/HBoxContainer"]
+[node name="MouseSensitivity" type="HBoxContainer" parent="Player_UI/PauseMenu/Panel/TabContainer/Settings/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Player_UI/PauseMenu/Panel/TabContainer/Settings/VBoxContainer/MouseSensitivity"]
+layout_mode = 2
+text = "Mouse Sensitivity"
+
+[node name="HSlider" type="HSlider" parent="Player_UI/PauseMenu/Panel/TabContainer/Settings/VBoxContainer/MouseSensitivity"]
+custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_vertical = 4
+size_flags_vertical = 1
 min_value = 0.001
-max_value = 1.0
+max_value = 3.0
 step = 0.001
 value = 0.01
 
-[node name="LineEdit" type="LineEdit" parent="Player_UI/PauseMenu/Panel/VBoxContainer/HBoxContainer"]
+[node name="LineEdit" type="LineEdit" parent="Player_UI/PauseMenu/Panel/TabContainer/Settings/VBoxContainer/MouseSensitivity"]
 layout_direction = 2
 layout_mode = 2
-theme_override_font_sizes/font_size = 10
+size_flags_horizontal = 8
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_styles/normal = ExtResource("16_wvoe7")
 text = "0.1"
+alignment = 1
 virtual_keyboard_enabled = false
 caret_blink = true
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="Player_UI/PauseMenu/Panel/VBoxContainer"]
+[node name="Joystick sensitivity" type="HBoxContainer" parent="Player_UI/PauseMenu/Panel/TabContainer/Settings/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Player_UI/PauseMenu/Panel/VBoxContainer/HBoxContainer2"]
+[node name="Label" type="Label" parent="Player_UI/PauseMenu/Panel/TabContainer/Settings/VBoxContainer/Joystick sensitivity"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 11
-text = "Fullscreen"
+text = "Joystick Sensitivity"
 
-[node name="fullscreenToggle" type="CheckButton" parent="Player_UI/PauseMenu/Panel/VBoxContainer/HBoxContainer2"]
+[node name="HSlider" type="HSlider" parent="Player_UI/PauseMenu/Panel/TabContainer/Settings/VBoxContainer/Joystick sensitivity"]
+custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 1
+min_value = 0.001
+max_value = 20.0
+step = 0.001
+value = 3.0
+
+[node name="LineEdit" type="LineEdit" parent="Player_UI/PauseMenu/Panel/TabContainer/Settings/VBoxContainer/Joystick sensitivity"]
+layout_direction = 2
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_styles/normal = ExtResource("16_wvoe7")
+text = "5"
+alignment = 1
+virtual_keyboard_enabled = false
+caret_blink = true
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Player_UI/PauseMenu/Panel/TabContainer/Settings/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="Player_UI/PauseMenu/Panel/TabContainer/Settings/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "Fullscreen"
+
+[node name="fullscreenToggle" type="CheckButton" parent="Player_UI/PauseMenu/Panel/TabContainer/Settings/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/h_separation = 0
+theme_override_constants/outline_size = 0
 action_mode = 0
+clip_text = true
+vertical_icon_alignment = 0
 
-[node name="HBoxContainer4" type="HBoxContainer" parent="Player_UI/PauseMenu/Panel/VBoxContainer"]
+[node name="HBoxContainer4" type="HBoxContainer" parent="Player_UI/PauseMenu/Panel/TabContainer/Settings/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Player_UI/PauseMenu/Panel/VBoxContainer/HBoxContainer4"]
+[node name="Label" type="Label" parent="Player_UI/PauseMenu/Panel/TabContainer/Settings/VBoxContainer/HBoxContainer4"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 11
 text = "Fog Density"
 
-[node name="HSlider" type="HSlider" parent="Player_UI/PauseMenu/Panel/VBoxContainer/HBoxContainer4"]
+[node name="HSlider" type="HSlider" parent="Player_UI/PauseMenu/Panel/TabContainer/Settings/VBoxContainer/HBoxContainer4"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
 max_value = 5.0
 step = 0.001
 
-[node name="fogEdit" type="LineEdit" parent="Player_UI/PauseMenu/Panel/VBoxContainer/HBoxContainer4"]
+[node name="fogEdit" type="LineEdit" parent="Player_UI/PauseMenu/Panel/TabContainer/Settings/VBoxContainer/HBoxContainer4"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 10
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_styles/normal = ExtResource("16_wvoe7")
 alignment = 1
 caret_blink = true
 
-[node name="HBoxContainer5" type="HBoxContainer" parent="Player_UI/PauseMenu/Panel/VBoxContainer"]
+[node name="HBoxContainer5" type="HBoxContainer" parent="Player_UI/PauseMenu/Panel/TabContainer/Settings/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Player_UI/PauseMenu/Panel/VBoxContainer/HBoxContainer5"]
+[node name="Label" type="Label" parent="Player_UI/PauseMenu/Panel/TabContainer/Settings/VBoxContainer/HBoxContainer5"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 11
 text = "Exposure"
 
-[node name="HSlider" type="HSlider" parent="Player_UI/PauseMenu/Panel/VBoxContainer/HBoxContainer5"]
+[node name="HSlider" type="HSlider" parent="Player_UI/PauseMenu/Panel/TabContainer/Settings/VBoxContainer/HBoxContainer5"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
 max_value = 8.0
 value = 1.0
 
-[node name="exposureEdit" type="LineEdit" parent="Player_UI/PauseMenu/Panel/VBoxContainer/HBoxContainer5"]
+[node name="exposureEdit" type="LineEdit" parent="Player_UI/PauseMenu/Panel/TabContainer/Settings/VBoxContainer/HBoxContainer5"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 10
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_styles/normal = ExtResource("16_wvoe7")
 alignment = 1
 caret_blink = true
 
-[node name="Gameplay" type="Panel" parent="Player_UI/PauseMenu/Panel"]
-layout_mode = 0
-offset_left = 40.0
-offset_top = 128.0
-offset_right = 307.0
-offset_bottom = 304.0
-
-[node name="VBoxContainer2" type="VBoxContainer" parent="Player_UI/PauseMenu/Panel/Gameplay"]
-layout_mode = 2
-offset_left = 11.0
-offset_top = 6.0
-offset_right = 255.0
-offset_bottom = 149.0
-
-[node name="noise" type="HBoxContainer" parent="Player_UI/PauseMenu/Panel/Gameplay/VBoxContainer2"]
+[node name="Gameplay" type="TabBar" parent="Player_UI/PauseMenu/Panel/TabContainer"]
+visible = false
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Player_UI/PauseMenu/Panel/Gameplay/VBoxContainer2/noise"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="Player_UI/PauseMenu/Panel/TabContainer/Gameplay"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 52.0
+offset_top = 36.0
+offset_right = -52.0
+offset_bottom = 197.0
+grow_horizontal = 2
+
+[node name="noise" type="HBoxContainer" parent="Player_UI/PauseMenu/Panel/TabContainer/Gameplay/VBoxContainer2"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 11
+
+[node name="Label" type="Label" parent="Player_UI/PauseMenu/Panel/TabContainer/Gameplay/VBoxContainer2/noise"]
+layout_mode = 2
 text = "Enable Noise
 "
 
-[node name="NoiseToggle" type="CheckButton" parent="Player_UI/PauseMenu/Panel/Gameplay/VBoxContainer2/noise"]
+[node name="NoiseToggle" type="CheckButton" parent="Player_UI/PauseMenu/Panel/TabContainer/Gameplay/VBoxContainer2/noise"]
 layout_mode = 2
-size_flags_horizontal = 3
+size_flags_horizontal = 10
 action_mode = 0
 
-[node name="fire damage" type="HBoxContainer" parent="Player_UI/PauseMenu/Panel/Gameplay/VBoxContainer2"]
+[node name="fire damage" type="HBoxContainer" parent="Player_UI/PauseMenu/Panel/TabContainer/Gameplay/VBoxContainer2"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Player_UI/PauseMenu/Panel/Gameplay/VBoxContainer2/fire damage"]
+[node name="Label" type="Label" parent="Player_UI/PauseMenu/Panel/TabContainer/Gameplay/VBoxContainer2/fire damage"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 11
 text = "Enable Fire damage
 "
 
-[node name="fireDamageToggle" type="CheckButton" parent="Player_UI/PauseMenu/Panel/Gameplay/VBoxContainer2/fire damage"]
+[node name="fireDamageToggle" type="CheckButton" parent="Player_UI/PauseMenu/Panel/TabContainer/Gameplay/VBoxContainer2/fire damage"]
 layout_mode = 2
-size_flags_horizontal = 3
+size_flags_horizontal = 10
 action_mode = 0
 
-[node name="player speed" type="HBoxContainer" parent="Player_UI/PauseMenu/Panel/Gameplay/VBoxContainer2"]
+[node name="player speed" type="HBoxContainer" parent="Player_UI/PauseMenu/Panel/TabContainer/Gameplay/VBoxContainer2"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Player_UI/PauseMenu/Panel/Gameplay/VBoxContainer2/player speed"]
+[node name="Label" type="Label" parent="Player_UI/PauseMenu/Panel/TabContainer/Gameplay/VBoxContainer2/player speed"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 10
 text = "Player Speed"
 
-[node name="Control" type="Control" parent="Player_UI/PauseMenu/Panel/Gameplay/VBoxContainer2/player speed"]
+[node name="LineEdit" type="LineEdit" parent="Player_UI/PauseMenu/Panel/TabContainer/Gameplay/VBoxContainer2/player speed"]
 layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="LineEdit" type="LineEdit" parent="Player_UI/PauseMenu/Panel/Gameplay/VBoxContainer2/player speed/Control"]
-layout_mode = 2
-offset_left = 135.0
-offset_top = 1.0
-offset_right = 171.938
-offset_bottom = 15.0
-size_flags_horizontal = 4
+size_flags_horizontal = 10
 size_flags_vertical = 4
+size_flags_stretch_ratio = 0.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 10
-theme_override_styles/normal = SubResource("StyleBoxFlat_p0v27")
+theme_override_styles/normal = ExtResource("16_wvoe7")
 alignment = 1
 max_length = 4
 
-[node name="monster speed" type="HBoxContainer" parent="Player_UI/PauseMenu/Panel/Gameplay/VBoxContainer2"]
+[node name="monster speed" type="HBoxContainer" parent="Player_UI/PauseMenu/Panel/TabContainer/Gameplay/VBoxContainer2"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Player_UI/PauseMenu/Panel/Gameplay/VBoxContainer2/monster speed"]
+[node name="Label" type="Label" parent="Player_UI/PauseMenu/Panel/TabContainer/Gameplay/VBoxContainer2/monster speed"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 10
 text = "Monster Speed"
 
-[node name="Control" type="Control" parent="Player_UI/PauseMenu/Panel/Gameplay/VBoxContainer2/monster speed"]
+[node name="LineEdit" type="LineEdit" parent="Player_UI/PauseMenu/Panel/TabContainer/Gameplay/VBoxContainer2/monster speed"]
 layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="LineEdit" type="LineEdit" parent="Player_UI/PauseMenu/Panel/Gameplay/VBoxContainer2/monster speed/Control"]
-layout_mode = 2
-offset_left = 125.0
-offset_top = 1.0
-offset_right = 161.938
-offset_bottom = 15.0
-size_flags_horizontal = 4
+size_flags_horizontal = 10
 size_flags_vertical = 4
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 10
-theme_override_styles/normal = SubResource("StyleBoxFlat_p0v27")
+theme_override_styles/normal = ExtResource("16_wvoe7")
 alignment = 1
 max_length = 4
 
-[node name="monster Damage" type="HBoxContainer" parent="Player_UI/PauseMenu/Panel/Gameplay/VBoxContainer2"]
+[node name="monster Damage" type="HBoxContainer" parent="Player_UI/PauseMenu/Panel/TabContainer/Gameplay/VBoxContainer2"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Player_UI/PauseMenu/Panel/Gameplay/VBoxContainer2/monster Damage"]
+[node name="Label" type="Label" parent="Player_UI/PauseMenu/Panel/TabContainer/Gameplay/VBoxContainer2/monster Damage"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 10
 text = "Monster Damage"
 
-[node name="Control" type="Control" parent="Player_UI/PauseMenu/Panel/Gameplay/VBoxContainer2/monster Damage"]
+[node name="LineEdit" type="LineEdit" parent="Player_UI/PauseMenu/Panel/TabContainer/Gameplay/VBoxContainer2/monster Damage"]
 layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="LineEdit" type="LineEdit" parent="Player_UI/PauseMenu/Panel/Gameplay/VBoxContainer2/monster Damage/Control"]
-layout_mode = 2
-offset_left = 115.0
-offset_right = 151.938
-offset_bottom = 14.0
-size_flags_horizontal = 4
+size_flags_horizontal = 10
 size_flags_vertical = 4
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 10
-theme_override_styles/normal = SubResource("StyleBoxFlat_p0v27")
+theme_override_styles/normal = ExtResource("16_wvoe7")
 alignment = 1
 max_length = 4
 
-[node name="Debug" type="HBoxContainer" parent="Player_UI/PauseMenu/Panel/Gameplay/VBoxContainer2"]
+[node name="Debug" type="HBoxContainer" parent="Player_UI/PauseMenu/Panel/TabContainer/Gameplay/VBoxContainer2"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Player_UI/PauseMenu/Panel/Gameplay/VBoxContainer2/Debug"]
+[node name="Label" type="Label" parent="Player_UI/PauseMenu/Panel/TabContainer/Gameplay/VBoxContainer2/Debug"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 11
 text = "Debug path"
 
-[node name="debugpath" type="CheckButton" parent="Player_UI/PauseMenu/Panel/Gameplay/VBoxContainer2/Debug"]
+[node name="debugpath" type="CheckButton" parent="Player_UI/PauseMenu/Panel/TabContainer/Gameplay/VBoxContainer2/Debug"]
 layout_mode = 2
-size_flags_horizontal = 3
+size_flags_horizontal = 10
 action_mode = 0
 
-[node name="Timer" type="HBoxContainer" parent="Player_UI/PauseMenu/Panel/Gameplay/VBoxContainer2"]
+[node name="Timer" type="HBoxContainer" parent="Player_UI/PauseMenu/Panel/TabContainer/Gameplay"]
 process_mode = 1
-layout_mode = 2
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 7.0
+offset_top = -36.0
+offset_right = 346.0
+offset_bottom = -13.0
+grow_vertical = 0
 script = ExtResource("15_rbqk4")
 
-[node name="label" type="Label" parent="Player_UI/PauseMenu/Panel/Gameplay/VBoxContainer2/Timer"]
+[node name="label" type="Label" parent="Player_UI/PauseMenu/Panel/TabContainer/Gameplay/Timer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 11
-text = "Play Time                                                       "
+text = "Play Time: "
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="TimerLabel" type="Label" parent="Player_UI/PauseMenu/Panel/Gameplay/VBoxContainer2/Timer"]
+[node name="TimerLabel" type="Label" parent="Player_UI/PauseMenu/Panel/TabContainer/Gameplay/Timer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 11
 text = "0:00"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="Continue" type="Button" parent="Player_UI/PauseMenu/Panel"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -51.0
+offset_bottom = 31.0
+grow_horizontal = 0
+theme = SubResource("Theme_naa5d")
+text = "X
+"
+
+[node name="Restart" type="Button" parent="Player_UI/PauseMenu/Panel"]
+visible = false
+layout_mode = 0
+offset_left = 500.0
+offset_top = 695.0
+offset_right = 603.0
+offset_bottom = 719.0
+theme_override_font_sizes/font_size = 11
+disabled = true
+text = "Restart
+"
+
+[node name="Exit" type="Button" parent="Player_UI/PauseMenu/Panel"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -127.0
+offset_top = -43.0
+offset_right = -24.0
+offset_bottom = -19.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "Exit
+"
 
 [node name="Label" type="Label" parent="Player_UI"]
 anchors_preset = 3
