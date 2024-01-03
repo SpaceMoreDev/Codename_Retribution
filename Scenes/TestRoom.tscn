@@ -1,8 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://cligfppaoc82f"]
+[gd_scene load_steps=12 format=3 uid="uid://cligfppaoc82f"]
 
 [ext_resource type="PackedScene" uid="uid://qc046bctp57n" path="res://Scenes/Packed/player.tscn" id="1_cgvpt"]
 [ext_resource type="Texture2D" uid="uid://crpfoqnttwg4n" path="res://Assets/Elements/texture_07.png" id="2_7w40j"]
 [ext_resource type="PackedScene" uid="uid://cb0fqai3ot6cx" path="res://Scenes/Packed/door.tscn" id="3_ak6gq"]
+[ext_resource type="PackedScene" uid="uid://dqcg0cgj45q4s" path="res://Scenes/Packed/object.tscn" id="4_svlr6"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_62fxw"]
 sky_energy_multiplier = 2.15
@@ -54,3 +55,6 @@ shape = SubResource("ConcavePolygonShape3D_5cy8j")
 
 [node name="Door" parent="." instance=ExtResource("3_ak6gq")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 1.97405, 1.16865, 3.65489)
+
+[node name="Object" parent="." instance=ExtResource("4_svlr6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.919724, 0.591123, -2.33717)

@@ -8,8 +8,8 @@ signal JoyMotion(Axis:Vector2)
 signal MouseMotion(Axis:Vector2)
 
 @export var HoldThreshold : float = 0.25
-@export var joystickDeadzone : float = 0.25
-@export var mouse_sensitivity : float = 0.5
+@export var Deadzone : float = 0.25
+@export var mouse_sensitivity : float = 0.15
 @export var joystick_sensitivity : float = 2
 
 var inputActionMap : Dictionary = {}
@@ -53,18 +53,20 @@ func Released(Key : InputEvent):
 func Hold(Key : InputEvent):
 	pass
 
-func _unhandled_input(event):
+func _input(event):
 	
 	if event is InputEventMouseMotion:
-		var Delta = event.relative * get_process_delta_time() * mouse_sensitivity 
+		var Delta = event.relative * mouse_sensitivity 
 		mousePosition = event.position
 		emit_signal("MouseMotion", Delta)
 		
 	elif event is InputEventJoypadMotion:
 		var axis = Vector2(Input.get_joy_axis ( 0,JOY_AXIS_RIGHT_X ), Input.get_joy_axis ( 0,JOY_AXIS_RIGHT_Y ))
-		var Delta = axis * get_process_delta_time() * joystick_sensitivity 
-		if abs(axis.length()) > joystickDeadzone:
+		var Delta = axis * joystick_sensitivity 
+		if abs(axis.length()) > Deadzone:
 			emit_signal("JoyMotion", Delta)
+		else:
+			emit_signal("JoyMotion", Vector2.ZERO)
 		
 	
 	if event is InputEventKey or event is InputEventJoypadButton :
