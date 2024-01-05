@@ -29,6 +29,7 @@ var playerCam : PlayerCamera
 @export var joysens_text : LineEdit
 @export var sens_text : LineEdit
 var _sensitivity : float
+var joy_sensitivity : float
 
 func _ready():
 	process_mode = Node.PROCESS_MODE_ALWAYS
@@ -75,6 +76,10 @@ func _ready():
 	_sensitivity = ChangeSens(player.playerInput.mouse_sensitivity)
 	sens_text.text = str(_sensitivity)
 	slider.value = _sensitivity
+	
+	joy_sensitivity = ChangeSensJoy(player.playerInput.joystick_sensitivity)
+	joysens_text.text = str(joy_sensitivity)
+	joysens_slider.value = joy_sensitivity
 	
 
 func restartButton():
@@ -128,7 +133,7 @@ func slider_value(val : float):
 
 func joysens_value(val : float):
 	joysens_text.text = str(val)
-	ChangeSens(val)
+	ChangeSensJoy(val)
 func joysens_slider_value(val : String):
 	joysens_slider.value = float(val)
 	ChangeSensJoy(float(val))
