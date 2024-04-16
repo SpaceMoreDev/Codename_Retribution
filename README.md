@@ -10,23 +10,25 @@ A thrilling survival game where players must evade a relentless werewolf using t
 - **Dynamic Fire System**: Create fires to ward off the werewolf temporarily, providing a strategic advantage.
 - **Object Manipulation**: Pick up, throw, and manipulate objects to create obstacles or distractions.
 - **Sound Detection Mechanic**: Emitted sounds attract the werewolf, adding tension and requiring strategic sound usage.
-- **Door Mechanics**: Interact with doors, hide inside rooms, and use the environment to your advantage, reminiscent of games like Amnesia.
-- **Full Controller Support**: Play with a controller for an immersive and comfortable experience.
+- **Door Mechanics**: Interact with doors, hide inside rooms, and use the environment to your advantage.
+- **Full Controller Support**: Immerse yourself in the game with full controller support for a comfortable and engaging experience.
+- **Multiplayer Mode** (In Development): A basic peer-to-peer network is being developed to introduce a multiplayer game mode where players can take on the role of the werewolf and hunt each other down.
 
 ## Gameplay Overview
 
-In this game, players find themselves in a eerie village haunted by a ferocious werewolf. The goal is to survive until dawn, evading the werewolf and utilizing the environment to your advantage. The werewolf's behavior is driven by a state machine, making its actions unpredictable and challenging.
+Codename_Retribution drops players into a eerie village haunted by a ferocious werewolf. The objective is simple: survive until dawn. Evade the relentless werewolf, utilize your surroundings, and make strategic decisions to outwit your relentless pursuer. The werewolf's behavior is driven by a state machine, ensuring dynamic and unpredictable actions that keep players on their toes.
 
-Players can interact with various objects, consume items to restore health or provide temporary buffs, and undertake quests to gain advantages. Creating fires wards off the werewolf temporarily, providing a safe haven. The sound detection mechanic adds tension, as any noise attracts the werewolf's attention.
+Interact with objects, scavenge for useful items, and undertake quests to aid your survival. Consume items to restore health or gain temporary buffs that can give you an edge. Creating fires provides a temporary safe haven, warding off the werewolf and offering a strategic advantage. But be wary, as the sound of your actions attracts the werewolf, adding tension and requiring careful planning.
 
-Object manipulation allows players to throw objects to create distractions or block the werewolf's path. Door mechanics offer a strategic element, allowing players to hide and plan their next move. Full controller support ensures a comfortable and immersive gameplay experience.
+Manipulate objects to create distractions or block the werewolf's path. Hide inside rooms and use door mechanics to your advantage, reminiscent of games like Amnesia. Full controller support allows for a seamless and immersive gameplay experience.
 
 ## Development Roadmap
 
-- Implement advanced AI behaviors, including adaptive hunting strategies and environmental interactions.
-- Expand the item and quest system, introducing rare items and complex quests with multiple objectives.
-- Enhance sound design and visuals to create a truly immersive and eerie atmosphere.
-- Optimize performance for a smooth gaming experience, ensuring efficient memory management and rendering.
-- Introduce additional enemy types and environmental hazards to increase gameplay variety.
-- Support modding capabilities, allowing the community to create custom content and expand the game's longevity.
+- Enhance the werewolf's AI, implementing adaptive hunting strategies and more sophisticated environmental interactions to challenge players.
+- Expand the item and quest system, introducing rare and powerful items, as well as multi-step quests with engaging narratives and rewarding outcomes.
+- Immerse players in a chilling atmosphere with enhanced sound design and stunning visual effects, creating an unforgettable gaming experience.
+- Optimize performance for a seamless gaming session, ensuring efficient memory usage and smooth rendering for a fluid gameplay experience.
+- Introduce diverse enemy types and environmental hazards to keep players guessing and encourage adaptive gameplay strategies.
+- Embrace the modding community, providing tools and support for custom content creation, fostering a vibrant and creative player base.
+- Continue refining the multiplayer mode, strengthening the peer-to-peer network and adding exciting new features to engage players in competitive and cooperative gameplay.
 
