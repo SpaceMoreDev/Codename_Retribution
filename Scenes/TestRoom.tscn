@@ -43,10 +43,23 @@ camera_attributes = SubResource("CameraAttributesPractical_d5uul")
 
 [node name="Player" parent="." instance=ExtResource("1_cgvpt")]
 
+[node name="StaticBody3D2" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.3, 0, 0, 0, 2, 5.81877, 1.13658, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_1sqln")
+mesh = SubResource("BoxMesh_fyiy6")
+skeleton = NodePath("../../StaticBody3D2")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D2"]
+shape = SubResource("ConcavePolygonShape3D_5cy8j")
+
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 transform = Transform3D(17.6049, 0, 0, 0, 0.261472, 0, 0, 0, 13.7398, 0, 0, 0)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 material_override = SubResource("StandardMaterial3D_1sqln")
 mesh = SubResource("BoxMesh_fyiy6")
 

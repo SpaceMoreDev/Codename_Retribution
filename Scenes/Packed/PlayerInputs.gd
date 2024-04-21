@@ -53,7 +53,7 @@ func Released(Key : InputEvent):
 func Hold(Key : InputEvent):
 	pass
 
-func _input(event):
+func _unhandled_input(event):
 	
 	if event is InputEventMouseMotion:
 		var Delta = event.relative * mouse_sensitivity 

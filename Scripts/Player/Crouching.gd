@@ -16,10 +16,12 @@ const CROUCHING_AMP = 0.05
 
 var crouchingHeight : float
 
-var acceleration : float = 1.6
+var acceleration : float = 0.6
 var active = false
 var notpressing:bool
 var player: Player
+var crouchTween : Tween
+var crouchToggle : bool = false
 
 func _ready():
 	player = get_parent()
@@ -27,34 +29,38 @@ func _ready():
 	standingCollider.disabled = false
 	crouchingCollider.disabled = true
 
-@warning_ignore("unused_parameter")
-func _process(delta):	
-	if(Input.is_action_just_pressed("CROUCH")):
-		crouchingCollider.disabled = false
-		standingCollider.disabled = true
-		
-		player.Speed = CROUCHING_SPEED
-		active = true
-		notpressing = true
-		headBob._frequency = move_toward(headBob._frequency,  CROUCHING_FREQ, delta * acceleration) 
-		headBob._amplitude = move_toward(headBob._amplitude,  CROUCHING_AMP, delta * acceleration)
-	elif Input.is_action_pressed("CROUCH"):
-		camera.position.y = move_toward(camera.position.y, crouchingHeight, delta * acceleration*2)
-		player.noise.volume = 0
-	elif(Input.is_action_just_released("CROUCH")):
-		notpressing = false
-	else:
-		if not notpressing and active:
-			if is_top_empty():
-				camera.position.y = move_toward(camera.position.y, 0.0, delta * acceleration)
-				if camera.position.y == 0:
-					standingCollider.disabled = false
-					crouchingCollider.disabled = true
-					player.Speed =player.WALK_SPEED
-					active = false
 
-					headBob._frequency = move_toward(headBob._frequency,  headBob.STAND_FREQ, delta * acceleration) 
-					headBob._amplitude = move_toward(headBob._amplitude,  headBob.STAND_AMP, delta * acceleration)
+func crouching():
+	crouchingCollider.disabled = false
+	standingCollider.disabled = true
+	active = true
+	player.Speed = CROUCHING_SPEED
+	player.noise.volume = 0
+	headBob._frequency = move_toward(headBob._frequency,  CROUCHING_FREQ, acceleration) 
+	headBob._amplitude = move_toward(headBob._amplitude,  CROUCHING_AMP, acceleration)
+func stop_crouching():
+	if is_top_empty():
+		standingCollider.disabled = false
+		crouchingCollider.disabled = true
+		player.Speed =player.WALK_SPEED
+		active = false
+		headBob._frequency = move_toward(headBob._frequency,  headBob.STAND_FREQ, acceleration) 
+		headBob._amplitude = move_toward(headBob._amplitude,  headBob.STAND_AMP, acceleration)
+func Toggle():
+	crouchToggle = !crouchToggle
+	if crouchToggle:
+		crouchTween = get_tree().create_tween()
+		crouchTween.tween_property(camera,"position:y",crouchingHeight,0.1)
+		crouchTween.finished.connect(crouching)
+	else:
+		crouchTween = get_tree().create_tween()
+		crouchTween.tween_property(camera,"position:y",0.0, 0.1)
+		crouchTween.finished.connect(stop_crouching)
+@warning_ignore("unused_parameter")
+func _process(delta):
+	if(Input.is_action_just_pressed("CROUCH")) and is_top_empty():
+		Toggle()
+
 
 func is_top_empty() -> bool:
 	if raycheck.is_colliding() :
