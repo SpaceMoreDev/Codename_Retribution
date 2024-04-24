@@ -34,7 +34,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.506117, 0, 0)
 shape = SubResource("BoxShape3D_fhxkj")
 
 [node name="handle" type="Node3D" parent="body"]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -0.814065, 0, 0)
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -0.937319, 0, 0)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="body/handle"]
 transform = Transform3D(-6.11959e-09, -0.14, -6.11959e-09, 0, -6.11959e-09, 0.14, -0.14, 6.11959e-09, 2.67496e-16, 0, 0, 0)

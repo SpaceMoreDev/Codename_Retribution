@@ -10,8 +10,7 @@ var playerInputs : Inputs
 #fov variables
 const BASE_FOV = 75.0
 const FOV_CHANGE = 1.0
-const MouseSMOOTHING = 10
-const JoySMOOTHING = 20
+const SMOOTHING = 20
 
 var lookAxis : Vector2 = Vector2.ZERO
 var locked : bool = false
@@ -24,19 +23,13 @@ func _ready():
 	playerCamera = $Camera3D
 	playerInputs = player.playerInput
 	
-	playerInputs.connect("MouseMotion", LookAroundMouse)
-	playerInputs.connect("JoyMotion", LookAroundJoy)
+	playerInputs.connect("MouseMotion", LookAround)
+	playerInputs.connect("JoyMotion", LookAround)
 
-func LookAroundMouse(axis : Vector2):
+func LookAround(axis : Vector2):
 	b_isController = false
 	if(not locked):
 		lookAxis = -axis
-
-func LookAroundJoy(axis : Vector2):
-	b_isController = true
-	if(not locked):
-		lookAxis = -axis
-
 func _physics_process(delta):
 	
 	if(not locked):	
@@ -46,15 +39,12 @@ func _physics_process(delta):
 		playerCamera.fov = lerp(playerCamera.fov, target_fov, delta * 8.0)
 	
 func _process(delta):
-	if(not locked):	
-		if b_isController:
-			rotation_velocity = lerp(rotation_velocity, lookAxis, delta * JoySMOOTHING)
-			playerCamera.rotate_x(deg_to_rad(rotation_velocity.y) )
-			rotate_y(deg_to_rad(rotation_velocity.x))
-		else:
-			rotation_velocity = lookAxis * delta * MouseSMOOTHING
-			playerCamera.rotate_x(deg_to_rad(rotation_velocity.y) )
-			rotate_y(deg_to_rad(rotation_velocity.x))
+	if(not locked):
+		rotation_velocity = lerp(rotation_velocity, lookAxis, delta * SMOOTHING)
+		playerCamera.rotate_x(deg_to_rad(rotation_velocity.y) )
+		rotate_y(deg_to_rad(rotation_velocity.x))
+		
+		if !b_isController:
 			lookAxis = Vector2.ZERO
 		
 		playerCamera.rotate_x(deg_to_rad(rotation_velocity.y) )

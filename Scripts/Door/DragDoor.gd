@@ -1,16 +1,15 @@
 extends Door
 
 @onready var _sensitivity = ProjectSettings.get_setting("player/look_sensitivity")
-var mouse_x : float = 0.0
-
+var Input_x : float = 0.0
 var data
 var dead_zone : float = 1
-
 var pull_power = 150
-
 var action
-var player
+var player : Player
 var grab_position
+
+var inputs
 
 func _ready():
 	player = Global._get_player()
@@ -19,6 +18,9 @@ func _ready():
 
 	action.connect("start_interaction", InteractWithDoor)
 	action.connect("end_interaction", remove_object)
+	
+	player.playerInput.connect("MouseMotion", DragInput)
+	player.playerInput.connect("JoyMotion", DragInput)
 
 func remove_object():
 	if(data != null):
@@ -30,36 +32,37 @@ func InteractWithDoor(door:Node3D):
 		player.playerCamera.locked = true
 		if not is_locked:
 			data = door
-			mouse_x = 0.0
+			
+			Input_x = 0.0
 		else:
-			print("Locked")
+			print("Door is locked")
 			
 
-func _input(event):
+#func _input(event):
+	#if(data != null):
+		#if(event is InputEventMouseMotion):		
+			#Input_x = -event.relative.x * _sensitivity
+			## mouse_x = clamp(mouse_x, -1, 1)
+		#else:
+			#Input_x = 0.0
+
+func DragInput(axis : Vector2):
 	if(data != null):
-		if(event is InputEventMouseMotion):		
-			mouse_x = -event.relative.x * _sensitivity
-			# mouse_x = clamp(mouse_x, -1, 1)
-		else:
-			mouse_x = 0.0
-
-
+		Input_x = -axis.x 
 
 func Update(delta):
 	if(data != null and not is_locked):
-		if abs(mouse_x) > 0:
-			var cam = player.playerCamera.global_position # location of player
+		if abs(Input_x) > 0:
 			
-			var camtodoor = data.global_position - cam
-			var doortocam = cam - data.global_position
-
-			# DebugDraw3D.draw_ray(cam, camtodoor, camtodoor.length() , Color(1,0, 0))
-
-			var raydir = sign(doortocam.x) * sign(-camtodoor.z) # direction to player whether looking or not
-			var dirPoint = (data.global_position + (data.get_node("handle").global_transform.basis * Vector3.RIGHT *(raydir *mouse_x)))
-			print(raydir)
-
+			var handleBasis = data.get_node("handle").global_transform.basis
+			var doorRot = Quaternion(handleBasis)
+			var playerBasis = player.playerCamera.global_transform.basis
+			var playerRot = Quaternion(playerBasis).inverse()
+			var newBasis = Basis(doorRot * playerRot)
 			
+			var dirPoint = (data.get_node("handle").global_position) + (newBasis * Vector3.LEFT *( Input_x))
+			DebugDraw3D.draw_ray(data.get_node("handle").global_position, dirPoint, dirPoint.length() , Color(1,0, 0))
+
 			# DebugDraw3D.draw_box(dirPoint, Vector3(.1,.1,.1), Color(1, 1, 0), true)
 			var doordir = ( dirPoint - data.global_position ) 
 			data.set_linear_velocity(doordir * pull_power * delta)
