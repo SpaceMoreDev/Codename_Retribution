@@ -58,8 +58,11 @@ func _unhandled_input(event):
 	if event is InputEventMouseMotion:
 		var Delta = event.relative * mouse_sensitivity 
 		mousePosition = event.position
-		emit_signal("MouseMotion", Delta)
-		
+		if Delta.length() > Deadzone:
+			emit_signal("MouseMotion", Delta)
+		else:
+			emit_signal("MouseMotion", Vector2.ZERO)
+
 	elif event is InputEventJoypadMotion:
 		var axis = Vector2(Input.get_joy_axis ( 0,JOY_AXIS_RIGHT_X ), Input.get_joy_axis ( 0,JOY_AXIS_RIGHT_Y ))
 		var Delta = axis * joystick_sensitivity 

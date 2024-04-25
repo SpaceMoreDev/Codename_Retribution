@@ -24,6 +24,8 @@ collision_layer = 8
 collision_mask = 272
 axis_lock_angular_x = true
 axis_lock_angular_z = true
+linear_damp = 25.0
+angular_damp = 25.0
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="body"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.505798, 0, 0)
