@@ -1,11 +1,11 @@
-[gd_scene load_steps=23 format=3 uid="uid://qc046bctp57n"]
+[gd_scene load_steps=24 format=3 uid="uid://qc046bctp57n"]
 
 [ext_resource type="Script" path="res://Scripts/Player/PlayerController.gd" id="1_ej1b3"]
 [ext_resource type="Script" path="res://Scripts/Player/PlayerStats.gd" id="1_sce2v"]
 [ext_resource type="Texture2D" uid="uid://dxvfvq3vn03ba" path="res://NBeast_Bar.png" id="2_kkkfp"]
-[ext_resource type="Script" path="res://Scripts/Quests/Quest.gd" id="2_kyxfg"]
 [ext_resource type="Script" path="res://Scripts/Player/PlayerCamera.gd" id="2_rsliq"]
 [ext_resource type="Script" path="res://Scenes/Packed/PlayerInputs.gd" id="2_xgk64"]
+[ext_resource type="Script" path="res://Scripts/Quests/New quest system/Quest_Manager.gd" id="3_tjomp"]
 [ext_resource type="Script" path="res://Scripts/Player/Crouching.gd" id="4_8cvhv"]
 [ext_resource type="Script" path="res://Scripts/Player/PlayerAction.gd" id="4_ing7o"]
 [ext_resource type="Script" path="res://Scripts/Player/Leaning.gd" id="4_yepiv"]
@@ -13,6 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://bnsleh5fba0gk" path="res://Assets/Elements/handIcon.png" id="7_u7sp3"]
 [ext_resource type="Script" path="res://Scripts/Player/Noise.gd" id="9_2ju3r"]
 [ext_resource type="Script" path="res://Scripts/Player/Inventory.gd" id="9_t6asi"]
+[ext_resource type="Script" path="res://Scripts/Quests/New quest system/RichText_Listener.gd" id="13_hnnjw"]
 [ext_resource type="Script" path="res://Scripts/Player/Pause.gd" id="13_y82ud"]
 [ext_resource type="Texture2D" uid="uid://b3gxlcyitqri0" path="res://Assets/Elements/soundIcon.png" id="14_jeaud"]
 [ext_resource type="Script" path="res://Scripts/Player/GameTimer.gd" id="15_rbqk4"]
@@ -49,9 +50,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.725078, 0)
 shape = SubResource("CapsuleShape3D_yyxpu")
 disabled = true
 
-[node name="Quest" type="Node3D" parent="." node_paths=PackedStringArray("questLabel")]
-script = ExtResource("2_kyxfg")
-questLabel = NodePath("../Player_UI/Tasks")
+[node name="Quest" type="Node3D" parent="." node_paths=PackedStringArray("Listeners")]
+script = ExtResource("3_tjomp")
+Listeners = [NodePath("../Player_UI/Quests")]
 
 [node name="Stats" type="Node3D" parent="."]
 script = ExtResource("1_sce2v")
@@ -63,7 +64,7 @@ script = ExtResource("2_rsliq")
 
 [node name="Action" type="Node3D" parent="Head/Camera3D" node_paths=PackedStringArray("handIcon")]
 script = ExtResource("4_ing7o")
-handIcon = NodePath("../../../Player_UI/TextureRect")
+handIcon = NodePath("../../../Player_UI/UseIcon")
 
 [node name="RayCast3D" type="RayCast3D" parent="Head/Camera3D/Action"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.67271e-08, 0, -0.305722)
@@ -169,7 +170,7 @@ texture_progress = ExtResource("2_kkkfp")
 tint_under = Color(0, 0, 0, 1)
 tint_progress = Color(0, 0.431373, 0.921569, 1)
 
-[node name="Tasks" type="RichTextLabel" parent="Player_UI"]
+[node name="Quests" type="RichTextLabel" parent="Player_UI"]
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
@@ -180,6 +181,7 @@ offset_bottom = 101.0
 grow_horizontal = 0
 bbcode_enabled = true
 fit_content = true
+script = ExtResource("13_hnnjw")
 
 [node name="Inventory" type="RichTextLabel" parent="Player_UI"]
 anchors_preset = 3
@@ -194,7 +196,7 @@ grow_vertical = 0
 bbcode_enabled = true
 fit_content = true
 
-[node name="TextureRect" type="TextureRect" parent="Player_UI"]
+[node name="UseIcon" type="TextureRect" parent="Player_UI"]
 visible = false
 anchors_preset = 8
 anchor_left = 0.5

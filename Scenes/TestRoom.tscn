@@ -1,9 +1,12 @@
-[gd_scene load_steps=12 format=3 uid="uid://cligfppaoc82f"]
+[gd_scene load_steps=17 format=3 uid="uid://cligfppaoc82f"]
 
 [ext_resource type="PackedScene" uid="uid://qc046bctp57n" path="res://Scenes/Packed/player.tscn" id="1_cgvpt"]
 [ext_resource type="Texture2D" uid="uid://crpfoqnttwg4n" path="res://Assets/Elements/texture_07.png" id="2_7w40j"]
 [ext_resource type="PackedScene" uid="uid://cb0fqai3ot6cx" path="res://Scenes/Packed/door.tscn" id="3_ak6gq"]
 [ext_resource type="PackedScene" uid="uid://dqcg0cgj45q4s" path="res://Scenes/Packed/object.tscn" id="4_svlr6"]
+[ext_resource type="Script" path="res://Scripts/Quests/New quest system/Quest.gd" id="5_blkrb"]
+[ext_resource type="Script" path="res://Scripts/Quests/New quest system/Missions/TriggerMission.gd" id="5_bt275"]
+[ext_resource type="Resource" uid="uid://cfku0ynm51qf5" path="res://Scripts/Quests/New quest system/QuestObjects/TestQuest.tres" id="6_vynuk"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_62fxw"]
 sky_energy_multiplier = 2.15
@@ -31,6 +34,11 @@ uv1_triplanar = true
 
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_5cy8j"]
 data = PackedVector3Array(-0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, -0.5)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_wvwa7"]
+radius = 0.836984
+
+[sub_resource type="SphereMesh" id="SphereMesh_4ctal"]
 
 [node name="TestRoom" type="Node3D"]
 
@@ -69,3 +77,26 @@ transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 1.9740
 
 [node name="Object" parent="." instance=ExtResource("4_svlr6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.919724, 0.591123, -2.33717)
+
+[node name="Quests" type="Node" parent="."]
+
+[node name="Quest 1" type="Node" parent="Quests" node_paths=PackedStringArray("missions")]
+script = ExtResource("5_blkrb")
+data = ExtResource("6_vynuk")
+missions = [NodePath("TestMission")]
+
+[node name="TestMission" type="Node" parent="Quests/Quest 1" node_paths=PackedStringArray("trigger")]
+script = ExtResource("5_bt275")
+trigger = NodePath("../../../Area3D")
+
+[node name="Area3D" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.94426, 0, 4.9909)
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.233595, 0)
+shape = SubResource("SphereShape3D_wvwa7")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Area3D"]
+transform = Transform3D(1.9378, 0, 0, 0, 1.9378, 0, 0, 0, 1.9378, 0, 0.11351, 0)
+mesh = SubResource("SphereMesh_4ctal")

@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="QuestData" load_steps=3 format=3 uid="uid://cfku0ynm51qf5"]
+
+[ext_resource type="Script" path="res://Scripts/Quests/New quest system/QuestObjects/QuestData.gd" id="1_asoxk"]
+[ext_resource type="Texture2D" uid="uid://bdx2tvstett4t" path="res://icon.svg" id="1_ughn0"]
+
+[resource]
+script = ExtResource("1_asoxk")
+Title = "PlaceHolder"
+Description = "A quest placeholder"
+Icon = ExtResource("1_ughn0")

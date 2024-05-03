@@ -70,10 +70,8 @@ questID = 0
 auto_add = true
 previousObjective = NodePath("../../../Key/Key_found")
 
-[node name="Key" parent="Quests" node_paths=PackedStringArray("doors", "objective") instance=ExtResource("6_n8l80")]
+[node name="Key" parent="Quests" instance=ExtResource("6_n8l80")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.10005, 0.639394, 9.09559)
-doors = [NodePath("../Doors2/Door"), NodePath("../Doors2/Door2")]
-objective = NodePath("Key_found")
 
 [node name="Key_found" type="Node" parent="Quests/Key" node_paths=PackedStringArray("previousObjective")]
 script = ExtResource("7_6plhs")

@@ -3,12 +3,10 @@ extends Node3D
 class_name DoorKey
 
 @export var doors : Array[Door]
-@export var objective : Objective
 
 
 func _ready():
 	for i in doors:
-		i.key = self as DoorKey
 		i.is_locked = true
 
 	Global._get_player().playerAction.connect("start_interaction", GotKey)

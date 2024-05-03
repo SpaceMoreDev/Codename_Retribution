@@ -1,9 +1,9 @@
 extends Node
 
 
-var quests : QuestList:
+var quests : QuestManager:
 	get:
-		return _get_player().get_node("Quest") as QuestList
+		return _get_player().get_node("Quest") as QuestManager
 
 
 var EnemyDamage : float = 10
