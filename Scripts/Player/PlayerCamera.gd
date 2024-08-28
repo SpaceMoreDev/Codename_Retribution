@@ -27,28 +27,21 @@ func _ready():
 	playerInputs.connect("JoyMotion", LookAround)
 
 func LookAround(axis : Vector2):
-	b_isController = false
 	if(not locked):
 		lookAxis = -axis
+
 func _physics_process(delta):
-	
-	if(not locked):	
-		# FOV
-		var velocity_clamped = clamp(get_parent().velocity.length(), 0.5, get_parent().SPRINT_SPEED * 2)
-		var target_fov = BASE_FOV + FOV_CHANGE * velocity_clamped
-		playerCamera.fov = lerp(playerCamera.fov, target_fov, delta * 8.0)
-	
-func _process(delta):
 	if(not locked):
 		rotation_velocity = lerp(rotation_velocity, lookAxis, delta * SMOOTHING)
 		playerCamera.rotate_x(deg_to_rad(rotation_velocity.y) )
 		rotate_y(deg_to_rad(rotation_velocity.x))
-		
-		if !b_isController:
-			lookAxis = Vector2.ZERO
-		
-		playerCamera.rotate_x(deg_to_rad(rotation_velocity.y) )
-		rotate_y(deg_to_rad(rotation_velocity.x))
 		playerCamera.rotation.x = clamp(playerCamera.rotation.x, deg_to_rad(-60), deg_to_rad(60))
-
-
+		lookAxis = Vector2.ZERO
+	
+func _process(delta):
+	if(not locked):
+		
+		# FOV
+		var velocity_clamped = clamp(get_parent().velocity.length(), 0.5, get_parent().SPRINT_SPEED * 2)
+		var target_fov = BASE_FOV + FOV_CHANGE * velocity_clamped
+		playerCamera.fov = lerp(playerCamera.fov, target_fov, delta * 8.0)

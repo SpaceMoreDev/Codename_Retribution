@@ -1,9 +1,9 @@
 extends Node
 class_name Inputs
 
-signal KeyPressed(Key:InputEvent)
-signal KeyReleased(Key:InputEvent)
-signal KeyHold(Key:InputEvent)
+signal KeyPressed(Key:StringName)
+signal KeyReleased(Key:StringName)
+signal KeyHold(Key:StringName)
 signal JoyMotion(Axis:Vector2)
 signal MouseMotion(Axis:Vector2)
 
@@ -11,13 +11,15 @@ signal MouseMotion(Axis:Vector2)
 @export var Deadzone : float = 0.25
 @export var mouse_sensitivity : float = 0.15
 @export var joystick_sensitivity : float = 2
+var joystick_state = Vector2.ZERO
+var isUsingJoyStick = false;
 
 var inputActionMap : Dictionary = {}
 var holdTimer = 0
 
 # Current Inputs
-var currentAction : StringName
-var currentPressedKey : InputEvent
+var currentActions : Dictionary
+var currentPressedKeys : Array[StringName]
 
 # Mouse Inputs
 var mouseDelta : Vector2 = Vector2.ZERO
@@ -40,50 +42,51 @@ func FindAction(Key : InputEvent) -> String:
 func _ready():
 	UpdateActionKeys()
 	connect("KeyPressed", Pressed)
-	connect("KeyReleased", Released)
+	connect("KeyReleased", Released) 
 	connect("KeyHold", Hold)
 
-func Pressed(Key : InputEvent):
-	currentPressedKey = Key
+func Pressed(Key : StringName):
+	currentActions[Key] = 0
+	currentPressedKeys.append(Key)
 
-func Released(Key : InputEvent):
-	if currentPressedKey:
-		currentPressedKey = null
+func Released(Key : StringName):
+	currentActions.erase(Key)
+	currentPressedKeys.erase(Key)
 
-func Hold(Key : InputEvent):
+func Hold(Key : StringName):
 	pass
 
-func _unhandled_input(event):
-	
+func _input(event):
 	if event is InputEventMouseMotion:
 		var Delta = event.relative * mouse_sensitivity 
 		mousePosition = event.position
 		emit_signal("MouseMotion", Delta)
+		isUsingJoyStick = false
 		
 	elif event is InputEventJoypadMotion:
-		var axis = Vector2(Input.get_joy_axis ( 0,JOY_AXIS_RIGHT_X ), Input.get_joy_axis ( 0,JOY_AXIS_RIGHT_Y ))
-		var Delta = axis * joystick_sensitivity 
-		if abs(axis.length()) > Deadzone:
-			emit_signal("JoyMotion", Delta)
-		else:
-			emit_signal("JoyMotion", Vector2.ZERO)
-		
+		joystick_state = Vector2(Input.get_joy_axis(0, JOY_AXIS_RIGHT_X), Input.get_joy_axis(0, JOY_AXIS_RIGHT_Y))
+		isUsingJoyStick = true
 	
 	if event is InputEventKey or event is InputEventJoypadButton :
 		var action = FindAction(event)
-		currentAction = action
-		if currentAction != "":
-			if Input.is_action_just_pressed(currentAction):
-				emit_signal("KeyPressed", event)
-			elif Input.is_action_just_released(currentAction):
-				emit_signal("KeyReleased", event)
-				holdTimer = 0
+		if action != "":
+			if Input.is_action_just_pressed(action):
+				emit_signal("KeyPressed", action)
+			elif Input.is_action_just_released(action):
+				emit_signal("KeyReleased", action)
+
 
 func _process(delta):
-	
-	if (currentAction != "") and (Input.is_action_pressed(currentAction)):
-		if holdTimer < HoldThreshold:
-			holdTimer += delta
+	for action in currentPressedKeys:
+		if Input.is_action_pressed(action):
+			if currentActions[action] < HoldThreshold:
+				currentActions[action] += delta
+			else:
+				emit_signal("KeyHold", action)
+	if isUsingJoyStick:
+		# Handle continuous joystick movement
+		if abs(joystick_state.length()) > Deadzone:
+			var Delta = joystick_state * joystick_sensitivity
+			emit_signal("JoyMotion", Delta)
 		else:
-			emit_signal("KeyHold", currentPressedKey)
-			
+			emit_signal("JoyMotion", Vector2.ZERO)

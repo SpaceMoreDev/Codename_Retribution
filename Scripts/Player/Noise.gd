@@ -33,4 +33,3 @@ func VolumeChanged(vol):
 
 		var alphaVal = (volume/100) * 255
 		soundIcon.modulate.a = alphaVal/255
-

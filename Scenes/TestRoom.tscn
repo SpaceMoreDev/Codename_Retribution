@@ -1,8 +1,8 @@
-[gd_scene load_steps=12 format=3 uid="uid://cligfppaoc82f"]
+[gd_scene load_steps=15 format=3 uid="uid://cligfppaoc82f"]
 
 [ext_resource type="PackedScene" uid="uid://qc046bctp57n" path="res://Scenes/Packed/player.tscn" id="1_cgvpt"]
 [ext_resource type="Texture2D" uid="uid://crpfoqnttwg4n" path="res://Assets/Elements/texture_07.png" id="2_7w40j"]
-[ext_resource type="PackedScene" uid="uid://cb0fqai3ot6cx" path="res://Scenes/Packed/door.tscn" id="3_ak6gq"]
+[ext_resource type="Script" path="res://Scripts/Door/DragDoor.gd" id="3_2hi00"]
 [ext_resource type="PackedScene" uid="uid://dqcg0cgj45q4s" path="res://Scenes/Packed/object.tscn" id="4_svlr6"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_62fxw"]
@@ -31,6 +31,14 @@ uv1_triplanar = true
 
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_5cy8j"]
 data = PackedVector3Array(-0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, -0.5)
+
+[sub_resource type="BoxMesh" id="BoxMesh_4fqd7"]
+size = Vector3(0.922, 2, 0.1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_fhxkj"]
+size = Vector3(0.921867, 2, 0.1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_n1f2b"]
 
 [node name="TestRoom" type="Node3D"]
 
@@ -64,8 +72,31 @@ mesh = SubResource("BoxMesh_fyiy6")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_5cy8j")
 
-[node name="Door" parent="." instance=ExtResource("3_ak6gq")]
+[node name="Door" type="Node3D" parent="."]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 1.97405, 1.16865, 3.65489)
+script = ExtResource("3_2hi00")
+metadata/_edit_group_ = true
+
+[node name="body" type="RigidBody3D" parent="Door" groups=["Door"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.129337, 0, 0)
+collision_layer = 9
+axis_lock_angular_x = true
+axis_lock_angular_z = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Door/body"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.505798, 0, 0)
+mesh = SubResource("BoxMesh_4fqd7")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Door/body"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.506117, 0, 0)
+shape = SubResource("BoxShape3D_fhxkj")
+
+[node name="handle" type="Node3D" parent="Door/body"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -0.937319, 0, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Door/body/handle"]
+transform = Transform3D(-6.11959e-09, -0.14, -6.11959e-09, 0, -6.11959e-09, 0.14, -0.14, 6.11959e-09, 2.67496e-16, 0, 0, 0)
+mesh = SubResource("CapsuleMesh_n1f2b")
 
 [node name="Object" parent="." instance=ExtResource("4_svlr6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.919724, 0.591123, -2.33717)

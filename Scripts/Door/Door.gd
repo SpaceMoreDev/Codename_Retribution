@@ -15,7 +15,7 @@ signal door_closed(door)
 
 var key : DoorKey
 var doorbody : RigidBody3D
-var hinge : HingeJoint3D
+#var hinge : HingeJoint3D
 
 @export var is_locked : bool = false:
 	set(v):
@@ -56,7 +56,7 @@ func _on_door_closed():
 
 func _enter_tree():
 	doorbody = $body
-	hinge = $hinge
+	#hinge = $hinge
 
 func _ready():
 	doorbody.set_process(!is_locked)

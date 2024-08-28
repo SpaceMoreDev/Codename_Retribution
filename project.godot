@@ -23,6 +23,7 @@ config/windows_native_icon="res://Assets/Data/Logo_Retribution.ico"
 [autoload]
 
 Global="*res://Scripts/GlobalData.gd"
+InputSignalBus="*res://Scripts/input_signal_bus.gd"
 
 [display]
 

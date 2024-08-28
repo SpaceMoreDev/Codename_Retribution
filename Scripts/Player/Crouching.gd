@@ -9,7 +9,7 @@ class_name Crouching
 @export var crouchingCollider: CollisionShape3D
 
 var CROUCHING_AMOUNT = 0.55
-var CROUCHING_SPEED = 1
+var CROUCHING_SPEED = 50
 
 const CROUCHING_FREQ = 5
 const CROUCHING_AMP = 0.05
