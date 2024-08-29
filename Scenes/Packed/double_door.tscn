@@ -1,0 +1,106 @@
+[gd_scene load_steps=6 format=3 uid="uid://cqq7s0b1ti8ge"]
+
+[ext_resource type="Script" path="res://Scripts/Door/DragDoor.gd" id="1_rqhwk"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_4fqd7"]
+size = Vector3(0.922, 2, 0.1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_fhxkj"]
+size = Vector3(0.921867, 2, 0.1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_n1f2b"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_6mtxo"]
+size = Vector3(0.109688, 2, 0.1)
+
+[node name="Double_Door" type="Node3D"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 1, -0.84109)
+
+[node name="Door" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00524229, 0, -2.29146e-10)
+script = ExtResource("1_rqhwk")
+metadata/_edit_group_ = true
+
+[node name="body" type="RigidBody3D" parent="Door" groups=["Door"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.129337, 0, 0)
+collision_layer = 8
+collision_mask = 272
+axis_lock_angular_x = true
+axis_lock_angular_z = true
+angular_damp = 15.0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Door/body"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.505798, 0, 0)
+mesh = SubResource("BoxMesh_4fqd7")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Door/body"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.506117, 0, 0)
+shape = SubResource("BoxShape3D_fhxkj")
+
+[node name="handle" type="Node3D" parent="Door/body"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -0.858921, 0, 0.0941348)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Door/body/handle"]
+transform = Transform3D(-6.11959e-09, -0.14, -6.11959e-09, 0, -6.11959e-09, 0.14, -0.14, 6.11959e-09, 2.67496e-16, 0, 0, 0)
+mesh = SubResource("CapsuleMesh_n1f2b")
+
+[node name="frame" type="StaticBody3D" parent="Door"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0981378, 0, 0)
+collision_layer = 8
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Door/frame"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0184655, 0, 0)
+shape = SubResource("BoxShape3D_6mtxo")
+disabled = true
+
+[node name="hinge" type="HingeJoint3D" parent="Door"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.235608, 0, 0)
+node_a = NodePath("../body")
+node_b = NodePath("../frame")
+angular_limit/enable = true
+angular_limit/lower = 0.0
+
+[node name="Door2" type="Node3D" parent="."]
+transform = Transform3D(-1, 8.74228e-08, -8.74228e-08, 8.74228e-08, 1, 0, 8.74228e-08, -7.64274e-15, -1, -1.68147, 0, -1.1907e-07)
+script = ExtResource("1_rqhwk")
+closing_axis = -1.0
+metadata/_edit_group_ = true
+
+[node name="body" type="RigidBody3D" parent="Door2" groups=["Door"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.129337, 0, 0)
+collision_layer = 8
+collision_mask = 272
+axis_lock_angular_x = true
+axis_lock_angular_z = true
+angular_damp = 15.0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Door2/body"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.505798, 0, 0)
+mesh = SubResource("BoxMesh_4fqd7")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Door2/body"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.506117, 0, 0)
+shape = SubResource("BoxShape3D_fhxkj")
+
+[node name="handle" type="Node3D" parent="Door2/body"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -0.858921, 0, -0.0903941)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Door2/body/handle"]
+transform = Transform3D(-6.11959e-09, -0.14, -6.11959e-09, 0, -6.11959e-09, 0.14, -0.14, 6.11959e-09, 2.67496e-16, 0, 0, 0)
+mesh = SubResource("CapsuleMesh_n1f2b")
+
+[node name="frame" type="StaticBody3D" parent="Door2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0981378, 0, 0)
+collision_layer = 8
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Door2/frame"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0184655, 0, 0)
+shape = SubResource("BoxShape3D_6mtxo")
+disabled = true
+
+[node name="hinge" type="HingeJoint3D" parent="Door2"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.235608, 0, 0)
+node_a = NodePath("../body")
+node_b = NodePath("../frame")
+angular_limit/enable = true
+angular_limit/upper = 0.0

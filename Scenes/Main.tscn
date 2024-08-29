@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://bp755b7h6vn0g"]
+[gd_scene load_steps=25 format=3 uid="uid://bp755b7h6vn0g"]
 
 [ext_resource type="PackedScene" uid="uid://qc046bctp57n" path="res://Scenes/Packed/player.tscn" id="1_h4rhp"]
 [ext_resource type="PackedScene" uid="uid://cb0fqai3ot6cx" path="res://Scenes/Packed/door.tscn" id="2_yba7r"]
@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://dlbihv1ffxrey" path="res://Scenes/Packed/oil_bottle.tscn" id="8_8c8gj"]
 [ext_resource type="PackedScene" uid="uid://biaotmi0ew401" path="res://Scenes/Packed/molotov.tscn" id="8_tplqc"]
 [ext_resource type="PackedScene" uid="uid://bodjd04q3c2pm" path="res://Scenes/Packed/beast.tscn" id="9_l24ay"]
+[ext_resource type="PackedScene" uid="uid://cqq7s0b1ti8ge" path="res://Scenes/Packed/double_door.tscn" id="15_cmbkq"]
 [ext_resource type="PackedScene" uid="uid://dptlv1sgg7wkp" path="res://Scenes/Packed/health.tscn" id="15_u6a7b"]
 [ext_resource type="Script" path="res://Scripts/Restart.gd" id="17_riuhk"]
 
@@ -303,19 +304,13 @@ shape = SubResource("BoxShape3D_kf815")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Enviroment/exit"]
 mesh = SubResource("BoxMesh_rsbcg")
 
-[node name="Doors" type="Node3D" parent="Enviroment"]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -4.56616, 0.0200441, 4.00761)
-
-[node name="Door" parent="Enviroment/Doors" instance=ExtResource("2_yba7r")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.872273, 1.016, -0.000156879)
-
-[node name="Door2" parent="Enviroment/Doors" instance=ExtResource("2_yba7r")]
-transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -0.8, 1.016, 0)
-
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.18804, 1, 5.50162)
 
 [node name="OmniLight3D2" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.06095, 1, -3.33835)
+
+[node name="Double_Door" parent="." instance=ExtResource("15_cmbkq")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -4.3567, 1, 3.13461)
 
 [editable path="Quests/Doors2/Door2"]
