@@ -64,13 +64,13 @@ func remove_object():
 		# Stop the timer if it was running
 		close_timer.stop()
 		# Check if the door is nearly closed
-		if abs($body.rotation_degrees.y - target_y_rotation) < stop_threshold:
+		if abs($body.rotation_degrees.y - target_y_rotation) < 20:
 			# Close immediately if the door is nearly closed
 			should_close = true
 		else:
 			# Start the timer for closing the door
-			should_close = false
-			close_timer.start()
+			#close_timer.start()
+			pass
 		player.playerCamera.locked = false
 
 func InteractWithDoor(door: Node3D):
@@ -86,11 +86,11 @@ func InteractWithDoor(door: Node3D):
 
 func DragInput(axis: Vector2):
 	if data != null and is_dragging:
-		handle_mouse_drag(closing_axis*axis.x)
+		handle_mouse_drag(axis.x)
 
 func handle_mouse_drag(mouse_delta_x: float):
 	# Get the door's position and the camera's position
-	var door_position = $body.global_transform.origin
+	var door_position = $hinge.global_transform.origin
 	var camera_position = camera.global_transform.origin
 
 	# Calculate the direction from the camera to the door
@@ -105,17 +105,19 @@ func handle_mouse_drag(mouse_delta_x: float):
 	var cross_product = camera_forward.cross(camera_to_door).y
 	
 	# Determine if the hinges are to the left or right relative to the camera
-	var hinge_side = sign(cross_product)
+	var hinge_side = sign(door_position.cross(camera_to_door).y)
 	
 	# Determine the drag direction based on hinge side and mouse movement
 	var drag_direction = mouse_delta_x
 	
 	if hinge_side > 0:
-		# Hinge on the left
-		drag_direction = -mouse_delta_x
-	else:
 		# Hinge on the right
+		print("Hinge on the left")
 		drag_direction = mouse_delta_x
+	else:
+		# Hinge on the left
+		print("Hinge on the right")
+		drag_direction = -mouse_delta_x
 	
 	# Apply sensitivity and clamp the angular velocity
 	var angular_velocity = clamp(drag_direction * sensitivity, -max_angular_velocity, max_angular_velocity)
