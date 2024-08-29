@@ -23,7 +23,7 @@ metadata/_edit_group_ = true
 
 [node name="body" type="RigidBody3D" parent="Door" groups=["Door"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.129337, 0, 0)
-collision_layer = 8
+collision_layer = 9
 collision_mask = 272
 axis_lock_angular_x = true
 axis_lock_angular_z = true
@@ -68,7 +68,7 @@ metadata/_edit_group_ = true
 
 [node name="body" type="RigidBody3D" parent="Door2" groups=["Door"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.129337, 0, 0)
-collision_layer = 8
+collision_layer = 9
 collision_mask = 272
 axis_lock_angular_x = true
 axis_lock_angular_z = true
