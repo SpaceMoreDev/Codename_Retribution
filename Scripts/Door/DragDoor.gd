@@ -90,34 +90,26 @@ func DragInput(axis: Vector2):
 
 func handle_mouse_drag(mouse_delta_x: float):
 	# Get the door's position and the camera's position
-	var door_position = $hinge.global_transform.origin
+	var door_position = $body.global_transform.origin
 	var camera_position = camera.global_transform.origin
 
 	# Calculate the direction from the camera to the door
 	var camera_to_door = (door_position - camera_position).normalized()
-	
-	# Get the direction the camera is facing on the XZ plane
-	var camera_forward = camera.global_transform.basis.z
-	camera_forward.y = 0 # Ignore vertical component
-	camera_forward = camera_forward.normalized()
-	
-	# Calculate the cross product to determine if the hinges are to the left or right from the camera's view
-	var cross_product = camera_forward.cross(camera_to_door).y
-	
+
 	# Determine if the hinges are to the left or right relative to the camera
-	var hinge_side = sign(door_position.cross(camera_to_door).y)
+	var hinge_side = sign(door_position.cross(camera_to_door).z)
 	
 	# Determine the drag direction based on hinge side and mouse movement
 	var drag_direction = mouse_delta_x
 	
 	if hinge_side > 0:
 		# Hinge on the right
-		print("Hinge on the left")
-		drag_direction = mouse_delta_x
-	else:
-		# Hinge on the left
 		print("Hinge on the right")
 		drag_direction = -mouse_delta_x
+	else:
+		# Hinge on the left
+		print("Hinge on the left")
+		drag_direction = mouse_delta_x
 	
 	# Apply sensitivity and clamp the angular velocity
 	var angular_velocity = clamp(drag_direction * sensitivity, -max_angular_velocity, max_angular_velocity)
@@ -159,7 +151,7 @@ func apply_pid_control(delta: float):
 		$body.apply_torque(Vector3(0, torque, 0))
 
 func _physics_process(delta: float):
-	if not is_dragging and should_close:
+	if not is_dragging and (should_close or abs($body.rotation_degrees.y - target_y_rotation) < 20):
 		apply_pid_control(delta)
 
 func _on_close_timer_timeout():

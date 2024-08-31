@@ -47,6 +47,5 @@ func Get_type():
 @warning_ignore("unused_parameter")
 func _physics_process(delta):
 	if tobreak:
-		rigidBody.apply_central_impulse(player.basis * player.camera.basis * Vector3(0, 0, -1) * force * delta)
-		rigidBody.apply_torque(player.basis * player.camera.basis * Vector3(-1, 0, 0) * force * 5 * delta )
-
+		rigidBody.apply_central_impulse(player.basis * player.playerCamera.basis * Vector3(0, 0, -1) * force * delta)
+		rigidBody.apply_torque(player.basis * player.playerCamera.basis * Vector3(-1, 0, 0) * force * 5 * delta )

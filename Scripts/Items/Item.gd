@@ -5,7 +5,7 @@ var itemName := "placeholder_name"
 var itemCount := 1
 
 func Use(value: float):
-    pass
+	pass
 
 func Get_type():
-    pass
+	pass
