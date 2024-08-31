@@ -20,10 +20,8 @@ metadata/_edit_group_ = true
 
 [node name="body" type="RigidBody3D" parent="." groups=["Door"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.129337, 0, 0)
-collision_layer = 9
-collision_mask = 272
-axis_lock_angular_x = true
-axis_lock_angular_z = true
+collision_layer = 8
+collision_mask = 16
 angular_damp = 15.0
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="body"]
@@ -43,7 +41,8 @@ mesh = SubResource("CapsuleMesh_n1f2b")
 
 [node name="frame" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0981378, 0, 0)
-collision_layer = 8
+collision_layer = 0
+collision_mask = 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="frame"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0184655, 0, 0)
