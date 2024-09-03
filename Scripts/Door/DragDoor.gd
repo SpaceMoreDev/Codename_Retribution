@@ -87,7 +87,7 @@ func InteractWithDoor(door: Node3D):
 func DragInput(axis: Vector2):
 	if data != null and is_dragging:
 		handle_mouse_drag(axis.x)
-
+ 
 func handle_mouse_drag(mouse_delta_x: float):
 	# Get the door's position and the camera's position
 	var door_position = $body.global_transform.origin
