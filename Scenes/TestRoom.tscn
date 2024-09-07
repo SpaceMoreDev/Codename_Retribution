@@ -1,27 +1,10 @@
-[gd_scene load_steps=13 format=3 uid="uid://cligfppaoc82f"]
+[gd_scene load_steps=9 format=3 uid="uid://cligfppaoc82f"]
 
 [ext_resource type="PackedScene" uid="uid://qc046bctp57n" path="res://Scenes/Packed/player.tscn" id="1_cgvpt"]
 [ext_resource type="Texture2D" uid="uid://crpfoqnttwg4n" path="res://Assets/Elements/texture_07.png" id="2_7w40j"]
 [ext_resource type="PackedScene" uid="uid://cb0fqai3ot6cx" path="res://Scenes/Packed/door.tscn" id="4_6cknx"]
 [ext_resource type="PackedScene" uid="uid://cqq7s0b1ti8ge" path="res://Scenes/Packed/double_door.tscn" id="4_lc3gt"]
 [ext_resource type="PackedScene" uid="uid://dqcg0cgj45q4s" path="res://Scenes/Packed/object.tscn" id="4_svlr6"]
-
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_62fxw"]
-sky_energy_multiplier = 2.15
-ground_curve = 0.0324901
-
-[sub_resource type="Sky" id="Sky_0ppcd"]
-sky_material = SubResource("ProceduralSkyMaterial_62fxw")
-
-[sub_resource type="Environment" id="Environment_i2v23"]
-background_mode = 2
-sky = SubResource("Sky_0ppcd")
-fog_enabled = true
-fog_light_color = Color(0.517647, 0.552941, 0.607843, 1)
-fog_light_energy = 0.23
-fog_sun_scatter = 0.34
-
-[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_d5uul"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1sqln"]
 albedo_texture = ExtResource("2_7w40j")
@@ -37,10 +20,6 @@ data = PackedVector3Array(-0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.707107, -0.0659057, -0.704029, 0.707107, 0.0659057, 0.704029, 0, -0.995647, 0.0932047, 0.261314, 6.32402, 1.13194)
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="." groups=["Enviroment"]]
-environment = SubResource("Environment_i2v23")
-camera_attributes = SubResource("CameraAttributesPractical_d5uul")
 
 [node name="Player" parent="." instance=ExtResource("1_cgvpt")]
 

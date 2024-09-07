@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://qc046bctp57n"]
+[gd_scene load_steps=25 format=3 uid="uid://qc046bctp57n"]
 
 [ext_resource type="Script" path="res://Scripts/Player/PlayerController.gd" id="1_ej1b3"]
 [ext_resource type="Script" path="res://Scripts/Player/PlayerStats.gd" id="1_sce2v"]
@@ -30,6 +30,10 @@ height = 0.545623
 [sub_resource type="SphereShape3D" id="SphereShape3D_ty1on"]
 
 [sub_resource type="Theme" id="Theme_naa5d"]
+
+[sub_resource type="Environment" id="Environment_l6fqe"]
+
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_s0uqi"]
 
 [node name="Player" type="CharacterBody3D"]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 1, 0)
@@ -136,6 +140,7 @@ source = NodePath("..")
 soundIcon = NodePath("../Player_UI/sound/TextureRect")
 
 [node name="Inventory" type="Node" parent="." node_paths=PackedStringArray("textLabel", "hand")]
+process_mode = 4
 script = ExtResource("9_t6asi")
 textLabel = NodePath("../Player_UI/Inventory")
 hand = NodePath("../Head/Camera3D/Hand")
@@ -589,3 +594,7 @@ grow_horizontal = 0
 grow_vertical = 0
 text = "State"
 script = ExtResource("16_d86sr")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." groups=["Enviroment"]]
+environment = SubResource("Environment_l6fqe")
+camera_attributes = SubResource("CameraAttributesPractical_s0uqi")
