@@ -23,7 +23,7 @@ var inventory : Inventory
 var crouching : Crouching
 
 #constants
-var WALK_SPEED = 100
+var WALK_SPEED = 200
 var SPRINT_SPEED = WALK_SPEED*2
 
 func _enter_tree():
@@ -104,8 +104,6 @@ func _process(delta):
 			noise.volume = 0
 		#if(Input.is_action_just_pressed("JUMP")):
 			#Jump()
-
-func _physics_process(delta):
-	await Move(delta)
+	Move(delta)
 	
 	

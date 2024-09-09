@@ -30,16 +30,14 @@ func LookAround(axis : Vector2):
 	if(not locked):
 		lookAxis = -axis
 
-func _physics_process(delta):
+
+func _process(delta):
 	if(not locked):
 		rotation_velocity = lerp(rotation_velocity, lookAxis, delta * SMOOTHING)
 		playerCamera.rotate_x(deg_to_rad(rotation_velocity.y) )
 		rotate_y(deg_to_rad(rotation_velocity.x))
 		playerCamera.rotation.x = clamp(playerCamera.rotation.x, deg_to_rad(-60), deg_to_rad(60))
 		lookAxis = Vector2.ZERO
-	
-func _process(delta):
-	if(not locked):
 		
 		# FOV
 		var velocity_clamped = clamp(get_parent().velocity.length(), 0.5, get_parent().SPRINT_SPEED * 2)

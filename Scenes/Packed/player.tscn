@@ -32,6 +32,9 @@ height = 0.545623
 [sub_resource type="Theme" id="Theme_naa5d"]
 
 [sub_resource type="Environment" id="Environment_l6fqe"]
+background_mode = 1
+background_color = Color(0.167468, 0.275642, 0.227395, 1)
+fog_enabled = true
 
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_s0uqi"]
 

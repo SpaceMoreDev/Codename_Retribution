@@ -61,7 +61,6 @@ angular_limit/lower = 0.0
 [node name="Door2" type="Node3D" parent="."]
 transform = Transform3D(-1, 8.74228e-08, -8.74228e-08, 8.74228e-08, 1, 0, 8.74228e-08, -7.64274e-15, -1, -1.68147, 0, -1.1907e-07)
 script = ExtResource("1_rqhwk")
-closing_axis = -1.0
 metadata/_edit_group_ = true
 
 [node name="body" type="RigidBody3D" parent="Door2" groups=["Door"]]

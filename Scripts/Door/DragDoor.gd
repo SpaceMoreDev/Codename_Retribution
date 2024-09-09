@@ -16,7 +16,7 @@ var inputs
 @export var sensitivity: float = 0.5 # Sensitivity to mouse dragging
 @export var stop_threshold: float = 1.0 # Angle threshold to consider the door "stopped"
 @export var closing_delay: float = 3.0 # Delay before the door starts closing
-@export var closing_axis: float = 1 # Delay before the door starts closing
+@export var closing_axis: float = 1
 
 # The camera node, set this to the player's camera in the editor
 var camera
@@ -109,7 +109,7 @@ func handle_mouse_drag(mouse_delta_x: float):
 	else:
 		# Hinge on the left
 		print("Hinge on the left")
-		drag_direction = mouse_delta_x
+		drag_direction = -mouse_delta_x
 	
 	# Apply sensitivity and clamp the angular velocity
 	var angular_velocity = clamp(drag_direction * sensitivity, -max_angular_velocity, max_angular_velocity)

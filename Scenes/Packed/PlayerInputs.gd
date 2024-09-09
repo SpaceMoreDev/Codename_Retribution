@@ -64,7 +64,8 @@ func _input(event):
 		isUsingJoyStick = false
 		
 	elif event is InputEventJoypadMotion:
-		joystick_state = Vector2(Input.get_joy_axis(0, JOY_AXIS_RIGHT_X), Input.get_joy_axis(0, JOY_AXIS_RIGHT_Y))
+		#joystick_state = Vector2(Input.get_joy_axis(0, JOY_AXIS_RIGHT_X), Input.get_joy_axis(0, JOY_AXIS_RIGHT_Y))
+		joystick_state = Input.get_vector("LOOK_LEFT","LOOK_RIGHT","LOOK_UP","LOOK_DOWN")
 		isUsingJoyStick = true
 	
 	if event is InputEventKey or event is InputEventJoypadButton :
