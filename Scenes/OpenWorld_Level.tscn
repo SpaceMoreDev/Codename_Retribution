@@ -24,7 +24,7 @@ script = ExtResource("5_kt6r5")
 cast_shadow = 1
 metadata/class = "Greenhouse_LODVariant"
 
-[sub_resource type="Resource" id="Resource_7xlgs"]
+[sub_resource type="Resource" id="Resource_2hllk"]
 resource_local_to_scene = true
 resource_name = "MMIOctreeNode"
 script = ExtResource("6_pege8")
@@ -41,15 +41,15 @@ extent = 1.0
 bounds = AABB(-1, -1, -1, 2, 2, 2)
 max_bounds_to_center_dist = 1.73205
 min_bounds_to_center_dist = 1.0
-active_LOD_index = 0
+active_LOD_index = -1
 MMI_name = "MultiMeshInstance3D"
 metadata/class = "MMIOctreeNode"
 
-[sub_resource type="Resource" id="Resource_35ler"]
+[sub_resource type="Resource" id="Resource_7ai1g"]
 resource_local_to_scene = true
 resource_name = "MMIOctreeManager"
 script = ExtResource("7_n2b8e")
-root_octree_node = SubResource("Resource_7xlgs")
+root_octree_node = SubResource("Resource_2hllk")
 LOD_variants = Array[ExtResource("5_kt6r5")]([SubResource("Resource_ofa4f")])
 LOD_max_distance = 10.0
 LOD_kill_distance = -1.0
@@ -80,7 +80,7 @@ metadata/class = "Gardener"
 
 [node name="Arborist" type="Node3D" parent="Gardener"]
 script = ExtResource("4_1mbs7")
-octree_managers = [SubResource("Resource_35ler")]
+octree_managers = [SubResource("Resource_7ai1g")]
 metadata/class = "Arborist"
 
 [node name="MMI_container" type="Node3D" parent="Gardener/Arborist"]
