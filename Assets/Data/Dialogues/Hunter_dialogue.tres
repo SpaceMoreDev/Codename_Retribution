@@ -1,0 +1,86 @@
+[gd_resource type="JSON" format=3 uid="uid://dgbdac3j2jsow"]
+
+[resource]
+data = {
+"dialogue_intro": [{
+"character": "res://Assets/Data/Characters/Hunter.tres",
+"expression": "happy",
+"id": "001",
+"text": "Hello there!",
+"voiceline": "john_hello.ogg"
+}, {
+"character": "res://Assets/Data/Characters/Hunter.tres",
+"expression": "neutral",
+"id": "002",
+"text": "How are you?",
+"voiceline": "john_how_are_you.ogg"
+}, {
+"character": "res://Assets/Data/Characters/Player.tres",
+"choices": [{
+"id": "001",
+"jump_dia": "dialogue_pervert",
+"text": "stare at her breasts!"
+}, {
+"id": "002",
+"jump_id": "004",
+"text": "dont."
+}],
+"expression": "happy",
+"id": "003",
+"text": "I'm doing well, thanks for asking.",
+"voiceline": "mary_im_doing_well.ogg"
+}, {
+"character": "res://Assets/Data/Characters/Player.tres",
+"expression": "curious",
+"id": "004",
+"text": "*sweating intensively*",
+"text_speed": "0.5",
+"voiceline": "mary_what_brings_you_here.ogg"
+}, {
+"character": "res://Assets/Data/Characters/Hunter.tres",
+"expression": "curious",
+"id": "005",
+"text": "okay..",
+"voiceline": "mary_what_brings_you_here.ogg"
+}, {
+"character": "res://Assets/Data/Characters/Hunter.tres",
+"choices": [{
+"id": "001",
+"jump_id": "007",
+"text": "to be gay"
+}, {
+"id": "002",
+"jump_id": "008",
+"text": "not to be gay"
+}],
+"expression": "curious",
+"id": "006",
+"text": "What brings you here?",
+"voiceline": "mary_what_brings_you_here.ogg"
+}, {
+"character": "res://Assets/Data/Characters/Player.tres",
+"expression": "happy",
+"id": "007",
+"text": "I'm gay as fuck.",
+"voiceline": "mary_im_doing_well.ogg"
+}, {
+"character": "res://Assets/Data/Characters/Player.tres",
+"expression": "happy",
+"id": "008",
+"text": "Wanna hang out?",
+"voiceline": "mary_im_doing_well.ogg"
+}],
+"dialogue_pervert": [{
+"character": "res://Assets/Data/Characters/Hunter.tres",
+"expression": "angry",
+"id": "001",
+"text": "stop staring you pervert!",
+"voiceline": "mary_im_doing_well.ogg"
+}, {
+"character": "res://Assets/Data/Characters/Hunter.tres",
+"expression": "angry",
+"id": "002",
+"text": "get away from my face!!",
+"voiceline": "mary_im_doing_well.ogg"
+}]
+}

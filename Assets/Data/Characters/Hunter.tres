@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="Character" load_steps=2 format=3 uid="uid://c86ok6i2banh8"]
+
+[ext_resource type="Script" path="res://Scripts/ScriptableObjects/Character.gd" id="1_xi62v"]
+
+[resource]
+script = ExtResource("1_xi62v")
+NameOfCharacter = "Hunter"
+Dialogue_file_path = "res://Assets/Data/Dialogues/Hunter_dialogue.tres"

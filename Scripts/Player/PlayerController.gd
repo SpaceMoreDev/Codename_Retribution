@@ -11,6 +11,9 @@ var original_gravity = 10.9
 var _gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 var running : bool = true
 var inertia : float = 20
+@export var animationPlayer : AnimationPlayer
+@export var R_Arm_IK : SkeletonIK3D
+@export var L_Arm_IK : SkeletonIK3D
 
 #components
 var playerAction : PlayerAction
@@ -43,10 +46,34 @@ func _ready():
 	playerInput.connect("KeyReleased", InputReleasd)
 	playerInput.connect("KeyHold", InputHold)
 
+func start_R_IK(node : Node3D):
+	R_Arm_IK.target_node = node.get_path()
+	R_Arm_IK.active = true
+	R_Arm_IK.start()
+	print("IK started")
+	
+	
+func end_R_IK():
+	print("IK ended")
+	R_Arm_IK.stop()
+	R_Arm_IK.active = false
+
+func start_L_IK(node : Node3D):
+	L_Arm_IK.target_node = node.get_path()
+	L_Arm_IK.active = true
+	L_Arm_IK.start()
+	print("IK started")
+	
+	
+func end_L_IK():
+	print("IK ended")
+	L_Arm_IK.stop()
+	L_Arm_IK.active = false
+
 
 func InputPressed(Key : StringName):
 	if("RUN" == Key):
-		print("started running")
+		
 		stats.CanConsume = true
 		Speed = SPRINT_SPEED
 	elif("JUMP" == Key):
@@ -56,11 +83,12 @@ func InputPressed(Key : StringName):
 func InputHold(Key):
 	if("RUN" == Key):
 		if velocity.length() > 0.5 and stats.CanConsume:
+			animationPlayer.play("root|Run")
 			noise.volume = 100
 
 func InputReleasd(Key : StringName):
 	if("RUN" == Key):
-		print("stopped running")
+		animationPlayer.play("root|Idle")
 		Speed = WALK_SPEED
 		noise.volume = 0
 
@@ -71,21 +99,21 @@ func Jump():
 			emit_signal("player_jumped", Jump_Speed)
 			velocity.y = Jump_Speed * get_physics_process_delta_time()
 
+var _auto_direction = Vector3.ZERO
 func Move(delta):
 	var direction = playerCamera.transform.basis * Vector3(_input.x, 0 , _input.y).normalized() * -1
 	
-	#if abs(_input.x) > 0:
-		#camera.rotation.z = move_toward(camera.rotation.z,  deg_to_rad(-5)* sign(_input.x), delta* 0.5)
-	#else:
-		#camera.rotation.z = move_toward(camera.rotation.z,  deg_to_rad(0), delta* 0.5)
-	
-	if(direction):
-		velocity.x = direction.x * Speed * delta
-		velocity.z = direction.z * Speed * delta
-		
+	if(direction or _auto_direction): #moving
+		if direction:
+			velocity.x = direction.x * Speed * delta
+			velocity.z = direction.z * Speed * delta
+		else:
+			velocity.x = _auto_direction.x * Speed * delta
+			velocity.z = _auto_direction.z * Speed * delta
 	else:
-		velocity.x = lerp(velocity.x, direction.x * Speed, delta * 6.5)
-		velocity.z = lerp(velocity.z, direction.z * Speed, delta * 6.5)
+		
+		velocity.x = lerp(velocity.x, direction.x * Speed, pow(6.5,delta * 6.5))
+		velocity.z = lerp(velocity.z, direction.z * Speed, pow(6.5,delta * 6.5))
 	
 	if not is_on_floor():
 		velocity.y -= _gravity * delta

@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="Character" load_steps=2 format=3 uid="uid://uu3nxlme2ixr"]
+
+[ext_resource type="Script" path="res://Scripts/ScriptableObjects/Character.gd" id="1_73v56"]
+
+[resource]
+script = ExtResource("1_73v56")
+NameOfCharacter = "Me"
+Dialogue_file_path = ""

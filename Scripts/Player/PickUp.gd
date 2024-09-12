@@ -50,21 +50,20 @@ func _process(delta):
 		if picked_object != null:
 			var distacePlayer = (camera.global_position - picked_object.global_position).length()
 			print(distacePlayer)
-			if distacePlayer > 0.8:
-				var a = picked_object.global_transform.origin
-				var b = grab_position.global_transform.origin
-				if a.distance_to(b) > snap_distance:
-					remove_object()
-				else:
-					
-					picked_object.move_and_collide((b-a) * delta * pull_power)
-					
-					# Smoothly interpolate the object's position to the grab position
-					#picked_object.global_position = lerp(picked_object.global_position, grab_position.global_transform.origin, delta * pull_power)
-					
-					# Maintain the object's original rotation relative to the camera
-					var camera_rotation = camera.global_transform.basis
-					picked_object.global_transform.basis = camera_rotation * object_rotation_offset
+			#if distacePlayer > 0.8:
+			var a = picked_object.global_transform.origin
+			var b = grab_position.global_transform.origin
+				#if a.distance_to(b) > snap_distance:
+					#remove_object()
+				#else:
+			picked_object.move_and_collide((b-a) * delta * pull_power)
+			
+			# Smoothly interpolate the object's position to the grab position
+			#picked_object.global_position = lerp(picked_object.global_position, grab_position.global_transform.origin, delta * pull_power)
+			
+			# Maintain the object's original rotation relative to the camera
+			var camera_rotation = camera.global_transform.basis
+			picked_object.global_transform.basis = camera_rotation * object_rotation_offset
 
 func _input(event):
 	if picked_object != null:

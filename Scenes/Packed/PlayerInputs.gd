@@ -50,8 +50,9 @@ func Pressed(Key : StringName):
 	currentPressedKeys.append(Key)
 
 func Released(Key : StringName):
-	currentActions.erase(Key)
-	currentPressedKeys.erase(Key)
+	pass
+	#currentActions.erase(Key) #this causes a bug for the foreach loop
+	#currentPressedKeys.erase(Key)
 
 func Hold(Key : StringName):
 	pass
@@ -79,11 +80,12 @@ func _input(event):
 
 func _process(delta):
 	for action in currentPressedKeys:
-		if Input.is_action_pressed(action):
-			if currentActions[action] < HoldThreshold:
-				currentActions[action] += delta
-			else:
-				emit_signal("KeyHold", action)
+		if action:
+			if Input.is_action_pressed(action):
+				if currentActions[action] < HoldThreshold:
+					currentActions[action] += delta
+				else:
+					emit_signal("KeyHold", action)
 	if isUsingJoyStick:
 		# Handle continuous joystick movement
 		if abs(joystick_state.length()) > Deadzone:

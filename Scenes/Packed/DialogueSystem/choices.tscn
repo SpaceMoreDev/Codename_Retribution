@@ -1,0 +1,43 @@
+[gd_scene load_steps=3 format=3 uid="uid://c3w0xvlkuvkbq"]
+
+[ext_resource type="Script" path="res://Scripts/Dialogue/Choice.gd" id="1_fpvyt"]
+[ext_resource type="Script" path="res://Scripts/Dialogue/ChoiceSelect.gd" id="2_h2o7i"]
+
+[node name="Choices" type="Panel"]
+visible = false
+self_modulate = Color(1, 1, 1, 0)
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -815.0
+offset_top = -623.0
+offset_bottom = -383.0
+grow_horizontal = 0
+grow_vertical = 0
+script = ExtResource("1_fpvyt")
+
+[node name="vbox" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="ChoiceA" type="Button" parent="vbox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 42
+text = "Choice 1"
+script = ExtResource("2_h2o7i")
+choice = "Hi"
+
+[node name="ChoiceB" type="Button" parent="vbox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 42
+text = "Choice 2
+"
+script = ExtResource("2_h2o7i")
+choice = "Bye"

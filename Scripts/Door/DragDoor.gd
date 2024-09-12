@@ -9,6 +9,7 @@ var action
 var player : Player
 var grab_position
 
+
 var inputs
 
 # Variables to control the door movement
@@ -17,6 +18,7 @@ var inputs
 @export var stop_threshold: float = 1.0 # Angle threshold to consider the door "stopped"
 @export var closing_delay: float = 3.0 # Delay before the door starts closing
 @export var closing_axis: float = 1
+@export var DetectArea : DoorIK
 
 # The camera node, set this to the player's camera in the editor
 var camera
@@ -24,6 +26,8 @@ var camera
 # To track if the player is dragging the mouse
 var is_dragging = false
 var should_close = false
+# Variable to store the initial relative offset between the player and the door
+var initial_offset_from_door: Vector3
 
 # Timer for closing delay
 var close_timer: Timer
@@ -60,6 +64,8 @@ func _ready():
 func remove_object():
 	if data != null:
 		data = null
+		player.end_R_IK()
+		player._auto_direction = Vector3.ZERO
 		is_dragging = false
 		# Stop the timer if it was running
 		close_timer.stop()
@@ -75,16 +81,22 @@ func remove_object():
 
 func InteractWithDoor(door: Node3D):
 	if door == $body:
-		player.playerCamera.locked = true
-		if not is_locked:
-			data = door
-			is_dragging = true
-			should_close = false
-			Input_x = 0.0
-		else:
-			print("Door is locked")
+		if DetectArea.can_open_door:
+			player.start_R_IK(DetectArea.IK_target)
+			player.playerCamera.locked = true
+			if not is_locked:
+				data = door
+				is_dragging = true
+				should_close = false
+				Input_x = 0.0
+				
+				# Store the initial offset between the player and the door
+				initial_offset_from_door = player.global_transform.origin - $body.global_transform.origin
+			else:
+				print("Door is locked")
 
 func DragInput(axis: Vector2):
+	
 	if data != null and is_dragging:
 		handle_mouse_drag(axis.x)
  
@@ -98,10 +110,10 @@ func handle_mouse_drag(mouse_delta_x: float):
 
 	# Determine if the hinges are to the left or right relative to the camera
 	var hinge_side = sign(door_position.cross(camera_to_door).z)
-	
+
 	# Determine the drag direction based on hinge side and mouse movement
 	var drag_direction = mouse_delta_x
-	
+
 	if hinge_side > 0:
 		# Hinge on the right
 		print("Hinge on the right")
@@ -110,10 +122,24 @@ func handle_mouse_drag(mouse_delta_x: float):
 		# Hinge on the left
 		print("Hinge on the left")
 		drag_direction = -mouse_delta_x
-	
+
+	#if abs(mouse_delta_x) > 0.1:
+		#var push = drag_direction
+		#if hinge_side > 0:
+			#push = -drag_direction
+#
+		#
+#
+		## Update player's position based on the door's rotation to maintain relative position
+		#var new_relative_position = $body.global_transform.basis * initial_offset_from_door
+		#var spot = $body.global_transform.origin + new_relative_position
+		#player._auto_direction = (spot - player.position).normalized() * push * 0.2
+	#else:
+		#player._auto_direction = Vector3.ZERO
+
 	# Apply sensitivity and clamp the angular velocity
 	var angular_velocity = clamp(drag_direction * sensitivity, -max_angular_velocity, max_angular_velocity)
-	
+
 	# Apply the angular velocity around the hinge axis (Y-axis in local space)
 	$body.angular_velocity = Vector3(0, angular_velocity, 0)
 
@@ -150,9 +176,13 @@ func apply_pid_control(delta: float):
 	else:
 		$body.apply_torque(Vector3(0, torque, 0))
 
-func _physics_process(delta: float):
+func _process(delta: float):
 	if not is_dragging and (should_close or abs($body.rotation_degrees.y - target_y_rotation) < 20):
 		apply_pid_control(delta)
 
 func _on_close_timer_timeout():
 	should_close = true
+
+
+func _on_detect_area_body_entered(body: Node3D) -> void:
+	pass # Replace with function body.
