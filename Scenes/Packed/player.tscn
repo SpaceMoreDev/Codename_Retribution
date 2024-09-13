@@ -94,8 +94,8 @@ tracks/0/keys = {
 "values": [Vector3(0, 0.470237, 0), Vector3(0, 0.52, 0), Vector3(0, 0.470237, 0)]
 }
 
-[sub_resource type="Animation" id="Animation_tnbwy"]
-length = 0.001
+[sub_resource type="Animation" id="Animation_wydbm"]
+resource_name = "HeadResting"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -109,8 +109,8 @@ tracks/0/keys = {
 "values": [Vector3(0, 0.470237, 0)]
 }
 
-[sub_resource type="Animation" id="Animation_wydbm"]
-resource_name = "HeadResting"
+[sub_resource type="Animation" id="Animation_tnbwy"]
+length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -153,15 +153,16 @@ _data = {
 
 [sub_resource type="Environment" id="Environment_l6fqe"]
 background_mode = 1
-background_color = Color(0.068064, 0.00193328, 0.0173998, 1)
-background_energy_multiplier = 1.83
+background_color = Color(0.0673526, 0.0954088, 0.0913062, 1)
 ambient_light_source = 1
+reflected_light_source = 1
 fog_enabled = true
-fog_light_color = Color(0.321882, 0.16353, 0.159842, 1)
-fog_light_energy = 2.17
+fog_light_color = Color(0.0787512, 0.118261, 0.0974572, 1)
 fog_density = 0.06
 
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_s0uqi"]
+dof_blur_far_distance = 20.0
+dof_blur_amount = 0.05
 
 [node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("animationPlayer", "R_Arm_IK", "L_Arm_IK")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 1, 0)
@@ -251,7 +252,6 @@ bones/16/rotation = Quaternion(-1.66812e-08, -1.19296e-07, 1.80939e-12, 1)
 bones/16/scale = Vector3(1, 1, 1)
 bones/17/position = Vector3(7.33834e-18, 0.00139575, 8.96403e-11)
 bones/17/rotation = Quaternion(0.156957, 0.00664274, 0.00105574, 0.987583)
-bones/17/scale = Vector3(1, 1, 1)
 bones/18/position = Vector3(5.27365e-12, 0.000828955, 1.40323e-10)
 bones/18/rotation = Quaternion(-0.141517, -0.0066921, -0.000947066, 0.989913)
 bones/18/scale = Vector3(1, 1, 1)
@@ -284,7 +284,6 @@ bones/27/rotation = Quaternion(2.40848e-05, 0.707107, 0.707107, -2.39927e-05)
 bones/27/scale = Vector3(1, 1, 1)
 bones/28/position = Vector3(-0.000367441, 0.00115, 0.00107172)
 bones/28/rotation = Quaternion(-1.96909e-10, 1, -1.19562e-08, -3.35733e-05)
-bones/28/scale = Vector3(1, 1, 1)
 bones/29/position = Vector3(0.00014581, -0.000219568, 0.000107155)
 bones/29/rotation = Quaternion(8.05939e-16, 0.707107, 4.58849e-17, 0.707107)
 bones/29/scale = Vector3(1, 1, 1)
@@ -298,7 +297,6 @@ bones/32/position = Vector3(-0.000243928, -0.000256555, -5.28908e-05)
 bones/32/rotation = Quaternion(-1.07176e-07, 0.707107, 1.07176e-07, 0.707107)
 bones/33/position = Vector3(0.000367587, 0.00115, 0.0010699)
 bones/33/rotation = Quaternion(-1.969e-10, 1, -1.19562e-08, -3.44077e-05)
-bones/33/scale = Vector3(1, 1, 1)
 bones/34/position = Vector3(-0.00014581, -0.000219568, 0.000105381)
 bones/34/rotation = Quaternion(7.99768e-16, -0.707107, 3.59884e-17, 0.707107)
 bones/34/scale = Vector3(1, 1, 1)
@@ -451,6 +449,9 @@ bones/84/position = Vector3(-3.11096e-11, -1.94109e-09, -5.84893e-10)
 bones/84/rotation = Quaternion(5.14809e-08, 2.15729e-08, -1.37655e-09, 1)
 bones/84/scale = Vector3(1, 1, 1)
 
+[node name="GEO-body_male_realistic_001" parent="Head/Camera3D/PlayerHand/root/Skeleton3D" index="0"]
+cast_shadow = 0
+
 [node name="Right_Arm_IK" type="SkeletonIK3D" parent="Head/Camera3D/PlayerHand/root/Skeleton3D" index="1"]
 root_bone = &"RightUpperArm"
 tip_bone = &"RightHand"
@@ -504,11 +505,10 @@ libraries = {
 "": SubResource("AnimationLibrary_cgmt3")
 }
 
-[node name="Crouch" type="Node3D" parent="." node_paths=PackedStringArray("raycheck", "camera", "headBob", "standingCollider", "crouchingCollider")]
+[node name="Crouch" type="Node3D" parent="." node_paths=PackedStringArray("raycheck", "camera", "standingCollider", "crouchingCollider")]
 script = ExtResource("4_8cvhv")
 raycheck = NodePath("TopCheckRay")
 camera = NodePath("../Head/Camera3D")
-headBob = NodePath("")
 standingCollider = NodePath("../StandingCollision")
 crouchingCollider = NodePath("../CrouchingCollision")
 

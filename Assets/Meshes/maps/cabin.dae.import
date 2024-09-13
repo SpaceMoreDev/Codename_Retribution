@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://bkwyjys3evqpu"
-path="res://.godot/imported/cabin.dae-db4f404ee6fd824ff3ff757f46e2fb8b.scn"
+path="res://.godot/imported/Cabin.dae-cccf1f56ab863f44b113ffddbada2672.scn"
 
 [deps]
 
-source_file="res://Assets/Meshes/maps/cabin.dae"
-dest_files=["res://.godot/imported/cabin.dae-db4f404ee6fd824ff3ff757f46e2fb8b.scn"]
+source_file="res://Assets/Meshes/maps/Cabin.dae"
+dest_files=["res://.godot/imported/Cabin.dae-cccf1f56ab863f44b113ffddbada2672.scn"]
 
 [params]
 
@@ -36,6 +36,10 @@ _subresources={
 "BranchAlphas": {
 "use_external/enabled": true,
 "use_external/path": "res://Assets/Elements/Branches.tres"
+},
+"Grass": {
+"use_external/enabled": true,
+"use_external/path": "res://Assets/Elements/Grass.tres"
 },
 "Tree": {
 "use_external/enabled": true,

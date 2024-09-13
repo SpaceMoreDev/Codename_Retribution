@@ -3,6 +3,6 @@
 [ext_resource type="Texture2D" uid="uid://cdkdbg1hx484c" path="res://Assets/Elements/BranchAlphas.png" id="1_q8qfu"]
 
 [resource]
-transparency = 1
+transparency = 4
 cull_mode = 2
 albedo_texture = ExtResource("1_q8qfu")
