@@ -9,7 +9,7 @@ var Jump_Speed : float = 300
 var canJump : bool  = true
 var original_gravity = 10.9
 var _gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
-var running : bool = true
+var isrunning : bool = false
 var inertia : float = 20
 @export var animationPlayer : AnimationPlayer
 @export var R_Arm_IK : SkeletonIK3D
@@ -73,7 +73,7 @@ func end_L_IK():
 
 func InputPressed(Key : StringName):
 	if("RUN" == Key):
-		
+		isrunning = true
 		stats.CanConsume = true
 		Speed = SPRINT_SPEED
 	elif("JUMP" == Key):
@@ -88,6 +88,7 @@ func InputHold(Key):
 
 func InputReleasd(Key : StringName):
 	if("RUN" == Key):
+		isrunning = false
 		animationPlayer.play("root|Idle")
 		Speed = WALK_SPEED
 		noise.volume = 0

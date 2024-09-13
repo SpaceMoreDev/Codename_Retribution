@@ -52,4 +52,3 @@ func velocity_computed(safe_velocity):
 		if canMove:
 			velocity = safe_velocity
 			move_and_slide()
-

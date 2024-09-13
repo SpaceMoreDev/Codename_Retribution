@@ -1,28 +1,27 @@
 extends Node
 class_name HeadBobbing
-@export var head : Node3D
-@export var _frequency = 4
-@export var _amplitude = 0.05
-@export var crouching : Crouching
 
-const STAND_FREQ = 4
-const STAND_AMP = 0.05
+var player : Player
+var isActive = true
+@export var Anim : AnimationTree
 
-var acceleration : float = 5
-var t_bob = 0.0
-var crouchVector : Vector3
+const power = 10
 
 func _ready():
-	crouchVector = Vector3(0.0, crouching.crouchingHeight, 0.0)
-
-func _physics_process(delta):
-	if(not head.locked):
-		t_bob += delta * get_parent().velocity.length() * float(get_parent().is_on_floor())
-		var headbobbing =  head_bobbing(t_bob)
-		head.position = headbobbing
-
-func head_bobbing(time)->Vector3:
-	var pos = Vector3.ZERO	
-	pos.y = sin(time *_frequency) * _amplitude
-	pos.x = cos(time *_frequency/1.5) * _amplitude
-	return pos
+	player = Global._get_player()
+func _process(delta):
+	if isActive:
+		if player.velocity.length() > 0.05:
+			Anim.set("parameters/conditions/HeadBobing",1)
+			Anim.set("parameters/conditions/HeadRest",0)
+			if player.isrunning:
+				Anim.set("parameters/conditions/Sprinting",1)
+				Anim.set("parameters/conditions/HeadBobing",0)
+			else:
+				Anim.set("parameters/conditions/Sprinting",0)
+				Anim.set("parameters/conditions/HeadBobing",1)
+			
+		else:
+			Anim.set("parameters/conditions/HeadBobing",0)
+			Anim.set("parameters/conditions/HeadRest",1)
+			Anim.set("parameters/conditions/Sprinting",0)

@@ -1,0 +1,45 @@
+[remap]
+
+importer="scene"
+importer_version=1
+type="PackedScene"
+uid="uid://bkwyjys3evqpu"
+path="res://.godot/imported/cabin.dae-db4f404ee6fd824ff3ff757f46e2fb8b.scn"
+
+[deps]
+
+source_file="res://Assets/Meshes/maps/cabin.dae"
+dest_files=["res://.godot/imported/cabin.dae-db4f404ee6fd824ff3ff757f46e2fb8b.scn"]
+
+[params]
+
+nodes/root_type=""
+nodes/root_name=""
+nodes/apply_root_scale=true
+nodes/root_scale=1.0
+nodes/import_as_skeleton_bones=false
+meshes/ensure_tangents=true
+meshes/generate_lods=true
+meshes/create_shadow_meshes=true
+meshes/light_baking=1
+meshes/lightmap_texel_size=0.2
+meshes/force_disable_compression=false
+skins/use_named_skins=true
+animation/import=true
+animation/fps=30
+animation/trimming=false
+animation/remove_immutable_tracks=true
+animation/import_rest_as_RESET=false
+import_script/path=""
+_subresources={
+"materials": {
+"BranchAlphas": {
+"use_external/enabled": true,
+"use_external/path": "res://Assets/Elements/Branches.tres"
+},
+"Tree": {
+"use_external/enabled": true,
+"use_external/path": "res://Assets/Elements/Trees.tres"
+}
+}
+}

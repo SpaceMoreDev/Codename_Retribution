@@ -18,7 +18,6 @@ var inputs
 @export var stop_threshold: float = 1.0 # Angle threshold to consider the door "stopped"
 @export var closing_delay: float = 3.0 # Delay before the door starts closing
 @export var closing_axis: float = 1
-@export var DetectArea : DoorIK
 
 # The camera node, set this to the player's camera in the editor
 var camera
@@ -81,19 +80,17 @@ func remove_object():
 
 func InteractWithDoor(door: Node3D):
 	if door == $body:
-		if DetectArea.can_open_door:
-			player.start_R_IK(DetectArea.IK_target)
-			player.playerCamera.locked = true
-			if not is_locked:
-				data = door
-				is_dragging = true
-				should_close = false
-				Input_x = 0.0
-				
-				# Store the initial offset between the player and the door
-				initial_offset_from_door = player.global_transform.origin - $body.global_transform.origin
-			else:
-				print("Door is locked")
+		player.playerCamera.locked = true
+		if not is_locked:
+			data = door
+			is_dragging = true
+			should_close = false
+			Input_x = 0.0
+			
+			# Store the initial offset between the player and the door
+			initial_offset_from_door = player.global_transform.origin - $body.global_transform.origin
+		else:
+			print("Door is locked")
 
 func DragInput(axis: Vector2):
 	

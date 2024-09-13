@@ -1,10 +1,6 @@
-[gd_scene load_steps=8 format=3 uid="uid://cb0fqai3ot6cx"]
+[gd_scene load_steps=6 format=3 uid="uid://cb0fqai3ot6cx"]
 
-[ext_resource type="Script" path="res://Scripts/Door/DoorIK.gd" id="2_ourmr"]
 [ext_resource type="Script" path="res://Scripts/Door/DragDoor.gd" id="3_boo34"]
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_lqb7q"]
-size = Vector3(2.11328, 1, 2.1936)
 
 [sub_resource type="BoxMesh" id="BoxMesh_4fqd7"]
 size = Vector3(0.922, 2, 0.1)
@@ -17,21 +13,10 @@ size = Vector3(0.921867, 2, 0.1)
 [sub_resource type="BoxShape3D" id="BoxShape3D_6mtxo"]
 size = Vector3(0.109688, 2, 0.1)
 
-[node name="Door" type="Node3D" node_paths=PackedStringArray("DetectArea")]
+[node name="Door" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 script = ExtResource("3_boo34")
-DetectArea = NodePath("DetectArea")
 metadata/_edit_group_ = true
-
-[node name="DetectArea" type="Area3D" parent="." node_paths=PackedStringArray("IK_target")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25512, -0.436117, 0)
-collision_layer = 0
-collision_mask = 2
-script = ExtResource("2_ourmr")
-IK_target = NodePath("../body/IK_Target")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="DetectArea"]
-shape = SubResource("BoxShape3D_lqb7q")
 
 [node name="body" type="RigidBody3D" parent="." groups=["Door"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.129337, 0, 0)

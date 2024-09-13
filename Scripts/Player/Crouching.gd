@@ -36,16 +36,12 @@ func crouching():
 	active = true
 	player.Speed = CROUCHING_SPEED
 	player.noise.volume = 0
-	headBob._frequency = move_toward(headBob._frequency,  CROUCHING_FREQ, acceleration) 
-	headBob._amplitude = move_toward(headBob._amplitude,  CROUCHING_AMP, acceleration)
 func stop_crouching():
 	if is_top_empty():
 		standingCollider.disabled = false
 		crouchingCollider.disabled = true
 		player.Speed =player.WALK_SPEED
 		active = false
-		headBob._frequency = move_toward(headBob._frequency,  headBob.STAND_FREQ, acceleration) 
-		headBob._amplitude = move_toward(headBob._amplitude,  headBob.STAND_AMP, acceleration)
 func Toggle():
 	crouchToggle = !crouchToggle
 	if crouchToggle:

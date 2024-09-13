@@ -1,88 +1,19 @@
-[gd_scene load_steps=14 format=3 uid="uid://brhwocqc64eqr"]
+[gd_scene load_steps=4 format=3 uid="uid://brhwocqc64eqr"]
 
-[ext_resource type="Texture2D" uid="uid://crpfoqnttwg4n" path="res://Assets/Elements/texture_07.png" id="1_x60hu"]
 [ext_resource type="PackedScene" uid="uid://qc046bctp57n" path="res://Scenes/Packed/player.tscn" id="2_88tna"]
-[ext_resource type="Script" path="res://addons/dreadpon.spatial_gardener/gardener/gardener.gd" id="3_ewxpf"]
-[ext_resource type="Script" path="res://addons/dreadpon.spatial_gardener/arborist/arborist.gd" id="4_1mbs7"]
-[ext_resource type="Script" path="res://addons/dreadpon.spatial_gardener/greenhouse/greenhouse_LOD_variant.gd" id="5_kt6r5"]
-[ext_resource type="Script" path="res://addons/dreadpon.spatial_gardener/arborist/mmi_octree/mmi_octree_node.gd" id="6_pege8"]
-[ext_resource type="Script" path="res://addons/dreadpon.spatial_gardener/arborist/mmi_octree/mmi_octree_manager.gd" id="7_n2b8e"]
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_upbvs"]
-size = Vector3(1, 0.440918, 1)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vsc6f"]
-albedo_texture = ExtResource("1_x60hu")
-uv1_triplanar = true
-
-[sub_resource type="BoxMesh" id="BoxMesh_0ybus"]
-size = Vector3(1, 0.441, 1)
-
-[sub_resource type="Resource" id="Resource_ofa4f"]
-resource_name = "Greenhouse_LODVariant"
-script = ExtResource("5_kt6r5")
-cast_shadow = 1
-metadata/class = "Greenhouse_LODVariant"
-
-[sub_resource type="Resource" id="Resource_edhqc"]
-resource_local_to_scene = true
-resource_name = "MMIOctreeNode"
-script = ExtResource("6_pege8")
-member_origin_offsets = PackedFloat32Array()
-member_surface_normals = PackedVector3Array()
-member_octants = PackedByteArray()
-child_nodes = []
-max_members = 75
-min_leaf_extent = 1.0
-octant = -1
-is_leaf = true
-center_pos = Vector3(0, 0, 0)
-extent = 1.0
-bounds = AABB(-1, -1, -1, 2, 2, 2)
-max_bounds_to_center_dist = 1.73205
-min_bounds_to_center_dist = 1.0
-active_LOD_index = -1
-MMI_name = "MultiMeshInstance3D"
-metadata/class = "MMIOctreeNode"
-
-[sub_resource type="Resource" id="Resource_uqcgg"]
-resource_local_to_scene = true
-resource_name = "MMIOctreeManager"
-script = ExtResource("7_n2b8e")
-root_octree_node = SubResource("Resource_edhqc")
-LOD_variants = Array[ExtResource("5_kt6r5")]([SubResource("Resource_ofa4f")])
-LOD_max_distance = 10.0
-LOD_kill_distance = -1.0
-metadata/class = "MMIOctreeManager"
+[ext_resource type="PackedScene" uid="uid://bkwyjys3evqpu" path="res://Assets/Meshes/maps/cabin.dae" id="2_rfpa4"]
+[ext_resource type="PackedScene" uid="uid://cb0fqai3ot6cx" path="res://Scenes/Packed/door.tscn" id="3_gqn2h"]
 
 [node name="Node3D" type="Node3D"]
 
 [node name="Player" parent="." instance=ExtResource("2_88tna")]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.248176, 1.6746, 0.923433)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -1.75182, 1.6746, -2.07657)
 
-[node name="StaticBody3D" type="StaticBody3D" parent="."]
-transform = Transform3D(3.06, 0, 0, 0, 3.06, 0, 0, 0, 3.06, 0, 0, 0)
+[node name="cabin" parent="." instance=ExtResource("2_rfpa4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.42591, 2.38419e-07, -2.30848)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
-shape = SubResource("BoxShape3D_upbvs")
+[node name="Door" parent="." instance=ExtResource("3_gqn2h")]
+transform = Transform3D(1.58904, 0, 0, 0, 1.23208, 0, 0, 0, 1.23208, -0.550687, 1.50125, -6.71714)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
-material_override = SubResource("StandardMaterial3D_vsc6f")
-mesh = SubResource("BoxMesh_0ybus")
-
-[node name="Gardener" type="Node3D" parent="."]
-script = ExtResource("3_ewxpf")
-file_management/garden_work_directory = "res://Assets/Gardening/"
-gardening/gardening_collision_mask = 1.0
-plugin_version = "1.3.3"
-storage_version = 3
-metadata/class = "Gardener"
-
-[node name="Arborist" type="Node3D" parent="Gardener"]
-script = ExtResource("4_1mbs7")
-octree_managers = [SubResource("Resource_uqcgg")]
-metadata/class = "Arborist"
-
-[node name="MMI_container" type="Node3D" parent="Gardener/Arborist"]
-
-[node name="MultiMeshInstance3D" type="MultiMeshInstance3D" parent="Gardener/Arborist/MMI_container"]
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Door"]
+transform = Transform3D(-0.147379, 0.537426, -0.31481, 0.136105, 0.445831, 0.655112, 0.767119, 0, -0.2651, 13.2156, 0, 0)
