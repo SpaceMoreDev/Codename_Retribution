@@ -26,6 +26,7 @@ var stats : PlayerStats
 var noise : NoiseControl
 var inventory : Inventory
 var crouching : Crouching
+@export var canmove : bool = false
 
 #constants
 var WALK_SPEED = 200
@@ -44,6 +45,13 @@ func _enter_tree():
 	Speed = WALK_SPEED
 
 func _ready():
+	
+	if canmove:
+		active = true
+		Global.incutscene = false
+	else:
+		active = false
+	
 	playerInput.connect("KeyPressed", InputPressed)
 	playerInput.connect("KeyReleased", InputReleasd)
 	playerInput.connect("KeyHold", InputHold)

@@ -1,10 +1,9 @@
-[gd_scene load_steps=15 format=3 uid="uid://cligfppaoc82f"]
+[gd_scene load_steps=14 format=3 uid="uid://cligfppaoc82f"]
 
 [ext_resource type="PackedScene" uid="uid://qc046bctp57n" path="res://Scenes/Packed/Player/player.tscn" id="1_cgvpt"]
 [ext_resource type="Material" uid="uid://xt8dpy3ckykf" path="res://Assets/Elements/Floor.tres" id="2_rjuud"]
 [ext_resource type="PackedScene" uid="uid://cb0fqai3ot6cx" path="res://Scenes/Packed/door.tscn" id="4_6cknx"]
 [ext_resource type="PackedScene" uid="uid://cqq7s0b1ti8ge" path="res://Scenes/Packed/double_door.tscn" id="4_lc3gt"]
-[ext_resource type="PackedScene" uid="uid://dqcg0cgj45q4s" path="res://Scenes/Packed/object.tscn" id="4_svlr6"]
 [ext_resource type="Script" path="res://Scripts/Dialogue/TriggerDialogue.gd" id="4_wsqd3"]
 [ext_resource type="Resource" uid="uid://c86ok6i2banh8" path="res://Assets/Data/Characters/Hunter.tres" id="5_lsmod"]
 [ext_resource type="PackedScene" uid="uid://b4off7ifjm0c3" path="res://Assets/Meshes/maps/map1.dae" id="6_owx2k"]
@@ -29,7 +28,7 @@ polygons = [PackedInt32Array(2, 1, 0), PackedInt32Array(0, 4, 3), PackedInt32Arr
 transform = Transform3D(0.707107, -0.0659057, -0.704029, 0.707107, 0.0659057, 0.704029, 0, -0.995647, 0.0932047, 0.261314, 6.32402, 1.13194)
 
 [node name="Player" parent="." instance=ExtResource("1_cgvpt")]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 1.46063, 0)
+canmove = true
 
 [node name="StaticBody3D2" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.3, 0, 0, 0, 2, 5.81877, 1.13658, 0)
@@ -41,9 +40,6 @@ skeleton = NodePath("../../StaticBody3D2")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D2"]
 shape = SubResource("ConcavePolygonShape3D_5cy8j")
-
-[node name="Object" parent="." instance=ExtResource("4_svlr6")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.919724, 0.591123, -2.33717)
 
 [node name="DialogueTest" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.919724, 0.591123, -9.03816)

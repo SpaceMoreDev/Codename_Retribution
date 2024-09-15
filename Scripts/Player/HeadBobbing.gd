@@ -12,16 +12,16 @@ func _ready():
 func _process(delta):
 	if isActive:
 		if player.velocity.length() > 0.05:
-			Anim.set("parameters/conditions/HeadBobing",1)
-			Anim.set("parameters/conditions/HeadRest",0)
+			Anim.set("parameters/Game/conditions/HeadBobing",1)
+			Anim.set("parameters/Game/conditions/HeadRest",0)
 			if player.isrunning:
-				Anim.set("parameters/conditions/Sprinting",1)
-				Anim.set("parameters/conditions/HeadBobing",0)
+				Anim.set("parameters/Game/conditions/Sprinting",1)
+				Anim.set("parameters/Game/conditions/HeadBobing",0)
 			else:
-				Anim.set("parameters/conditions/Sprinting",0)
-				Anim.set("parameters/conditions/HeadBobing",1)
+				Anim.set("parameters/Game/conditions/Sprinting",0)
+				Anim.set("parameters/Game/conditions/HeadBobing",1)
 			
 		else:
-			Anim.set("parameters/conditions/HeadBobing",0)
-			Anim.set("parameters/conditions/HeadRest",1)
-			Anim.set("parameters/conditions/Sprinting",0)
+			Anim.set("parameters/Game/conditions/HeadBobing",0)
+			Anim.set("parameters/Game/conditions/HeadRest",1)
+			Anim.set("parameters/Game/conditions/Sprinting",0)
