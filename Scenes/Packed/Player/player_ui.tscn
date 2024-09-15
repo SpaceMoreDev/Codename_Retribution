@@ -1,0 +1,462 @@
+[gd_scene load_steps=9 format=3 uid="uid://cxpihsv2jyhjv"]
+
+[ext_resource type="Texture2D" uid="uid://dxvfvq3vn03ba" path="res://NBeast_Bar.png" id="1_i2utl"]
+[ext_resource type="Texture2D" uid="uid://bnsleh5fba0gk" path="res://Assets/Elements/handIcon.png" id="2_qk0ck"]
+[ext_resource type="Texture2D" uid="uid://b3gxlcyitqri0" path="res://Assets/Elements/soundIcon.png" id="3_yx2bc"]
+[ext_resource type="Script" path="res://Scripts/Player/Pause.gd" id="4_mw6m5"]
+[ext_resource type="StyleBox" uid="uid://bcj6hssf0tbga" path="res://Assets/Data/Style.tres" id="5_q8vau"]
+[ext_resource type="Script" path="res://Scripts/Player/GameTimer.gd" id="6_8k8ca"]
+[ext_resource type="Script" path="res://Scripts/Beast/StateUI.gd" id="7_jv4cd"]
+
+[sub_resource type="Theme" id="Theme_naa5d"]
+
+[node name="Player_UI" type="CanvasLayer"]
+process_mode = 4
+visible = false
+follow_viewport_enabled = true
+
+[node name="HealthBar" type="TextureProgressBar" parent="."]
+offset_left = 6.0
+offset_top = 6.0
+offset_right = 354.0
+offset_bottom = 60.0
+scale = Vector2(0.68, 0.284476)
+value = 100.0
+texture_under = ExtResource("1_i2utl")
+texture_progress = ExtResource("1_i2utl")
+tint_under = Color(0, 0, 0, 1)
+tint_progress = Color(0.866667, 0, 0, 1)
+
+[node name="StaminaBar" type="TextureProgressBar" parent="."]
+offset_left = 6.0
+offset_top = 34.0
+offset_right = 354.0
+offset_bottom = 88.0
+scale = Vector2(0.68, 0.284476)
+value = 100.0
+texture_under = ExtResource("1_i2utl")
+texture_progress = ExtResource("1_i2utl")
+tint_under = Color(0, 0, 0, 1)
+tint_progress = Color(0, 0.431373, 0.921569, 1)
+
+[node name="Tasks" type="RichTextLabel" parent="."]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -211.0
+offset_top = 9.0
+offset_right = 8.0
+offset_bottom = 101.0
+grow_horizontal = 0
+bbcode_enabled = true
+fit_content = true
+
+[node name="Inventory" type="RichTextLabel" parent="."]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -122.0
+offset_top = -92.0
+grow_horizontal = 0
+grow_vertical = 0
+bbcode_enabled = true
+fit_content = true
+
+[node name="TextureRect" type="TextureRect" parent="."]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -32.0
+offset_top = -49.5
+offset_right = 32.0
+offset_bottom = 49.5
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.3, 0.3)
+pivot_offset = Vector2(32, 49.5)
+texture = ExtResource("2_qk0ck")
+
+[node name="sound" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -40.0
+offset_right = 40.0
+grow_vertical = 0
+
+[node name="TextureRect" type="TextureRect" parent="sound"]
+modulate = Color(1, 1, 1, 0)
+texture_filter = 1
+layout_mode = 0
+offset_left = 25.0
+offset_top = -28.0
+offset_right = 89.0
+offset_bottom = 36.0
+scale = Vector2(0.692857, 0.692857)
+texture = ExtResource("3_yx2bc")
+
+[node name="PauseMenu" type="Control" parent="." node_paths=PackedStringArray("returnBtn", "restartBtn", "exitBtn", "fullscreenButn", "noiseBtn", "fireDamageBtn", "debugBtn", "exposure", "fogDensity", "playerSpeed", "monsterSpeed", "monsterDMG", "slider", "joysens_slider", "fogSlider", "exposureSlider", "joysens_text", "sens_text")]
+process_mode = 4
+layout_mode = 3
+anchor_left = 0.270833
+anchor_top = 0.112963
+anchor_right = 0.729167
+anchor_bottom = 0.887037
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("4_mw6m5")
+returnBtn = NodePath("Panel/Continue")
+restartBtn = NodePath("Panel/Restart")
+exitBtn = NodePath("Panel/Exit")
+fullscreenButn = NodePath("Panel/TabContainer/Settings/VBoxContainer/HBoxContainer2/fullscreenToggle")
+noiseBtn = NodePath("Panel/TabContainer/Gameplay/VBoxContainer2/noise/NoiseToggle")
+fireDamageBtn = NodePath("Panel/TabContainer/Gameplay/VBoxContainer2/fire damage/fireDamageToggle")
+debugBtn = NodePath("Panel/TabContainer/Gameplay/VBoxContainer2/Debug/debugpath")
+exposure = NodePath("Panel/TabContainer/Settings/VBoxContainer/HBoxContainer5/exposureEdit")
+fogDensity = NodePath("Panel/TabContainer/Settings/VBoxContainer/HBoxContainer4/fogEdit")
+playerSpeed = NodePath("Panel/TabContainer/Gameplay/VBoxContainer2/player speed/LineEdit")
+monsterSpeed = NodePath("Panel/TabContainer/Gameplay/VBoxContainer2/monster speed/LineEdit")
+monsterDMG = NodePath("Panel/TabContainer/Gameplay/VBoxContainer2/monster Damage/LineEdit")
+slider = NodePath("Panel/TabContainer/Settings/VBoxContainer/MouseSensitivity/HSlider")
+joysens_slider = NodePath("Panel/TabContainer/Settings/VBoxContainer/Joystick sensitivity/HSlider")
+fogSlider = NodePath("Panel/TabContainer/Settings/VBoxContainer/HBoxContainer4/HSlider")
+exposureSlider = NodePath("Panel/TabContainer/Settings/VBoxContainer/HBoxContainer5/HSlider")
+joysens_text = NodePath("Panel/TabContainer/Settings/VBoxContainer/Joystick sensitivity/LineEdit")
+sens_text = NodePath("Panel/TabContainer/Settings/VBoxContainer/MouseSensitivity/LineEdit")
+metadata/_edit_use_anchors_ = true
+
+[node name="Panel" type="Panel" parent="PauseMenu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TabContainer" type="TabContainer" parent="PauseMenu/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+current_tab = 0
+
+[node name="Settings" type="TabBar" parent="PauseMenu/Panel/TabContainer"]
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PauseMenu/Panel/TabContainer/Settings"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 52.0
+offset_top = 36.0
+offset_right = -52.0
+offset_bottom = 165.0
+grow_horizontal = 2
+
+[node name="MouseSensitivity" type="HBoxContainer" parent="PauseMenu/Panel/TabContainer/Settings/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PauseMenu/Panel/TabContainer/Settings/VBoxContainer/MouseSensitivity"]
+layout_mode = 2
+text = "Mouse Sensitivity"
+
+[node name="HSlider" type="HSlider" parent="PauseMenu/Panel/TabContainer/Settings/VBoxContainer/MouseSensitivity"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+min_value = 0.001
+max_value = 3.0
+step = 0.001
+value = 0.01
+
+[node name="LineEdit" type="LineEdit" parent="PauseMenu/Panel/TabContainer/Settings/VBoxContainer/MouseSensitivity"]
+layout_direction = 2
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_styles/normal = ExtResource("5_q8vau")
+text = "0.1"
+alignment = 1
+virtual_keyboard_enabled = false
+caret_blink = true
+
+[node name="Joystick sensitivity" type="HBoxContainer" parent="PauseMenu/Panel/TabContainer/Settings/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PauseMenu/Panel/TabContainer/Settings/VBoxContainer/Joystick sensitivity"]
+layout_mode = 2
+text = "Joystick Sensitivity"
+
+[node name="HSlider" type="HSlider" parent="PauseMenu/Panel/TabContainer/Settings/VBoxContainer/Joystick sensitivity"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+min_value = 0.001
+max_value = 20.0
+step = 0.001
+value = 3.0
+
+[node name="LineEdit" type="LineEdit" parent="PauseMenu/Panel/TabContainer/Settings/VBoxContainer/Joystick sensitivity"]
+layout_direction = 2
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_styles/normal = ExtResource("5_q8vau")
+text = "5"
+alignment = 1
+virtual_keyboard_enabled = false
+caret_blink = true
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="PauseMenu/Panel/TabContainer/Settings/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="PauseMenu/Panel/TabContainer/Settings/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "Fullscreen"
+
+[node name="fullscreenToggle" type="CheckButton" parent="PauseMenu/Panel/TabContainer/Settings/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/outline_size = 0
+theme_override_constants/h_separation = 0
+action_mode = 0
+clip_text = true
+vertical_icon_alignment = 0
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="PauseMenu/Panel/TabContainer/Settings/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PauseMenu/Panel/TabContainer/Settings/VBoxContainer/HBoxContainer4"]
+layout_mode = 2
+text = "Fog Density"
+
+[node name="HSlider" type="HSlider" parent="PauseMenu/Panel/TabContainer/Settings/VBoxContainer/HBoxContainer4"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+max_value = 5.0
+step = 0.001
+
+[node name="fogEdit" type="LineEdit" parent="PauseMenu/Panel/TabContainer/Settings/VBoxContainer/HBoxContainer4"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_styles/normal = ExtResource("5_q8vau")
+alignment = 1
+caret_blink = true
+
+[node name="HBoxContainer5" type="HBoxContainer" parent="PauseMenu/Panel/TabContainer/Settings/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PauseMenu/Panel/TabContainer/Settings/VBoxContainer/HBoxContainer5"]
+layout_mode = 2
+text = "Exposure"
+
+[node name="HSlider" type="HSlider" parent="PauseMenu/Panel/TabContainer/Settings/VBoxContainer/HBoxContainer5"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+max_value = 8.0
+value = 1.0
+
+[node name="exposureEdit" type="LineEdit" parent="PauseMenu/Panel/TabContainer/Settings/VBoxContainer/HBoxContainer5"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_styles/normal = ExtResource("5_q8vau")
+alignment = 1
+caret_blink = true
+
+[node name="Gameplay" type="TabBar" parent="PauseMenu/Panel/TabContainer"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 1
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="PauseMenu/Panel/TabContainer/Gameplay"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 52.0
+offset_top = 36.0
+offset_right = -52.0
+offset_bottom = 197.0
+grow_horizontal = 2
+
+[node name="noise" type="HBoxContainer" parent="PauseMenu/Panel/TabContainer/Gameplay/VBoxContainer2"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PauseMenu/Panel/TabContainer/Gameplay/VBoxContainer2/noise"]
+layout_mode = 2
+text = "Enable Noise
+"
+
+[node name="NoiseToggle" type="CheckButton" parent="PauseMenu/Panel/TabContainer/Gameplay/VBoxContainer2/noise"]
+layout_mode = 2
+size_flags_horizontal = 10
+action_mode = 0
+
+[node name="fire damage" type="HBoxContainer" parent="PauseMenu/Panel/TabContainer/Gameplay/VBoxContainer2"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PauseMenu/Panel/TabContainer/Gameplay/VBoxContainer2/fire damage"]
+layout_mode = 2
+text = "Enable Fire damage
+"
+
+[node name="fireDamageToggle" type="CheckButton" parent="PauseMenu/Panel/TabContainer/Gameplay/VBoxContainer2/fire damage"]
+layout_mode = 2
+size_flags_horizontal = 10
+action_mode = 0
+
+[node name="player speed" type="HBoxContainer" parent="PauseMenu/Panel/TabContainer/Gameplay/VBoxContainer2"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PauseMenu/Panel/TabContainer/Gameplay/VBoxContainer2/player speed"]
+layout_mode = 2
+text = "Player Speed"
+
+[node name="LineEdit" type="LineEdit" parent="PauseMenu/Panel/TabContainer/Gameplay/VBoxContainer2/player speed"]
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 4
+size_flags_stretch_ratio = 0.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_styles/normal = ExtResource("5_q8vau")
+alignment = 1
+max_length = 4
+
+[node name="monster speed" type="HBoxContainer" parent="PauseMenu/Panel/TabContainer/Gameplay/VBoxContainer2"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PauseMenu/Panel/TabContainer/Gameplay/VBoxContainer2/monster speed"]
+layout_mode = 2
+text = "Monster Speed"
+
+[node name="LineEdit" type="LineEdit" parent="PauseMenu/Panel/TabContainer/Gameplay/VBoxContainer2/monster speed"]
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_styles/normal = ExtResource("5_q8vau")
+alignment = 1
+max_length = 4
+
+[node name="monster Damage" type="HBoxContainer" parent="PauseMenu/Panel/TabContainer/Gameplay/VBoxContainer2"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PauseMenu/Panel/TabContainer/Gameplay/VBoxContainer2/monster Damage"]
+layout_mode = 2
+text = "Monster Damage"
+
+[node name="LineEdit" type="LineEdit" parent="PauseMenu/Panel/TabContainer/Gameplay/VBoxContainer2/monster Damage"]
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_styles/normal = ExtResource("5_q8vau")
+alignment = 1
+max_length = 4
+
+[node name="Debug" type="HBoxContainer" parent="PauseMenu/Panel/TabContainer/Gameplay/VBoxContainer2"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PauseMenu/Panel/TabContainer/Gameplay/VBoxContainer2/Debug"]
+layout_mode = 2
+text = "Debug path"
+
+[node name="debugpath" type="CheckButton" parent="PauseMenu/Panel/TabContainer/Gameplay/VBoxContainer2/Debug"]
+layout_mode = 2
+size_flags_horizontal = 10
+action_mode = 0
+
+[node name="Timer" type="HBoxContainer" parent="PauseMenu/Panel/TabContainer/Gameplay"]
+process_mode = 1
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 7.0
+offset_top = -36.0
+offset_right = 346.0
+offset_bottom = -13.0
+grow_vertical = 0
+script = ExtResource("6_8k8ca")
+
+[node name="label" type="Label" parent="PauseMenu/Panel/TabContainer/Gameplay/Timer"]
+layout_mode = 2
+text = "Play Time: "
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TimerLabel" type="Label" parent="PauseMenu/Panel/TabContainer/Gameplay/Timer"]
+layout_mode = 2
+text = "0:00"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Continue" type="Button" parent="PauseMenu/Panel"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -51.0
+offset_bottom = 31.0
+grow_horizontal = 0
+theme = SubResource("Theme_naa5d")
+text = "X
+"
+
+[node name="Restart" type="Button" parent="PauseMenu/Panel"]
+visible = false
+layout_mode = 0
+offset_left = 500.0
+offset_top = 695.0
+offset_right = 603.0
+offset_bottom = 719.0
+theme_override_font_sizes/font_size = 11
+disabled = true
+text = "Restart
+"
+
+[node name="Exit" type="Button" parent="PauseMenu/Panel"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -127.0
+offset_top = -43.0
+offset_right = -24.0
+offset_bottom = -19.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "Exit
+"
+
+[node name="Label" type="Label" parent="."]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -23.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "State"
+script = ExtResource("7_jv4cd")

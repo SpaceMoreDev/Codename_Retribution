@@ -44,6 +44,7 @@ func _ready():
 	connect("KeyPressed", Pressed)
 	connect("KeyReleased", Released) 
 	connect("KeyHold", Hold)
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 func Pressed(Key : StringName):
 	currentActions[Key] = 0

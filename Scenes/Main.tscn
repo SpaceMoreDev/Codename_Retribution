@@ -1,6 +1,6 @@
 [gd_scene load_steps=25 format=3 uid="uid://bp755b7h6vn0g"]
 
-[ext_resource type="PackedScene" uid="uid://qc046bctp57n" path="res://Scenes/Packed/player.tscn" id="1_h4rhp"]
+[ext_resource type="PackedScene" uid="uid://qc046bctp57n" path="res://Scenes/Packed/Player/player.tscn" id="1_h4rhp"]
 [ext_resource type="PackedScene" uid="uid://cb0fqai3ot6cx" path="res://Scenes/Packed/door.tscn" id="2_yba7r"]
 [ext_resource type="MeshLibrary" uid="uid://dhwocby11pe5e" path="res://Assets/Data/tileset.tres" id="3_x1k75"]
 [ext_resource type="Texture2D" uid="uid://di2vyh7g3wakw" path="res://Assets/Elements/fire_01.png" id="3_xsxqd"]

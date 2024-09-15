@@ -199,7 +199,7 @@ collision_mask = 6
 shape = SubResource("CylinderShape3D_06e3m")
 
 [node name="werewolf" parent="." instance=ExtResource("7_cxrpn")]
-transform = Transform3D(-0.196962, 0, -0.0347296, 0, 0.2, 0, 0.0347296, 0, -0.196962, 0, -0.792255, 0)
+transform = Transform3D(-0.20681, 0, -0.036466, 0, 0.21, 0, 0.036466, 0, -0.20681, 0, -0.792255, 0)
 script = ExtResource("8_lwqv7")
 
 [node name="Skeleton3D" parent="werewolf/root" index="0"]

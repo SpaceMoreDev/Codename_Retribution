@@ -2,6 +2,8 @@ extends CharacterBody3D
 class_name Player
 signal player_jumped(height)
 
+var active = false
+
 #movement variables
 var _input : Vector2 = Vector2.ZERO
 var Speed : float 
@@ -11,7 +13,7 @@ var original_gravity = 10.9
 var _gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 var isrunning : bool = false
 var inertia : float = 20
-@export var animationPlayer : AnimationPlayer
+@export var animation : AnimationTree
 @export var R_Arm_IK : SkeletonIK3D
 @export var L_Arm_IK : SkeletonIK3D
 
@@ -83,13 +85,16 @@ func InputPressed(Key : StringName):
 func InputHold(Key):
 	if("RUN" == Key):
 		if velocity.length() > 0.5 and stats.CanConsume:
-			animationPlayer.play("root|Run")
+			animation.set("parameters/conditions/isIdle", false)
+			animation.set("parameters/conditions/isRunning", true)
+			print("running")
 			noise.volume = 100
 
 func InputReleasd(Key : StringName):
 	if("RUN" == Key):
 		isrunning = false
-		animationPlayer.play("root|Idle")
+		animation.set("parameters/conditions/isIdle", true)
+		animation.set("parameters/conditions/isRunning", false)
 		Speed = WALK_SPEED
 		noise.volume = 0
 
@@ -102,7 +107,7 @@ func Jump():
 
 var _auto_direction = Vector3.ZERO
 func Move(delta):
-	var direction = playerCamera.transform.basis * Vector3(_input.x, 0 , _input.y).normalized() * -1
+	var direction = playerCamera.transform.basis * Vector3(_input.x, 0 , _input.y).normalized()
 	
 	if(direction or _auto_direction): #moving
 		if direction:
@@ -122,17 +127,18 @@ func Move(delta):
 
 @warning_ignore("unused_parameter")
 func _process(delta):
-	_input = Input.get_vector("LEFT","RIGHT","UP","DOWN")
-	if is_on_floor():
-		if velocity.length() > 0.5:
-			if crouching.active:
-				noise.volume = 0
+	if active and  not Global.incutscene:
+		_input = Input.get_vector("LEFT","RIGHT","UP","DOWN")
+		if is_on_floor():
+			if velocity.length() > 0.5:
+				if crouching.active:
+					noise.volume = 0
+				else:
+					noise.volume = 50
 			else:
-				noise.volume = 50
-		else:
-			noise.volume = 0
-		#if(Input.is_action_just_pressed("JUMP")):
-			#Jump()
-	Move(delta)
+				noise.volume = 0
+			#if(Input.is_action_just_pressed("JUMP")):
+				#Jump()
+		Move(delta)
 	
 	

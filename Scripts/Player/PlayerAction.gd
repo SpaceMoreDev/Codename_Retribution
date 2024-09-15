@@ -6,7 +6,7 @@ signal start_interaction(collider)
 signal end_interaction()
 
 @export var raycast_length = 2
-@export var handIcon : TextureRect
+#@export var handIcon : TextureRect
 var ray : RayCast3D
 var joint : Joint3D
 var staticbody : StaticBody3D
@@ -28,11 +28,11 @@ func _ready():
 @warning_ignore("unused_parameter")
 func _physics_process(delta):
 	
-	if(not isDoingAction and ray.is_colliding()):
-		handIcon.visible = true
-	else:
-		handIcon.visible = false
-	
+	#if(not isDoingAction and ray.is_colliding()):
+		#handIcon.visible = true
+	#else:
+		#handIcon.visible = false
+	#
 	if(not isDoingAction and Input.is_action_just_pressed("INTERACT")):
 		check_if_hit()
 		isDoingAction = true

@@ -11,6 +11,7 @@ var debugPath : bool = false
 var enemyMovespeed :float = 2
 var useNoise : bool = true
 var allowFireDamage : bool = true
+var incutscene : bool = false
 
 var PlayerSpeed : float:
 	set(new_speed):

@@ -6,8 +6,8 @@ enum FORM {
 	BEAST
 }
 
-@onready var HealthBarUI : TextureProgressBar = $"../Player_UI/HealthBar"
-@onready var StaminaBarUI : TextureProgressBar = $"../Player_UI/StaminaBar"
+#@onready var HealthBarUI : TextureProgressBar = $"../Player_UI/HealthBar"
+#@onready var StaminaBarUI : TextureProgressBar = $"../Player_UI/StaminaBar"
 
 signal health_updated(newHealth)
 signal stamina_updated(newStamina)
@@ -30,7 +30,7 @@ var Health : float = 100:
 	set(value):
 		value = clamp(value,0,100)
 		Health = value
-		HealthBarUI.value = Health
+		#HealthBarUI.value = Health
 		emit_signal("health_updated", Health)
 	get:
 		return Health
@@ -39,7 +39,7 @@ var Stamina : float = 100:
 	set(value):
 		value = clamp(value,0,100)
 		Stamina = value
-		StaminaBarUI.value = Stamina
+		#StaminaBarUI.value = Stamina
 		emit_signal("stamina_updated", Stamina)
 	get:
 		return Stamina
@@ -57,10 +57,10 @@ func check_health(value):
 	# print("Health changed to %s"%value)
 	if(value == 0):
 		emit_signal("health_is_zero")
-	if value > HEALTH_CRITICAL :
-		HealthBarUI.self_modulate = Color.WHITE
-	else:
-		StaminaBarUI.self_modulate = Color.YELLOW
+	#if value > HEALTH_CRITICAL :
+		#HealthBarUI.self_modulate = Color.WHITE
+	#else:
+		#StaminaBarUI.self_modulate = Color.YELLOW
 
 
 func check_stamina(value):
@@ -70,10 +70,10 @@ func check_stamina(value):
 		get_parent().noise.volume = 0
 		CanConsume = false
 		emit_signal("stamina_is_zero")
-	if(value > CONSUME_JUMP):
-		StaminaBarUI.self_modulate = Color.WHITE
-	else:
-		StaminaBarUI.self_modulate = Color.YELLOW
+	#if(value > CONSUME_JUMP):
+		#StaminaBarUI.self_modulate = Color.WHITE
+	#else:
+		#StaminaBarUI.self_modulate = Color.YELLOW
 		
 
 func emptystamina():

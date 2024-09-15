@@ -36,7 +36,7 @@ func _ready():
 	player = Global._get_player()
 	playerCam = player.playerCamera
 
-	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	
 	self.visible = false
 	fogSlider.value = Global._get_env().environment.fog_density
 	exposureSlider.value = Global._get_env().camera_attributes.exposure_multiplier

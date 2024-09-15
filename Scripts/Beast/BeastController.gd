@@ -27,7 +27,7 @@ func _ready():
 	nav.connect("velocity_computed", velocity_computed)
 
 func _physics_process(delta):
-	if canMove:
+	if not Global.incutscene and canMove:
 		await get_tree().process_frame
 
 		var next_location = nav.get_next_path_position()

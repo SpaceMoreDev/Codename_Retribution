@@ -32,7 +32,7 @@ func LookAround(axis : Vector2):
 
 
 func _process(delta):
-	if(not locked):
+	if(not locked) and player.active:
 		rotation_velocity = lerp(rotation_velocity, lookAxis, delta * SMOOTHING)
 		playerCamera.rotate_x(deg_to_rad(rotation_velocity.y) )
 		rotate_y(deg_to_rad(rotation_velocity.x))
