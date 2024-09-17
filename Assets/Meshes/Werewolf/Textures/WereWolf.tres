@@ -1,0 +1,9 @@
+[gd_resource type="StandardMaterial3D" load_steps=3 format=3 uid="uid://c7lkpsdjbptur"]
+
+[ext_resource type="Texture2D" uid="uid://bdlqfkwruos50" path="res://Assets/Meshes/Werewolf/Textures/Werewolf_Diffuse.png" id="1_u86yf"]
+[ext_resource type="Texture2D" uid="uid://dtkngdw6bweep" path="res://Assets/Meshes/Werewolf/Textures/Wolf_Normals.png" id="2_curr1"]
+
+[resource]
+albedo_texture = ExtResource("1_u86yf")
+normal_enabled = true
+normal_texture = ExtResource("2_curr1")

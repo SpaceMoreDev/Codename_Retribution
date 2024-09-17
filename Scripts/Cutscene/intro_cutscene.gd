@@ -5,10 +5,9 @@ extends Cutscene
 @export var progress : ProgressBar
 var ispushing = false
 
-func _ready() -> void:
-	Global._get_player().active = false
 
 func start_cutscene():
+	Global._get_player().active = false
 	Global.incutscene = true
 	scene_animation.connect("animation_finished", intro_done)
 
