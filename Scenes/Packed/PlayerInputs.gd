@@ -1,9 +1,10 @@
 extends Node
 class_name Inputs
 
-signal KeyPressed(Key:StringName)
-signal KeyReleased(Key:StringName)
-signal KeyHold(Key:StringName)
+signal KeyPressed(Actions:StringName)
+signal KeyReleased(Actions:StringName)
+signal KeyHold(Actions:StringName)
+
 signal JoyMotion(Axis:Vector2)
 signal MouseMotion(Axis:Vector2)
 
@@ -70,13 +71,15 @@ func _input(event):
 		joystick_state = Input.get_vector("LOOK_LEFT","LOOK_RIGHT","LOOK_UP","LOOK_DOWN")
 		isUsingJoyStick = true
 	
-	if event is InputEventKey or event is InputEventJoypadButton :
-		var action = FindAction(event)
-		if action != "":
-			if Input.is_action_just_pressed(action):
-				emit_signal("KeyPressed", action)
-			elif Input.is_action_just_released(action):
-				emit_signal("KeyReleased", action)
+	if event is InputEventKey or event is InputEventMouseButton or event is InputEventJoypadButton :
+		
+		var actions = FindAction(event)
+		
+		if not actions.is_empty():
+			if event.is_pressed():
+				emit_signal("KeyPressed", actions)
+			elif event.is_released():
+				emit_signal("KeyReleased", actions)
 
 
 func _process(delta):
@@ -87,6 +90,7 @@ func _process(delta):
 					currentActions[action] += delta
 				else:
 					emit_signal("KeyHold", action)
+			
 	if isUsingJoyStick:
 		# Handle continuous joystick movement
 		if abs(joystick_state.length()) > Deadzone:

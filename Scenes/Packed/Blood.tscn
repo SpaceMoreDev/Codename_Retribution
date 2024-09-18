@@ -1,0 +1,39 @@
+[gd_scene load_steps=6 format=3 uid="uid://lkpomg3okin5"]
+
+[ext_resource type="Texture2D" uid="uid://bh1st0l657wlf" path="res://Assets/Data/BloodSplash.png" id="1_e4kll"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mpj73"]
+transparency = 4
+cull_mode = 2
+no_depth_test = true
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("1_e4kll")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_yk13t"]
+orientation = 2
+
+[sub_resource type="Curve" id="Curve_ajc3k"]
+_data = [Vector2(0, 0.414766), 0.0, 2.13822, 0, 0, Vector2(1, 1), -0.830573, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_kha4k"]
+offsets = PackedFloat32Array(0, 0.3, 0.7, 1)
+colors = PackedColorArray(0.678431, 0.196078, 0.184314, 0, 0.678431, 0.196078, 0.184314, 1, 0.678683, 0.197243, 0.186092, 1, 0.678431, 0.196078, 0.184314, 0)
+metadata/_snap_enabled = true
+
+[node name="Blood" type="CPUParticles3D"]
+material_override = SubResource("StandardMaterial3D_mpj73")
+emitting = false
+amount = 1
+lifetime = 0.3
+one_shot = true
+explosiveness = 1.0
+randomness = 1.0
+mesh = SubResource("PlaneMesh_yk13t")
+direction = Vector3(1, 1, 0)
+gravity = Vector3(0, 0, 0)
+angle_min = -240.0
+angle_max = 240.0
+scale_amount_curve = SubResource("Curve_ajc3k")
+color_ramp = SubResource("Gradient_kha4k")

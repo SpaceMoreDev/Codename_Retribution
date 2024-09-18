@@ -49,4 +49,3 @@ func body_exited(body):
 		if Global.allowFireDamage:
 			print("player not on fire")
 			playerin = false
-

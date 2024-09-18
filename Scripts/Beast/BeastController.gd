@@ -3,7 +3,7 @@ class_name Beast
 
 var MOVE_SPEED : float = 1.2
 var CHASE_SPEED = MOVE_SPEED * 1.5
-var ROTATION_SPEED : float = 2.25
+var ROTATION_SPEED : float = 0.3
 
 
 @export var animation : AnimationTree
@@ -12,6 +12,7 @@ var ROTATION_SPEED : float = 2.25
 @export var Head_IK : SkeletonIK3D
 @export var target : Node3D
 @export var head : Node3D
+@export var IKcontrol : IK_Control
 
 var damage : float = 30
 var stateMachine : StateMachine
@@ -33,23 +34,21 @@ func _ready():
 
 func _process(delta: float) -> void:
 	
-	#if not seeingPlayer:
-		##if Head_IK.is_running():
-			##Head_IK.stop()
-		#
-		#if velocity.length() > 0:
-			#var lookdir = atan2(velocity.x, velocity.z)
-			#rotation.y =  lerp_angle(rotation.y, lookdir, ROTATION_SPEED * delta)
-	#else:
+	if not seeingPlayer:
+		if IKcontrol.value == 1:
+			IKcontrol.ChangeIK(0)
+		
+		if velocity.length() > 0:
+			var lookdir = atan2(velocity.x, velocity.z)
+			rotation.y =  lerp_angle(rotation.y, lookdir, ROTATION_SPEED * delta)
+	else:
 		var playerloc = player.playerCamera.global_position - head.global_position
 		var lookdir = atan2(playerloc.x, playerloc.z)
 
+		if IKcontrol.value == 0:
+			IKcontrol.ChangeIK(1)
 		
 		if target:
-			
-			#if not Head_IK.is_running():
-				#Head_IK.start()
-			
 			# Get the direction vector from object X to object Y
 			var TarDirection = (playerloc).normalized()
 			
@@ -60,7 +59,7 @@ func _process(delta: float) -> void:
 			target.rotation.y = lerp_angle(target.rotation.y, IKlookdir , delta *3)
 			target.rotation.x = lerp_angle(target.rotation.x, IKlookdirx , delta *3)
 			
-		rotation.y =  lerp_angle(rotation.y, lookdir, delta * .3)
+		rotation.y =  lerp_angle(rotation.y, lookdir, delta * ROTATION_SPEED)
 		
 
 func _physics_process(delta):

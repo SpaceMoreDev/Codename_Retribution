@@ -94,8 +94,9 @@ func InputPressed(Key : StringName):
 func InputHold(Key):
 	if("RUN" == Key):
 		#if velocity.length() > 0.5 and stats.CanConsume:
-		animation.set("parameters/conditions/isIdle", false)
-		animation.set("parameters/conditions/isRunning", true)
+		if velocity.length() > 0.5:
+			animation.set("parameters/conditions/isIdle", false)
+			animation.set("parameters/conditions/isRunning", true)
 			#print("running")
 		noise.volume = 100
 
@@ -109,6 +110,7 @@ func InputReleasd(Key : StringName):
 
 func Jump():
 	if(canJump):
+		#if(is_on_floor() and stats.Stamina > stats.CONSUME_JUMP):
 		if(is_on_floor() and stats.Stamina > stats.CONSUME_JUMP):
 			noise.volume = 50
 			emit_signal("player_jumped", Jump_Speed)

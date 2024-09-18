@@ -50,6 +50,7 @@ func Physics_Update(delta : float):
 	if player_direction.length() < 1 or detection.checkRays():
 		enemy.nav.target_position = player.global_transform.origin
 		Transitioned.emit(self, "Chase")
+		enemy.seeingPlayer = true
 		print("Idle -> Chase")
 	pass
 
