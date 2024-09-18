@@ -11,25 +11,27 @@ var move_dir : Vector3
 var wander_time : float
 
 func randomize_wander():
-
-
 	move_dir = Vector3(randf_range(-1,1), 0 , randf_range(-1,1)).normalized()
 	wander_time = randf_range(1,wander_max_time)
 	
 	enemy.canMove = false
 	enemy.seeingPlayer = false
 	enemy.nav.set_velocity(Vector3.ZERO)
+	enemy.animation.set("parameters/conditions/isWalk", false)
+	enemy.animation.set("parameters/conditions/isIdle", true)
+	
 	await get_tree().create_timer(wait_time).timeout
 	
 	var new_dest = move_dir * (wander_time + 2)
 	enemy.nav.target_position = enemy.global_position + new_dest
 	enemy.canMove = true
+	enemy.animation.set("parameters/conditions/isWalk", true)
+	enemy.animation.set("parameters/conditions/isIdle", false)
 
 func Enter():
 	player = Global._get_player()
 	enemy.seeingPlayer = false
 	enemy.canMove = true
-	enemy.move_speed = enemy.MOVE_SPEED
 	
 
 func Update(delta:float):
@@ -38,6 +40,7 @@ func Update(delta:float):
 	else:
 		randomize_wander()
 		
+	pass
 
 
 func Physics_Update(delta : float):
@@ -48,6 +51,7 @@ func Physics_Update(delta : float):
 		enemy.nav.target_position = player.global_transform.origin
 		Transitioned.emit(self, "Chase")
 		print("Idle -> Chase")
+	pass
 
 # func navigation_finished():
 # 	if (get_parent() as StateMachine).current_state == self:

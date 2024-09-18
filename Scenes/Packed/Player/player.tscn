@@ -504,10 +504,12 @@ transform = Transform3D(0.015, -5.27507e-11, -2.79397e-09, -1.86265e-09, -6.9121
 visible = false
 
 [node name="Right_Arm_IK" type="SkeletonIK3D" parent="Head/Camera3D/Mesh/Pivot/PlayerHand/root/Skeleton3D" index="2"]
+transform = Transform3D(1, 0, -1.09504e-16, 0, 1, 0, -4.98733e-18, 0, 1, 0, 0, 0)
 root_bone = &"RightUpperArm"
 tip_bone = &"RightHand"
 
 [node name="Left_Arm_IK" type="SkeletonIK3D" parent="Head/Camera3D/Mesh/Pivot/PlayerHand/root/Skeleton3D" index="3"]
+transform = Transform3D(1, 0, -1.09504e-16, 0, 1, 0, -4.98733e-18, 0, 1, 0, 0, 0)
 root_bone = &"LeftUpperArm"
 tip_bone = &"LeftHand"
 
