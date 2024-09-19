@@ -34,7 +34,6 @@ motion_mode = 1
 wall_min_slide_angle = 0.0
 script = ExtResource("1_ru7bn")
 nav = NodePath("NavigationAgent3D")
-rotation_speed = 5.0
 detection = NodePath("Detection")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
@@ -61,9 +60,8 @@ script = ExtResource("4_bqnrj")
 enemy = NodePath("../..")
 detection = NodePath("../../Detection")
 
-[node name="Stuck" type="Node" parent="StateMachine" node_paths=PackedStringArray("ray", "beast")]
+[node name="Stuck" type="Node" parent="StateMachine" node_paths=PackedStringArray("beast")]
 script = ExtResource("5_v0tlw")
-ray = NodePath("../../Detection/StuckRays/stuckRay")
 beast = NodePath("../..")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]

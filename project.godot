@@ -162,6 +162,8 @@ LOOK_RIGHT={
 3d_physics/layer_4="Door"
 3d_physics/layer_5="Fire"
 3d_physics/layer_6="Gasoline"
+3d_physics/layer_8="Weapon"
+3d_physics/layer_9="Beast"
 
 [physics]
 

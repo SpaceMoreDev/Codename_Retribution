@@ -2,14 +2,14 @@ extends Node3D
 class_name  IK_Control
 
 @export var IK : SkeletonIK3D
-var value = 1
+@export var curve : Curve
+var value : float = 1
 
 # Called when the node enters the scene tree for the first time.
-func ChangeIK(val):
-	value = val
-	print("assssssssss ",value)
+func Activate():
+	if IK.is_running():
+		get_tree().create_tween().tween_property(IK, "influence", 1 , .5).set_ease(Tween.EaseType.EASE_IN)
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	IK.influence = lerp(IK.influence, float(value), delta * 10)
-	#print(IK.influence)
+func Dectivate():
+	if not IK.is_running():
+		get_tree().create_tween().tween_property(IK, "influence", 0 , .5).set_ease(Tween.EaseType.EASE_OUT)

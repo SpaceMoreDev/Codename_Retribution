@@ -17,20 +17,16 @@ func randomize_wander():
 	enemy.canMove = false
 	enemy.seeingPlayer = false
 	enemy.nav.set_velocity(Vector3.ZERO)
-	enemy.animation.set("parameters/conditions/isWalk", false)
-	enemy.animation.set("parameters/conditions/isIdle", true)
-	
+
 	await get_tree().create_timer(wait_time).timeout
 	
 	var new_dest = move_dir * (wander_time + 2)
 	enemy.nav.target_position = enemy.global_position + new_dest
 	enemy.canMove = true
-	enemy.animation.set("parameters/conditions/isWalk", true)
-	enemy.animation.set("parameters/conditions/isIdle", false)
 
 func Enter():
 	player = Global._get_player()
-	enemy.seeingPlayer = false
+	#enemy.seeingPlayer = false
 	enemy.canMove = true
 	
 
@@ -39,22 +35,22 @@ func Update(delta:float):
 		wander_time -= delta
 	else:
 		randomize_wander()
-		
-	pass
 
 
 func Physics_Update(delta : float):
 	
-	var player_direction = player.global_position - enemy.global_position
+	if enemy.gothit:
+		Transitioned.emit(self, "Hurt")
+		print("Idle -> Hurt")
+	
+	#var player_direction = player.global_position - enemy.global_position
+	#if player_direction.length() < 1 or detection.checkRays():
+		#enemy.nav.target_position = player.global_transform.origin
+		#Transitioned.emit(self, "Stuck")
+		#enemy.seeingPlayer = true
+		#print("Idle -> Stuck")
 
-	if player_direction.length() < 1 or detection.checkRays():
-		enemy.nav.target_position = player.global_transform.origin
-		Transitioned.emit(self, "Chase")
-		enemy.seeingPlayer = true
-		print("Idle -> Chase")
-	pass
-
-# func navigation_finished():
-# 	if (get_parent() as StateMachine).current_state == self:
-# 		var new_dest = move_dir * 5
-# 		enemy.nav.target_position = enemy.global_position + new_dest
+func navigation_finished():
+	if (get_parent() as StateMachine).current_state == self:
+		var new_dest = move_dir * 5
+		enemy.nav.target_position = enemy.global_position + new_dest

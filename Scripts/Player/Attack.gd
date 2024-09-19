@@ -34,9 +34,9 @@ func AxeExit(body):
 func Hit():
 	if inArea:
 		BloodInstance.emitting = true
-		beast.animation.set("parameters/conditions/Hit", true)
-		await get_tree().create_timer(0.1).timeout
-		beast.animation.set("parameters/conditions/Hit", false)
+		
+		beast.gothit = true
+		beast.canMove = false
 		
 
 func Attack(key):

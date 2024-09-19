@@ -19,7 +19,7 @@ func _ready():
 
 	areaNear.connect("body_entered", body_entered_near)
 
-	for child in $Head.get_children():
+	for child in $HeadBone/Head.get_children():
 		if child is RayCast3D:
 			rays.append(child)
 
@@ -32,13 +32,15 @@ func _physics_process(delta):
 
 
 func checkStuck():
-	for ray in stuckRays:
-		if ray.is_colliding():
-			beast.seeingPlayer = false
-			beast.nav.set_velocity(Vector3.ZERO)
-			return true
-		else:
-			return false
+	#for ray in stuckRays:
+		#if ray.is_colliding():
+			#var col = ray.get_collider()
+			#if not (col is Player) :
+				#beast.seeingPlayer = false
+				#beast.nav.set_velocity(Vector3.ZERO)
+				#return true
+	#return false
+	pass
 
 func checkRays() -> bool:	
 	for ray in rays:
@@ -48,13 +50,13 @@ func checkRays() -> bool:
 				beast.seeingPlayer = true
 				beast.nav.target_position = col.global_transform.origin
 				return true
-	
 	return false
 
 func LoudSoundEmitted(obj):
 	if player_is_around:
 		beast.nav.target_position = obj.global_transform.origin
-		beast.stateMachine.current_state.Transitioned.emit(beast.stateMachine.current_state, "Chase")
+		beast.seeingPlayer = true
+		#beast.stateMachine.current_state.Transitioned.emit(beast.stateMachine.current_state, "Chase")
 
 func body_entered_far(body):
 	if body is Player:

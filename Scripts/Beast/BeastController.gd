@@ -19,6 +19,7 @@ var stateMachine : StateMachine
 var player : Player
 var canMove = true
 var seeingPlayer = false
+var gothit = false
 
 
 
@@ -33,37 +34,28 @@ func _ready():
 
 
 func _process(delta: float) -> void:
-	
-	if not seeingPlayer:
-		if IKcontrol.value == 1:
-			IKcontrol.ChangeIK(0)
-		
-		if velocity.length() > 0:
-			var lookdir = atan2(velocity.x, velocity.z)
-			rotation.y =  lerp_angle(rotation.y, lookdir, ROTATION_SPEED * delta)
-	else:
+	if not gothit:
 		var playerloc = player.playerCamera.global_position - head.global_position
 		var lookdir = atan2(playerloc.x, playerloc.z)
+		var TarDirection = (playerloc)
 
-		if IKcontrol.value == 0:
-			IKcontrol.ChangeIK(1)
-		
-		if target:
-			# Get the direction vector from object X to object Y
-			var TarDirection = (playerloc).normalized()
-			
-			target.position = lerp(target.position, head.global_position + TarDirection, delta *3)
-			var IKlookdir = atan2(TarDirection.x,TarDirection.z)
-			var IKlookdirx = atan2(-TarDirection.y, sqrt(TarDirection.x * TarDirection.x + TarDirection.z * TarDirection.z))
-			
-			target.rotation.y = lerp_angle(target.rotation.y, IKlookdir , delta *3)
-			target.rotation.x = lerp_angle(target.rotation.x, IKlookdirx , delta *3)
-			
-		rotation.y =  lerp_angle(rotation.y, lookdir, delta * ROTATION_SPEED)
-		
+		if not seeingPlayer:
+			if velocity.length() > 0:
+				rotation.y =  lerp_angle(rotation.y, lookdir, ROTATION_SPEED * delta)
+			IKcontrol.Dectivate()
+		else:
+			rotation.y =  lerp_angle(rotation.y, lookdir, delta * ROTATION_SPEED*1.2)
+			IKcontrol.Activate()
+			if playerloc.length() >=0.5:
+				if target:
+					target.position = lerp( target.position ,head.global_position + TarDirection.normalized(), delta *3)
+					var IKlookdir = atan2(TarDirection.x,TarDirection.z)
+					var IKlookdirx = atan2(-TarDirection.y, sqrt(TarDirection.x * TarDirection.x + TarDirection.z * TarDirection.z))
+					
+					target.rotation.y = lerp_angle(target.rotation.y, IKlookdir , delta *3)
+					target.rotation.x = lerp_angle(target.rotation.x, IKlookdirx , delta *3)
 
 func _physics_process(delta):
-	
 	if not Global.incutscene and canMove:
 		await get_tree().physics_frame
 		var next_location = nav.get_next_path_position()
@@ -75,5 +67,10 @@ func _physics_process(delta):
 func velocity_computed(safe_velocity):
 	if(self.process_mode != PROCESS_MODE_DISABLED):
 		if canMove:
+			animation.set("parameters/conditions/isWalk", true)
+			animation.set("parameters/conditions/isIdle", false)
 			velocity = safe_velocity
 			move_and_slide()
+		else:
+			animation.set("parameters/conditions/isWalk", false)
+			animation.set("parameters/conditions/isIdle", true)
