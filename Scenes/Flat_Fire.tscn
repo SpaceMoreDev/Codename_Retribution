@@ -1,0 +1,65 @@
+[gd_scene load_steps=6 format=3 uid="uid://dr65uruk2tiil"]
+
+[ext_resource type="Material" uid="uid://be24vxuy0novo" path="res://Assets/Elements/Flat_Fire.tres" id="1_0y8yl"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_5cahi"]
+lightmap_size_hint = Vector2i(12, 12)
+material = ExtResource("1_0y8yl")
+add_uv2 = true
+orientation = 2
+
+[sub_resource type="Animation" id="Animation_67nxt"]
+resource_name = "FireFlicker"
+length = 0.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:light_energy")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.333333, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [10.333, 7.462, 10.333, 8.502, 10.333]
+}
+
+[sub_resource type="Animation" id="Animation_r2s4m"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:light_energy")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [10.333]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_8xn87"]
+_data = {
+"FireFlicker": SubResource("Animation_67nxt"),
+"RESET": SubResource("Animation_r2s4m")
+}
+
+[node name="FlatFire" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("PlaneMesh_5cahi")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="MeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.300176, 0)
+light_color = Color(1, 0.786479, 0.113602, 1)
+light_energy = 10.333
+omni_range = 3.49878
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../MeshInstance3D/OmniLight3D")
+libraries = {
+"": SubResource("AnimationLibrary_8xn87")
+}
+autoplay = "FireFlicker"

@@ -30,7 +30,7 @@ var crouching : Crouching
 @export var canmove : bool = false
 
 #constants
-var WALK_SPEED = 200
+var WALK_SPEED = 400
 var SPRINT_SPEED = WALK_SPEED*2
 
 func _enter_tree():

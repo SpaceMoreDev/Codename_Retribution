@@ -5,7 +5,7 @@
 [ext_resource type="Script" path="res://Assets/Meshes/Werewolf/werewolf.gd" id="3_ag5d0"]
 [ext_resource type="Script" path="res://Scripts/Beast/State_Machine.gd" id="4_wkitp"]
 [ext_resource type="Script" path="res://Scripts/Beast/States/Idle.gd" id="5_w2ppf"]
-[ext_resource type="Script" path="res://Scripts/Beast/States/Stuck.gd" id="6_di44t"]
+[ext_resource type="Script" path="res://Scripts/Beast/States/Hurt.gd" id="6_di44t"]
 [ext_resource type="Script" path="res://Scripts/Beast/Detection.gd" id="6_dp30n"]
 [ext_resource type="Script" path="res://Scenes/Packed/Werewolf/ik_control.gd" id="7_id1d0"]
 
@@ -421,7 +421,6 @@ bones/110/rotation = Quaternion(-0.104946, -0.00144279, 0.00259018, 0.994474)
 bones/110/scale = Vector3(1, 1, 1)
 bones/111/position = Vector3(0.00491792, 0.00374006, -0.00476732)
 bones/111/rotation = Quaternion(0.554857, 0.554857, 0.438331, -0.438331)
-bones/111/scale = Vector3(1, 1, 1)
 bones/112/position = Vector3(8.24349e-10, 0.0147538, -1.25982e-11)
 bones/112/rotation = Quaternion(-0.14548, -0.297802, 0.0549367, 0.941877)
 bones/112/scale = Vector3(1, 1, 1)
@@ -646,7 +645,6 @@ bones/191/rotation = Quaternion(-0.242471, -0.0202562, 0.0161283, 0.969813)
 bones/191/scale = Vector3(1, 1, 1)
 bones/192/position = Vector3(2.81607e-09, 0.00283194, -6.72162e-11)
 bones/192/rotation = Quaternion(0.277072, 0.009644, 0.0298348, 0.960337)
-bones/192/scale = Vector3(1, 1, 1)
 bones/193/position = Vector3(-0.00280678, 0.0250341, 0.00215176)
 bones/193/rotation = Quaternion(0.52408, -0.010652, -0.0218505, 0.851322)
 bones/193/scale = Vector3(1, 1, 1)
@@ -666,7 +664,7 @@ bones/198/position = Vector3(3.29143e-09, 0.00753006, 8.12591e-11)
 bones/198/rotation = Quaternion(-1.00141e-08, -2.88712e-08, -1.20377e-07, 1)
 
 [node name="Head" type="BoneAttachment3D" parent="model/root/Skeleton3D" index="4"]
-transform = Transform3D(1, 3.69648e-07, -6.78189e-05, -6.09886e-05, -0.432742, -0.901517, -2.97027e-05, 0.901517, -0.432741, 1.05577e-08, -0.00795895, 0.0970385)
+transform = Transform3D(1, 2.75031e-07, -6.79092e-05, -6.08694e-05, -0.440074, -0.897961, -3.01581e-05, 0.897961, -0.440073, 1.01507e-08, -0.00861003, 0.0955421)
 bone_name = "head.x"
 bone_idx = 10
 
@@ -749,7 +747,7 @@ collide_with_bodies = false
 debug_shape_custom_color = Color(0.784314, 0.435294, 0.333333, 1)
 
 [node name="HeadBone" type="BoneAttachment3D" parent="Detection"]
-transform = Transform3D(-21, -6.96814e-06, 0.00142585, -0.000623756, 18.9319, -9.08757, -0.0012826, -9.08758, -18.9319, -2.071e-07, 1.24555, -0.167138)
+transform = Transform3D(-21, -4.96773e-06, 0.00142774, -0.00063332, 18.8572, -9.24152, -0.00128009, -9.24155, -18.8572, -1.97357e-07, 1.21413, -0.180811)
 bone_name = "head.x"
 bone_idx = 10
 use_external_skeleton = true

@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://Scripts/Beast/States/Chase.gd" id="3_32p2h"]
 [ext_resource type="Script" path="res://Scripts/Beast/State_Machine.gd" id="3_y8enf"]
 [ext_resource type="Script" path="res://Scripts/Beast/States/Idle.gd" id="4_bqnrj"]
-[ext_resource type="Script" path="res://Scripts/Beast/States/Stuck.gd" id="5_v0tlw"]
+[ext_resource type="Script" path="res://Scripts/Beast/States/Hurt.gd" id="5_v0tlw"]
 [ext_resource type="Script" path="res://Scripts/Beast/Detection.gd" id="6_tgxsq"]
 [ext_resource type="PackedScene" uid="uid://c6bpw4yb6jowb" path="res://Assets/Meshes/Werewolf/werewolf.fbx" id="7_cxrpn"]
 

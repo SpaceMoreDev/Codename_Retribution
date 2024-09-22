@@ -1,0 +1,81 @@
+[gd_resource type="ShaderMaterial" load_steps=10 format=3 uid="uid://be24vxuy0novo"]
+
+[ext_resource type="Shader" path="res://Flat_Fire.gdshader" id="1_f845r"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_ns0bn"]
+metadata/_preview_in_3d_space_ = true
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_4o8l1"]
+in_3d_space = true
+generate_mipmaps = false
+seamless = true
+noise = SubResource("FastNoiseLite_ns0bn")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gxwyn"]
+render_priority = -2
+shader = ExtResource("1_f845r")
+shader_parameter/Yoffset = 0.65
+shader_parameter/Transparency = 0.805
+shader_parameter/animation_speed = 0.45
+shader_parameter/sway_intensity = 0.1
+shader_parameter/sway_speed = 1.0
+shader_parameter/min_y_position = 0.0
+shader_parameter/max_y_position = 0.26
+shader_parameter/flame_color = Color(0.169009, 0.111964, 0.0704379, 1)
+shader_parameter/blur_amount = 1.0
+shader_parameter/uv_scale = 1.0
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_4o8l1")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_3ncye"]
+metadata/_preview_in_3d_space_ = true
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_vnm7h"]
+width = 800
+height = 800
+in_3d_space = true
+generate_mipmaps = false
+seamless = true
+noise = SubResource("FastNoiseLite_3ncye")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_es6pq"]
+render_priority = -1
+next_pass = SubResource("ShaderMaterial_gxwyn")
+shader = ExtResource("1_f845r")
+shader_parameter/Yoffset = 0.77
+shader_parameter/Transparency = 0.7
+shader_parameter/animation_speed = 1.0
+shader_parameter/sway_intensity = 0.5
+shader_parameter/sway_speed = 1.0
+shader_parameter/min_y_position = 0.0
+shader_parameter/max_y_position = 1.0
+shader_parameter/flame_color = Color(0.839216, 0.411765, 0.172549, 1)
+shader_parameter/blur_amount = 0.0
+shader_parameter/uv_scale = 1.0
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_vnm7h")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_vx4af"]
+metadata/_preview_in_3d_space_ = true
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_c88um"]
+width = 800
+height = 800
+in_3d_space = true
+generate_mipmaps = false
+seamless = true
+noise = SubResource("FastNoiseLite_vx4af")
+
+[resource]
+render_priority = 0
+next_pass = SubResource("ShaderMaterial_es6pq")
+shader = ExtResource("1_f845r")
+shader_parameter/Yoffset = 0.935
+shader_parameter/Transparency = 1.0
+shader_parameter/animation_speed = 1.0
+shader_parameter/sway_intensity = 0.5
+shader_parameter/sway_speed = 1.0
+shader_parameter/min_y_position = 0.0
+shader_parameter/max_y_position = 1.0
+shader_parameter/flame_color = Color(0.990485, 0.771976, 0.311886, 1)
+shader_parameter/blur_amount = 0.945
+shader_parameter/uv_scale = 1.0
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_c88um")

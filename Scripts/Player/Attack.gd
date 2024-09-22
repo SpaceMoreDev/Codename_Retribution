@@ -1,9 +1,12 @@
 extends Node
 
+@export var canAttack : bool = false
+
 var player_Input : Inputs
 var animation : AnimationTree
 @export var weaponCol : Area3D
 @export var BloodInstance : CPUParticles3D
+@export var BloodSplashInstance : CPUParticles3D
 @export var checkHit : bool = false
 
 var player : Player
@@ -13,14 +16,18 @@ var inArea : bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	player = get_parent() as Player
-	player_Input = player.playerInput
-	animation = player.animation
-	
-	player_Input.connect("KeyPressed", Attack)
-	animation.connect("animation_finished", animation_finished)
-	weaponCol.connect("body_entered", AxeEnter)
-	weaponCol.connect("body_exited", AxeExit)
+	if canAttack == false:
+		weaponCol.get_parent().visible = false
+	else:
+		
+		player = get_parent() as Player
+		player_Input = player.playerInput
+		animation = player.animation
+		
+		player_Input.connect("KeyPressed", Attack)
+		animation.connect("animation_finished", animation_finished)
+		weaponCol.connect("body_entered", AxeEnter)
+		weaponCol.connect("body_exited", AxeExit)
 
 func AxeEnter(body):
 	if body is Beast:
@@ -34,6 +41,7 @@ func AxeExit(body):
 func Hit():
 	if inArea:
 		BloodInstance.emitting = true
+		BloodSplashInstance.emitting = true
 		
 		beast.gothit = true
 		beast.canMove = false

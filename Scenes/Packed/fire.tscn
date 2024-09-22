@@ -23,7 +23,7 @@ proximity_fade_enabled = true
 offsets = PackedFloat32Array(0, 0.503906, 1)
 colors = PackedColorArray(0.254902, 0.254902, 0.254902, 0, 0.255659, 0.255659, 0.255659, 1, 1, 1, 1, 0)
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_fukfj"]
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_m6fvd"]
 gradient = SubResource("Gradient_fh2bu")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_c6b6n"]
@@ -36,7 +36,7 @@ gravity = Vector3(0, 0.3, 0)
 scale_min = 2.0
 scale_max = 4.0
 color = Color(0.447059, 0.447059, 0.447059, 1)
-color_ramp = SubResource("GradientTexture1D_fukfj")
+color_ramp = SubResource("GradientTexture1D_m6fvd")
 
 [sub_resource type="QuadMesh" id="QuadMesh_snyij"]
 
