@@ -27,14 +27,15 @@ func randomize_wander():
 func Enter():
 	player = Global._get_player()
 	#enemy.seeingPlayer = false
-	enemy.canMove = true
+	enemy.canMove = false
 	
 
 func Update(delta:float):
-	if wander_time > 0:
-		wander_time -= delta
-	else:
-		randomize_wander()
+	#if wander_time > 0:
+		#wander_time -= delta
+	#else:
+		#randomize_wander()
+	pass
 
 
 func Physics_Update(delta : float):

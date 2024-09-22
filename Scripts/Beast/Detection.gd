@@ -69,13 +69,19 @@ func body_exited_far(body):
 func body_entered_near(body):
 	if not body is Player:
 		if body is RigidBody3D and body.get_parent().has_node("PickUp"):
-			if checkRays():
-				var picked : PickUpObject = body.get_parent().get_node("PickUp")
-				
-				var a = body.global_position
-				var b = beast.global_position
-				var dir = (a-b) + (player.global_position + Vector3.RIGHT * 5 * randf_range(-1,1) - b)
-				body.apply_central_impulse(dir)
-				
-				picked.DetectObjects(true)
-				picked.remove_object()
+			#if checkRays():
+			var picked : PickUpObject = body.get_parent().get_node("PickUp")
+			
+			var a = body.global_position
+			var b = beast.global_position
+			var dir = (a-b) + (player.global_position + Vector3.RIGHT * 5 * randf_range(-1,1) - b)
+			beast.animation.set("parameters/conditions/Attack",true)
+			await get_tree().create_timer(.1).timeout
+			beast.animation.set("parameters/conditions/Attack",false)
+			
+			body.apply_central_impulse(dir)
+			
+
+			
+			picked.DetectObjects(true)
+			picked.remove_object()
