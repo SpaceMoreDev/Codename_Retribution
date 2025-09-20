@@ -14,7 +14,6 @@ var _gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 var isrunning : bool = false
 var inertia : float = 20
 
-@export var animation : AnimationTree
 @export var R_Arm_IK : SkeletonIK3D
 @export var L_Arm_IK : SkeletonIK3D
 
@@ -93,18 +92,11 @@ func InputPressed(Key : StringName):
 
 func InputHold(Key):
 	if("RUN" == Key):
-		#if velocity.length() > 0.5 and stats.CanConsume:
-		if velocity.length() > 0.5:
-			animation.set("parameters/conditions/isIdle", false)
-			animation.set("parameters/conditions/isRunning", true)
-			#print("running")
 		noise.volume = 100
 
 func InputReleasd(Key : StringName):
 	if("RUN" == Key):
 		isrunning = false
-		animation.set("parameters/conditions/isIdle", true)
-		animation.set("parameters/conditions/isRunning", false)
 		Speed = WALK_SPEED
 		noise.volume = 0
 

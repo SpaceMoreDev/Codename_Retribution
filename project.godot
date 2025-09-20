@@ -12,11 +12,11 @@ config_version=5
 
 config/name="codename: Retribution"
 run/main_scene="res://Scenes/OpenWorld_Level.tscn"
-config/features=PackedStringArray("4.3", "Forward Plus")
+config/features=PackedStringArray("4.5", "Forward Plus")
 boot_splash/bg_color=Color(0.141176, 0.101961, 0.12549, 1)
-boot_splash/image="res://Assets/Data/SpaceMoreLogo.png"
 boot_splash/fullsize=false
 boot_splash/use_filter=false
+boot_splash/image="res://Assets/Data/SpaceMoreLogo.png"
 config/icon="res://Assets/Data/Logo_Retribution_large.png"
 config/windows_native_icon="res://Assets/Data/Logo_Retribution.ico"
 
